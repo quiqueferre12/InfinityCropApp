@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "122260711121",
+    "project_id": "infinity-crop-9bbad",
+    "storage_bucket": "infinity-crop-9bbad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122260711121:android:2862204aa8a8e2c31687f0",
+        "android_client_info": {
+          "package_name": "com.example.infinitycropapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122260711121-qkumebkj5ndpp6diq5jgra3psst3arer.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.infinitycropapp",
+            "certificate_hash": "25372c5a1333f8f312db4bd25014995a0dbec5e2"
+          }
+        },
+        {
+          "client_id": "122260711121-gkdt6e6theqbd58qr35585o01v8301gi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3jcc1lZJ6cr_L1ipAMTvi5GIlQM-GneA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122260711121-gkdt6e6theqbd58qr35585o01v8301gi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
