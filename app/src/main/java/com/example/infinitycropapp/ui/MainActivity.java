@@ -1,8 +1,10 @@
-package com.example.infinitycropapp;
+package com.example.infinitycropapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.infinitycropapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
