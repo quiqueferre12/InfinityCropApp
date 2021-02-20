@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_on_primary_disabled">
+    android:drawable="@color/material_on_primary_disabled">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
@@ -27,8 +27,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/tutorial_flecha_izquierda"
-       android:visibility="gone"
-        app:rippleColor="#FFFFFF" />
+       android:visibility="gone"/>
 
     <ImageButton
         android:id="@+id/btNext"
@@ -40,10 +39,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="34dp"
-        android:background="@drawable/tutorial_flecha_derecha"
-        android:textColorHighlight="@color/button_color"
-        android:textColorLink="@color/button_color"
-        app:rippleColor="@color/button_color" />
+        android:background="@drawable/tutorial_flecha_derecha"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/dots"
