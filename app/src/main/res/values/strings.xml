@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Infinity Crop</string>
 
@@ -8,7 +9,7 @@
     <!-- strings nav_item_list -->
     <string name="name_item_list_home">Inicio</string>
     <string name="name_item_list_climas">Climas</string>
-    <string name="name_item_list_guia_botanica">Guía Botánica</string>
+    <string name="name_item_list_guia_botanica">Jardín</string>
     <string name="name_item_list_perfil">Perfil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

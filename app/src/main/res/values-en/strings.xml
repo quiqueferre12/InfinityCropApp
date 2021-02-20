@@ -10,7 +10,7 @@
     <!-- strings nav_item_list -->
     <string name="name_item_list_home">Home</string>
     <string name="name_item_list_climas">Climates</string>
-    <string name="name_item_list_guia_botanica">Botanical Guide</string>
+    <string name="name_item_list_guia_botanica">Garden</string>
     <string name="name_item_list_perfil">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

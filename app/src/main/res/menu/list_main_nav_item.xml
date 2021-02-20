@@ -13,23 +13,23 @@
         app:cnb_textColor="@color/item_color_hover" />
     <item
         android:id="@+id/item_list_climas"
-        android:icon="@drawable/icons_home"
+        android:icon="@drawable/icons_cloud"
         android:title="@string/name_item_list_climas"
         app:cnb_backgroundColor="@color/primary_background"
         app:cnb_iconColor="@color/item_color_hover"
         app:cnb_textColor="@color/item_color_hover" />
     <item
         android:id="@+id/item_list_guia_botanica"
-        android:icon="@drawable/icons_home"
-        android:title="Guía botánica"
+        android:icon="@drawable/icons_garden"
+        android:title="@string/name_item_list_guia_botanica"
         app:cnb_backgroundColor="@color/primary_background"
         app:cnb_iconColor="@color/item_color_hover"
         app:cnb_textColor="@color/item_color_hover"
          />
     <item
         android:id="@+id/item_list_perfil"
-        android:icon="@drawable/icons_home"
-        android:title="Perfil"
+        android:icon="@drawable/icons_user"
+        android:title="@string/name_item_list_perfil"
         app:cnb_backgroundColor="@color/primary_background"
         app:cnb_iconColor="@color/item_color_hover"
         app:cnb_textColor="@color/item_color_hover"
