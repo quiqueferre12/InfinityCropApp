@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_primary">
+    android:background="@color/material_on_primary_disabled">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
@@ -15,31 +15,35 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-    <Button
+    <ImageButton
         android:id="@+id/btBack"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_below="@+id/viewPager"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/flecha_izquierda_tutorial"
-        android:visibility="gone" />
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/tutorial_flecha_izquierda"
+       android:visibility="gone"
+        app:rippleColor="#FFFFFF" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btNext"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_below="@+id/viewPager"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/flecha_derecha_tutorial" />
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/tutorial_flecha_derecha"
+        android:textColorHighlight="@color/button_color"
+        android:textColorLink="@color/button_color"
+        app:rippleColor="@color/button_color" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/dots"
@@ -47,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp">
 

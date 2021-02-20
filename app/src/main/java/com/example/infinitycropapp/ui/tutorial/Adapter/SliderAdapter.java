@@ -28,11 +28,11 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     public int[] slide_images = {
-            R.drawable.logo_and_text,
+            R.drawable.logo_without_background,
+            R.drawable.logo_without_background,
             R.drawable.logo,
             R.drawable.logo,
-            R.drawable.logo,
-            R.drawable.logo
+            R.drawable.logo_without_background
 
     };
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -26,10 +27,10 @@ public class TutorialActivity extends AppCompatActivity {
     private SliderAdapter sliderAdapter;
 
     //Botón hacia delante
-    private Button btBack;
+    private ImageButton btBack;
 
     //Botón hacia atrás
-    private Button btNext;
+    private ImageButton btNext;
 
     private int currentPage;
 
