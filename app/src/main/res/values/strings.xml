@@ -1,7 +1,15 @@
 <resources>
-    <string name="app_name">InfinityCrop</string>
+    <string name="app_name">Infinity Crop</string>
 
-<!--    prueba tutorial, esto se puede borrar cuando tengamos los strings bien hechos-->
+    <!--    prueba tutorial, esto se puede borrar cuando tengamos los strings bien hechos-->
     <string name="prueba_tutorial">Top 7 videos mas perturbadores de la dip wep</string>
     <string name="prueba_tutorial2">Numero 1: Angle triangle</string>
+
+    <!-- strings nav_item_list -->
+    <string name="name_item_list_home">Inicio</string>
+    <string name="name_item_list_climas">Climas</string>
+    <string name="name_item_list_guia_botanica">Guía Botánica</string>
+    <string name="name_item_list_perfil">Perfil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Menu del activity MainListActivity con inicio,climas,guia botanica,perfeil -->
+
+    <item
+        android:id="@+id/item_list_home"
+        android:icon="@drawable/icons_home"
+        android:title="@string/name_item_list_home"
+        app:cnb_backgroundColor="@color/primary_background"
+        app:cnb_iconColor="#62c050"
+        app:cnb_textColor="#62c050" />
+    <item
+        android:id="@+id/item_list_climas"
+        android:icon="@drawable/icons_home"
+        android:title="@string/name_item_list_climas"
+        app:cnb_backgroundColor="@color/primary_background"
+        app:cnb_iconColor="@color/item_color_hover"
+        app:cnb_textColor="@color/item_color_hover" />
+    <item
+        android:id="@+id/item_list_guia_botanica"
+        android:icon="@drawable/icons_home"
+        android:title="Guía botánica"
+        app:cnb_backgroundColor="@color/primary_background"
+        app:cnb_iconColor="@color/item_color_hover"
+        app:cnb_textColor="@color/item_color_hover"
+         />
+    <item
+        android:id="@+id/item_list_perfil"
+        android:icon="@drawable/icons_home"
+        android:title="Perfil"
+        app:cnb_backgroundColor="@color/primary_background"
+        app:cnb_iconColor="@color/item_color_hover"
+        app:cnb_textColor="@color/item_color_hover"
+         />
+
+</menu>
