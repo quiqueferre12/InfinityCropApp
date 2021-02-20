@@ -9,8 +9,8 @@
         android:icon="@drawable/icons_home"
         android:title="@string/name_item_list_home"
         app:cnb_backgroundColor="@color/primary_background"
-        app:cnb_iconColor="#62c050"
-        app:cnb_textColor="#62c050" />
+        app:cnb_iconColor="@color/item_color_hover"
+        app:cnb_textColor="@color/item_color_hover" />
     <item
         android:id="@+id/item_list_climas"
         android:icon="@drawable/icons_home"
