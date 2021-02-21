@@ -3,9 +3,6 @@
     <string name="app_name">Infinity Crop</string>
 
 
-    <!--    prueba tutorial, esto se puede borrar cuando tengamos los strings bien hechos-->
-    <string name="prueba_tutorial">Top 7 videos mas perturbadores de la dip wep</string>
-    <string name="prueba_tutorial2">Numero 1: Angle triangle</string>
 
     <!-- strings nav_item_list -->
     <string name="name_item_list_home">Home</string>
@@ -14,4 +11,25 @@
     <string name="name_item_list_perfil">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <!--    Tutorial: Títulos para las páginas-->
+    <string name="tutorial_titulo1">Welcome</string>
+    <string name="tutorial_titulo2">Your machines</string>
+    <string name="tutorial_titulo3">Control your machine</string>
+    <string name="tutorial_titulo4">Your climates</string>
+    <string name="tutorial_titulo5">Join our team</string>
+
+
+    <!--    Tutorial: Párrafos para las páginas-->
+    <string name="tutorial_parrafo1">We thank you for trusting us, we are happy to accompany you throughout the care of your crops</string>
+    <string name="tutorial_parrafo2">Easily scan as many cropping machines as you want with your corresponding QR code to be able to use it</string>
+    <string name="tutorial_parrafo3">Monitor the growth and development of your plants at all times to avoid unforeseen events</string>
+    <string name="tutorial_parrafo4">Choose the right climates for each type of crop to improve its efficiency easily and easily</string>
+    <string name="tutorial_parrafo5">Get ready to be part of our family by commenting on the forum and sharing content with other members</string>
+
+    <!--    Tutorial: Botones-->
+    <string name="boton_skip">SKIP</string>
+    <string name="boton_skip_final">GET STARTED</string>
 </resources>

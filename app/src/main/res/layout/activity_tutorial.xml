@@ -4,42 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:drawable="@color/material_on_primary_disabled">
+    android:drawable="@color/button_color">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/dots"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="0dp">
 
     </androidx.viewpager.widget.ViewPager>
 
-    <ImageButton
-        android:id="@+id/btBack"
+    <Button
+        android:id="@+id/btSkip"
         android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/viewPager"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/tutorial_flecha_izquierda"
-       android:visibility="gone"/>
-
-    <ImageButton
-        android:id="@+id/btNext"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_below="@+id/viewPager"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="34dp"
-        android:background="@drawable/tutorial_flecha_derecha"/>
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/button_color"
+        android:fontFamily="@font/roboto"
+        android:text="@string/boton_skip"
+        android:textColor="#000000"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorLink="#FFFFFF"
+        android:textSize="24sp"
+        app:cornerRadius="15dp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/dots"
@@ -47,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="120dp"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp">
 

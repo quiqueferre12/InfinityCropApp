@@ -29,35 +29,27 @@ public class SliderAdapter extends PagerAdapter {
 
     public int[] slide_images = {
             R.drawable.logo_without_background,
-            R.drawable.logo_without_background,
-            R.drawable.logo,
-            R.drawable.logo,
-            R.drawable.logo_without_background
+            R.drawable.tutorial_qr,
+            R.drawable.tutorial_control,
+            R.drawable.tutorial_clima,
+            R.drawable.ourteam
 
     };
 
     public Integer[] slide_title = {
-            R.string.prueba_tutorial,
-            R.string.prueba_tutorial2,
-            R.string.prueba_tutorial,
-            R.string.prueba_tutorial,
-            R.string.prueba_tutorial2
+            R.string.tutorial_titulo1,
+            R.string.tutorial_titulo2,
+            R.string.tutorial_titulo3,
+            R.string.tutorial_titulo4,
+            R.string.tutorial_titulo5
     };
 
     public Integer[] slide_parrafo = {
-            R.string.prueba_tutorial,
-            R.string.prueba_tutorial2,
-            R.string.prueba_tutorial,
-            R.string.prueba_tutorial,
-            R.string.prueba_tutorial2
-    };
-
-    public Integer[] slide_parrafo2 = {
-            R.string.prueba_tutorial,
-            R.string.prueba_tutorial2,
-            R.string.prueba_tutorial,
-            R.string.prueba_tutorial,
-            R.string.prueba_tutorial2
+            R.string.tutorial_parrafo1,
+            R.string.tutorial_parrafo2,
+            R.string.tutorial_parrafo3,
+            R.string.tutorial_parrafo4,
+            R.string.tutorial_parrafo5
     };
 
     @Override
@@ -68,12 +60,10 @@ public class SliderAdapter extends PagerAdapter {
         ImageView slideImageView = view.findViewById(R.id.imageView);
         TextView slideTitle = view.findViewById(R.id.tvTitulo);
         TextView slideParrafo = view.findViewById(R.id.tvParrafo);
-        TextView slideParrafo2 = view.findViewById(R.id.tvParrafo2);
 
         slideImageView.setImageResource(slide_images[position]);
         slideTitle.setText(context.getText(slide_title[position]));
         slideParrafo.setText(context.getText(slide_parrafo[position]));
-        slideParrafo2.setText(context.getText(slide_parrafo2[position]));
 
         container.addView(view);
         return view;

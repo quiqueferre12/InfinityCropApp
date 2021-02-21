@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -14,9 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.tutorial.Adapter.SliderAdapter;
-import com.example.infinitycropapp.R;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class TutorialActivity extends AppCompatActivity {
@@ -26,11 +23,8 @@ public class TutorialActivity extends AppCompatActivity {
 
     private SliderAdapter sliderAdapter;
 
-    //Botón hacia delante
-    private ImageButton btBack;
-
-    //Botón hacia atrás
-    private ImageButton btNext;
+    //Botón Skip
+    private Button btSkip;
 
     private int currentPage;
 
@@ -45,8 +39,8 @@ public class TutorialActivity extends AppCompatActivity {
 
         dotsTabLayout = findViewById(R.id.dots);
         slideViewPager = findViewById(R.id.viewPager);
-        btBack = findViewById(R.id.btBack);
-        btNext = findViewById(R.id.btNext);
+        /*btBack = findViewById(R.id.btBack);*/
+        btSkip = findViewById(R.id.btSkip);
 
         Intent intent = getIntent();
 
@@ -66,33 +60,14 @@ public class TutorialActivity extends AppCompatActivity {
         slideViewPager.addOnPageChangeListener(viewListener);
 
         // Se pulsa el botón para ir hacia adelante
-        btNext.setOnClickListener(new View.OnClickListener() {
+        btSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                if(currentPage == (sliderAdapter.getCount()-1)){
-                    //Si salimos del tutorial, se modifica el usuario en firebase, nuevo = false
-
-                    //Descomentar cuando tengamos Firestore
-
-                    /*DocumentReference user = db.collection("usuarios").document(Uid);
-                    user.update("nuevo", false);*/
-
                     finish();
-                }else{
-                    //Pasamos de página en el tutorial
-                    slideViewPager.setCurrentItem(currentPage + 1);
-                }
             }
         });
 
-        // Se pulsa el botón para ir hacia atrás
-        btBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                slideViewPager.setCurrentItem(currentPage - 1);
-            }
-        });
     }
 
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
@@ -105,24 +80,15 @@ public class TutorialActivity extends AppCompatActivity {
         public void onPageSelected(int position) {
             //Por esta función, si tocamos un dot, pasamos a la página correspondiente
             currentPage = position;
-            if(currentPage == 0){
-                //En la primera página, el botón para ir hacia atrás desaparece
-
-                btNext.setEnabled(true);
-                btBack.setEnabled(false);
-                btBack.setVisibility(View.GONE);
-            }else if (position == sliderAdapter.getCount() -1){
+            if (position == sliderAdapter.getCount() -1){
                 //En la última página, el botón para ir hacia atrás aparece, aquí podríamos modificar la flecha hacia delante
 
-                btNext.setEnabled(true);
-                btBack.setEnabled(true);
-                btBack.setVisibility(View.VISIBLE);
+                btSkip.setText(getString(R.string.boton_skip_final));
             }else{
                 //En el resto de páginas, el botón para ir hacia atrás aparece
 
-                btNext.setEnabled(true);
-                btBack.setEnabled(true);
-                btBack.setVisibility(View.VISIBLE);
+                btSkip.setText(getString(R.string.boton_skip));
+
             }
         }
 
