@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.tutorial.Adapter.SliderAdapter;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class TutorialActivity extends AppCompatActivity {
@@ -64,7 +65,13 @@ public class TutorialActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
+                if(currentPage == (sliderAdapter.getCount()-1)){
+                    //Salimos del tutorial
                     finish();
+                }else{
+                    //Avanzamos una página
+                    slideViewPager.setCurrentItem(currentPage + 1);
+                }
             }
         });
 
