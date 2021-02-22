@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -65,6 +67,16 @@ public class SliderAdapter extends PagerAdapter {
         slideImageView.setImageResource(slide_images[position]);
         slideTitle.setText(context.getText(slide_title[position]));
         slideParrafo.setText(context.getText(slide_parrafo[position]));
+
+        //Declaramos animación hacia arriba
+        Animation bottomAnim = AnimationUtils.loadAnimation(context, R.anim.bottom_animation);
+
+        //Declaramos animación hacia abajo
+        Animation topAnim = AnimationUtils.loadAnimation(context, R.anim.top_animation);
+
+        //Adjuntamos animación
+        slideImageView.setAnimation(bottomAnim);
+        slideTitle.setAnimation(topAnim);
 
         container.addView(view);
         return view;

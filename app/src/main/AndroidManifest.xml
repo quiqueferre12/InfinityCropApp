@@ -10,7 +10,9 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.InfinityCrop">
-        <activity android:name=".ui.main.MainListActivity">
+
+        <!--ALa pantalla de carga es la primera que ve el usuario-->
+        <activity android:name=".ui.pantalla_carga.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,6 +22,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+
+        <!--Activity principal de la App-->
+        <activity
+            android:name=".ui.main.MainListActivity"
+            android:screenOrientation="portrait" />
 
 
         <!--Activity del tutorial de la App-->
