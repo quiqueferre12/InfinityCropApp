@@ -15,8 +15,10 @@
     <color name="primary_background">#f1f4f8</color>
     <!-- color item menu hover -->
     <color name="item_color_hover">#FF000000</color>
-    <!-- color item default sin hover -->
-    <color name="item_color">#9ca4b1</color>
+    <!-- color item default sin hover f8f9f8 ededed-->
+    <color name="item_color">#f8f9f8</color>
     <!-- button color test -->
     <color name="button_color">#62c050</color>
+    <!-- loader animation color -->
+    <color name="shimmer_loader_color">#dddddd</color>
 </resources>

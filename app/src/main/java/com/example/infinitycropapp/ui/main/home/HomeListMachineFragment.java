@@ -3,42 +3,32 @@ package com.example.infinitycropapp.ui.main.home;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemPlaylist;
+import com.example.infinitycropapp.ui.main.home.pojos.ItemPlaylist;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeListMachineFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeListMachineFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    /*---datos necesarios para el fragment -> no cambiar ni rellenar ---*/
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public HomeListMachineFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeListMachineFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HomeListMachineFragment newInstance(String param1, String param2) {
         HomeListMachineFragment fragment = new HomeListMachineFragment();
         Bundle args = new Bundle();
@@ -47,7 +37,6 @@ public class HomeListMachineFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +45,73 @@ public class HomeListMachineFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    /*---FIN -> datos necesarios para el fragment -> no cambiar ni rellenar ---*/
 
+    //-----poner aca attributes etc... -----//
+
+    //rv playlist
+    private RecyclerView rv_playlist;
+    //adapters
+    private AdapterItemPlaylist adapterItemPlaylist;
+    //lists
+    private List<ItemPlaylist> itemPlaylists=new ArrayList<>();
+    //firebase
+
+    //buttons,images && elements ...
+    private FloatingActionButton btn_addMachine;
+
+    //--FIN-> poner aca attributes etc... -----//
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_list_machine, container, false);
+        View v= inflater.inflate(R.layout.fragment_home_list_machine, container, false);
+
+        //findById elements
+        rv_playlist=v.findViewById(R.id.rv_playlist);
+        btn_addMachine=v.findViewById(R.id.button_add_machine);
+
+        //onclick methods
+        btn_addMachine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        //rv playlist
+        initRvPlaylist(); //init el rv
+        getItemPlaylist();
+
+         new Handler().postDelayed(new Runnable() {
+             @Override
+             public void run() {
+                 //elementos de prueba
+                 itemPlaylists.add(new ItemPlaylist("Todos"));
+                 itemPlaylists.add(new ItemPlaylist("Favoritos"));
+
+                 adapterItemPlaylist.showShimmer= false;
+                 adapterItemPlaylist.notifyDataSetChanged();
+             }
+         },5000);
+
+        return v;
     }
+
+    // rv playlist
+    private void initRvPlaylist(){
+        //defino que el rv no tenga fixed size
+        rv_playlist.setHasFixedSize(false);
+        //manejador para declarar la direccion de los items del rv
+        rv_playlist.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+    }
+    //metodo que rellena la lista de elementos
+    private void getItemPlaylist(){
+        itemPlaylists.clear(); //clear la list para que no se duplique
+        //creo un adaptador pasandole los elementos al contructor
+        adapterItemPlaylist=new AdapterItemPlaylist(itemPlaylists,getContext());
+        //declaro que cual es el adaptador el rv
+        rv_playlist.setAdapter(adapterItemPlaylist);
+    }
+    // FIN -> rv playlist
 }

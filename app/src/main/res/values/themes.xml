@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.InfinityCrop" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!-- Base application theme. Theme.MaterialComponents.DayNight.NoActionBar -->
+    <style name="Theme.InfinityCrop" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item> <!-- color de la aplicacion -->
+        <item name="colorPrimary">@color/button_color</item> <!-- color de la aplicacion -->
         <!-- color de la par -->
         <item name="colorPrimaryVariant">@color/header_mobile</item> <!-- color oscuro de la app -->
         <item name="colorOnPrimary">@color/white</item> <!-- color que tiene que destacar -->
@@ -14,4 +14,6 @@
         <!--<item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
         <!-- Customize your theme here. -->
     </style>
+
+
 </resources>
