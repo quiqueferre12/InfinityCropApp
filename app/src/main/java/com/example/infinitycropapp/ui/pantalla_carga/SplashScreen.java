@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.MainListActivity;
+import com.example.infinitycropapp.ui.main.log.activity_log_start;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(3000);
-                    Intent intent = new Intent(getApplicationContext(), MainListActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), activity_log_start.class);
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {

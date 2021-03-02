@@ -22,7 +22,7 @@ public class User {
     private Uri urlPhoto;
 
     //instanciar el objeto para usar sus getters
-    public User() {
+    public User(String username, String email) {
         firebaseAuth=FirebaseAuth.getInstance();
     }
 

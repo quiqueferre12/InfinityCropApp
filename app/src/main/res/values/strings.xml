@@ -12,7 +12,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-
     <!--    Tutorial: Títulos para las páginas-->
     <string name="tutorial_titulo1">Bienvenido</string>
     <string name="tutorial_titulo2">Tus máquinas</string>
@@ -31,5 +30,7 @@
     <!--    Tutorial: Botones-->
     <string name="boton_skip">SALTAR</string>
     <string name="boton_skip_final">EMPIEZA</string>
+    <!-- Intro Log-->
+    <string name="txtLogIntro">Sostenibilidad a tu alcance</string>
 
 </resources>

@@ -32,4 +32,6 @@
     <!--    Tutorial: Botones-->
     <string name="boton_skip">SKIP</string>
     <string name="boton_skip_final">GET STARTED</string>
+    <!-- Intro Log-->
+    <string name="txtLogIntro">Sustainability at your fingertips</string>
 </resources>
