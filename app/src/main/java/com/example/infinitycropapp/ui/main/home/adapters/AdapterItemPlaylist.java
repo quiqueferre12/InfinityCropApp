@@ -42,14 +42,14 @@ public class AdapterItemPlaylist extends RecyclerView.Adapter<AdapterItemPlaylis
     //metodo para definir el aspecto y los textos que tiene un item del recyclerView
     @Override
     public void onBindViewHolder(@NonNull ItemPlaylistHolder holder, int position) {
-        if(showShimmer){
+        if(showShimmer){ //if la animacion tiene que cargar
             holder.shimmerFrameLayout.startShimmer(); //start animation
-        }else{
+        }else{ //si ya no tiene que cargar
             holder.shimmerFrameLayout.stopShimmer(); //stop animation
             holder.shimmerFrameLayout.setShimmer(null); //remove shimmer
 
-            holder.item_playlist.setBackground(null);
-            holder.item_playlist.setBackgroundTintList(null);
+            holder.item_playlist.setBackground(null); //quitar el fondo gris del item loader
+            holder.item_playlist.setBackgroundTintList(null); //quitar el tinte (color)
 
             //encuentro el item en la lista y lo declaro en una nueva varible
             final ItemPlaylist pojoItem=itemPlaylists.get(position);
