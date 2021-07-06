@@ -33,4 +33,7 @@
     <!-- Intro Log-->
     <string name="txtLogIntro">Sostenibilidad a tu alcance</string>
 
+    <!-- Inicio: textos -->
+    <string name="txt_myMachine">Mis máquinas ></string>
+
 </resources>

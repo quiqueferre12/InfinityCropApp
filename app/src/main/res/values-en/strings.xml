@@ -34,4 +34,6 @@
     <string name="boton_skip_final">GET STARTED</string>
     <!-- Intro Log-->
     <string name="txtLogIntro">Sustainability at your fingertips</string>
+    <!-- Inicio: textos -->
+    <string name="txt_myMachine">My machines ></string>
 </resources>
