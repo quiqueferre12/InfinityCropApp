@@ -30,6 +30,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_machines"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_add_machine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_playlist" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_add_machine"
             android:layout_width="wrap_content"
@@ -41,7 +51,6 @@
             app:backgroundTint="#62c050"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

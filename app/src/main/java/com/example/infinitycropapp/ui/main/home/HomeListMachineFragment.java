@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemMachine;
 import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemPlaylist;
+import com.example.infinitycropapp.ui.main.home.pojos.ItemMachine;
 import com.example.infinitycropapp.ui.main.home.pojos.ItemPlaylist;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -49,12 +51,15 @@ public class HomeListMachineFragment extends Fragment {
 
     //-----poner aca attributes etc... -----//
 
-    //rv playlist
-    private RecyclerView rv_playlist;
+    //rvs
+    private RecyclerView rv_playlist; //playlist
+    private RecyclerView rv_machine; //machine
     //adapters
-    private AdapterItemPlaylist adapterItemPlaylist;
+    private AdapterItemPlaylist adapterItemPlaylist; //playlist
+    private AdapterItemMachine adapterItemMachine; //machine
     //lists
-    private List<ItemPlaylist> itemPlaylists=new ArrayList<>();
+    private List<ItemPlaylist> itemPlaylists=new ArrayList<>(); //playlist
+    private List<ItemMachine> itemMachines=new ArrayList<>(); //machines
     //firebase
 
     //buttons,images && elements ...
@@ -68,8 +73,10 @@ public class HomeListMachineFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_home_list_machine, container, false);
 
         //findById elements
-        rv_playlist=v.findViewById(R.id.rv_playlist);
-        btn_addMachine=v.findViewById(R.id.button_add_machine);
+        rv_playlist=v.findViewById(R.id.rv_playlist); //rv playlisdt
+        rv_machine=v.findViewById(R.id.rv_machines); //rv machine
+        btn_addMachine=v.findViewById(R.id.button_add_machine); //btn add
+
 
         //onclick methods
         btn_addMachine.setOnClickListener(new View.OnClickListener() {
@@ -80,24 +87,28 @@ public class HomeListMachineFragment extends Fragment {
         });
 
         //rv playlist
-        initRvPlaylist(); //init el rv
-        getItemPlaylist();
+        initRvPlaylist(); //init el rv playlists
+        initRvMachines(); //init rv machines
+        getItemPlaylist(); //get data to rv playlist
+        getItemMachines(); //get dato to rv machines
 
          new Handler().postDelayed(new Runnable() {
              @Override
              public void run() {
                  //elementos de prueba
-                 itemPlaylists.add(new ItemPlaylist("Todos"));
+                 itemPlaylists.add(new ItemPlaylist(getResources().getString(R.string.playlist_all)));
                  itemPlaylists.add(new ItemPlaylist("Favoritos"));
+                 itemMachines.add(new ItemMachine("Favoritos","asd"));
+                 itemMachines.add(new ItemMachine("Favoritos","ds"));
 
                  adapterItemPlaylist.showShimmer= false;
                  adapterItemPlaylist.notifyDataSetChanged();
+                 adapterItemMachine.notifyDataSetChanged();
              }
          },5000);
 
         return v;
     }
-
     // rv playlist
     private void initRvPlaylist(){
         //defino que el rv no tenga fixed size
@@ -105,6 +116,13 @@ public class HomeListMachineFragment extends Fragment {
         //manejador para declarar la direccion de los items del rv
         rv_playlist.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
     }
+    private void initRvMachines() {
+        //defino que el rv no tenga fixed size
+        rv_machine.setHasFixedSize(false);
+        //manejador para declarar la direccion de los items del rv
+        rv_machine.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+    }
+
     //metodo que rellena la lista de elementos
     private void getItemPlaylist(){
         itemPlaylists.clear(); //clear la list para que no se duplique
@@ -112,6 +130,13 @@ public class HomeListMachineFragment extends Fragment {
         adapterItemPlaylist=new AdapterItemPlaylist(itemPlaylists,getContext());
         //declaro que cual es el adaptador el rv
         rv_playlist.setAdapter(adapterItemPlaylist);
+    }
+    private void getItemMachines() {
+        itemMachines.clear(); //clear la list para que no se duplique
+        //creo un adaptador pasandole los elementos al contructor
+        adapterItemMachine=new AdapterItemMachine(itemMachines,getContext());
+        //declaro que cual es el adaptador el rv
+        rv_machine.setAdapter(adapterItemMachine);
     }
     // FIN -> rv playlist
 }

@@ -35,5 +35,6 @@
 
     <!-- Inicio: textos -->
     <string name="txt_myMachine">Mis máquinas ></string>
+    <string name="playlist_all">Todas</string>
 
 </resources>
