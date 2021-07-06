@@ -21,7 +21,7 @@ public class AdapterItemPlaylist extends RecyclerView.Adapter<AdapterItemPlaylis
     //attributes
     private List<ItemPlaylist> itemPlaylists; //lista de pojos
     private Context context; //contexto
-    private int cont=-1; //variable para comprabar que item esta pulsado
+    private int cont=0; //variable para comprabar que item esta pulsado
     public boolean showShimmer=true; //mostrar o no loader
     //contructor
     public AdapterItemPlaylist(List<ItemPlaylist> itemPlaylists, Context context) {
