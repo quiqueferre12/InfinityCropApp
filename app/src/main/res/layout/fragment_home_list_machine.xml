@@ -18,6 +18,8 @@
             android:layout_marginTop="60dp"
             android:fontFamily="@font/roboto"
             android:text="@string/txt_myMachine"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,8 +36,7 @@
             android:id="@+id/rv_machines"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_add_machine"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_playlist" />
