@@ -98,11 +98,12 @@ public class HomeListMachineFragment extends Fragment {
                  //elementos de prueba
                  itemPlaylists.add(new ItemPlaylist(getResources().getString(R.string.playlist_all)));
                  itemPlaylists.add(new ItemPlaylist("Favoritos"));
-                 itemMachines.add(new ItemMachine("Favoritos","asd"));
-                 itemMachines.add(new ItemMachine("Favoritos","ds"));
+                 itemMachines.add(new ItemMachine("Garden number B","Modelo: C90"));
+                 itemMachines.add(new ItemMachine("Critical Jimbo","Modelo: IC6"));
 
                  adapterItemPlaylist.showShimmer= false;
                  adapterItemPlaylist.notifyDataSetChanged();
+                 adapterItemMachine.showShimmer= false;
                  adapterItemMachine.notifyDataSetChanged();
              }
          },5000);
