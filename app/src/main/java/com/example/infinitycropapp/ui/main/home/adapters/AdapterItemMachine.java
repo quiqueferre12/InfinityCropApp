@@ -14,6 +14,7 @@ import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.home.pojos.ItemMachine;
 import com.example.infinitycropapp.ui.main.home.pojos.ItemPlaylist;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -66,6 +67,18 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
             //set the attributes
             holder.name_machine.setText(pojoItem.getName()); //set name
             holder.model_machine.setText(pojoItem.getModel()); //set model
+
+            //onclick methods
+            holder.options_machine.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //set the bottom sheet
+                    BottomSheetDialog optionsBottomSheet = new BottomSheetDialog(context);
+                    //set the layout of the bottom sheet
+                    optionsBottomSheet.setContentView(R.layout.item_machine_bottom_sheet);
+                    optionsBottomSheet.show();
+                }
+            });
         }
     }
 

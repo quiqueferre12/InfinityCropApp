@@ -36,7 +36,11 @@
     <string name="txtLogIntro">Sustainability at your fingertips</string>
     <!-- Inicio: textos -->
     <string name="txt_myMachine">My machines ></string>
-
+    <!-- Inicio: BottomSheet textos -->
+    <string name="edit_item">Edit</string>
+    <string name="delete_item">Delete</string>
+    <string name="addFavorite_item">Add to favorites</string>
+    <string name="addList_item">Add to list</string>
 
 
     <!--    Fragment Usuario: Top-->

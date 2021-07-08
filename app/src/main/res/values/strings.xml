@@ -36,7 +36,11 @@
     <!-- Inicio: textos -->
     <string name="txt_myMachine">Mis máquinas ></string>
     <string name="playlist_all">Todas</string>
-
+    <!-- Inicio: BottomSheet textos -->
+    <string name="edit_item">Editar</string>
+    <string name="delete_item">Eliminar</string>
+    <string name="addFavorite_item">Añadir a favoritos</string>
+    <string name="addList_item">Añadir a la lista</string>
 
     <!--    Fragment Usuario: Top-->
 
