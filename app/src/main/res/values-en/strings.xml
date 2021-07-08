@@ -36,5 +36,20 @@
     <string name="txtLogIntro">Sustainability at your fingertips</string>
     <!-- Inicio: textos -->
     <string name="txt_myMachine">My machines ></string>
+
+
+
+    <!--    Fragment Usuario: Top-->
+
+    <string name="user_name">Username</string>
+    <string name="communities">COMMUNITIES</string>
+    <string name="posts">POSTS</string>
+
+
+    <!--    Fragment Usuario: TabItems-->
+
+    <string name="photos_tabItem">Photos</string>
+    <string name="communities_tabItem">Activity</string>
+    <string name="climates_tabItem">Climates</string>
     <string name="playlist_all">All</string>
 </resources>

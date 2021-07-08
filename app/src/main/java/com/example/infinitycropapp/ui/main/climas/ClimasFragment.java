@@ -1,14 +1,23 @@
 package com.example.infinitycropapp.ui.main.climas;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.ui.main.MainListActivity;
+import com.example.infinitycropapp.ui.main.guia.GuiaBotanicaFragment;
+import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
+import com.example.infinitycropapp.ui.main.profile.ProfileFragment;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +34,9 @@ public class ClimasFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+
 
     public ClimasFragment() {
         // Required empty public constructor
@@ -60,7 +72,9 @@ public class ClimasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_climas, container, false);
+
     }
 }
