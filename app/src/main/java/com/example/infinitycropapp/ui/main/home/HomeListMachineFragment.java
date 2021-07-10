@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -66,6 +67,7 @@ public class HomeListMachineFragment extends Fragment {
     //buttons,images && elements ...
     private FloatingActionButton btn_addMachine;
     private ConstraintLayout empty_recyclerView;
+    private SwipeRefreshLayout refreshRv; //actualizar recyclerViews
 
     //--FIN-> poner aca attributes etc... -----//
     @Override
@@ -79,7 +81,7 @@ public class HomeListMachineFragment extends Fragment {
         rv_machine=v.findViewById(R.id.rv_machines); //rv machine
         btn_addMachine=v.findViewById(R.id.button_add_machine); //btn add
         empty_recyclerView=v.findViewById(R.id.empty_recyclerView); //container con img de emty rv
-
+        refreshRv=v.findViewById(R.id.refresh_list_machine); //actualizar todos los rv
 
         //onclick methods
         btn_addMachine.setOnClickListener(new View.OnClickListener() {
@@ -94,35 +96,13 @@ public class HomeListMachineFragment extends Fragment {
         initRvMachines(); //init rv machines
         getItemPlaylist(); //get data to rv playlist
         getItemMachines(); //get dato to rv machines
+        setDatosRv(); //set all rv content
+        swipeDownToRefresh(); //swipe down to refresh
 
-         new Handler().postDelayed(new Runnable() {
-             @Override
-             public void run() {
-                 //elementos de prueba
-                 itemPlaylists.add(new ItemPlaylist(getResources().getString(R.string.playlist_all)));
-                 itemPlaylists.add(new ItemPlaylist("Favoritos"));
-                 //itemMachines.add(new ItemMachine("Garden number B","Modelo: C90"));
-                 //itemMachines.add(new ItemMachine("Critical Jimbo","Modelo: IC6"));
-
-                 adapterItemPlaylist.showShimmer= false;
-                 adapterItemPlaylist.notifyDataSetChanged();
-                 adapterItemMachine.showShimmer= false;
-                 //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
-                 //si el recyclerView esta vacio
-                 if(adapterItemMachine.getItemCount() == 0 ){
-                     rv_machine.setVisibility(View.GONE); //ocultar rv
-                     empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
-                 }else{ //sino
-                     rv_machine.setVisibility(View.VISIBLE); //mostras rv con sus items
-                     empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
-                 }
-                 adapterItemMachine.notifyDataSetChanged();
-             }
-         },5000);
 
         return v;
     }
-    // rv playlist
+    // init Rvs
     private void initRvPlaylist(){
         //defino que el rv no tenga fixed size
         rv_playlist.setHasFixedSize(false);
@@ -135,6 +115,9 @@ public class HomeListMachineFragment extends Fragment {
         //manejador para declarar la direccion de los items del rv
         rv_machine.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
     }
+    // FIN -> init Rvs
+
+    // get data to rvs
 
     //metodo que rellena la lista de elementos
     private void getItemPlaylist(){
@@ -151,5 +134,53 @@ public class HomeListMachineFragment extends Fragment {
         //declaro que cual es el adaptador el rv
         rv_machine.setAdapter(adapterItemMachine);
     }
-    // FIN -> rv playlist
+    // FIN -> data to rvs
+
+    // rellenar recyclerViews
+    private void setDatosRv(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //elementos de prueba
+                itemPlaylists.add(new ItemPlaylist(getResources().getString(R.string.playlist_all)));
+                itemPlaylists.add(new ItemPlaylist("Favoritos"));
+                itemMachines.add(new ItemMachine("Garden number B","Modelo: C90"));
+                //itemMachines.add(new ItemMachine("Critical Jimbo","Modelo: IC6"));
+
+                adapterItemPlaylist.showShimmer= false;
+                adapterItemPlaylist.notifyDataSetChanged();
+                adapterItemMachine.showShimmer= false;
+                //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
+                //si el recyclerView esta vacio
+                if(adapterItemMachine.getItemCount() == 0 ){
+                    rv_machine.setVisibility(View.GONE); //ocultar rv
+                    empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
+                }else{ //sino
+                    rv_machine.setVisibility(View.VISIBLE); //mostras rv con sus items
+                    empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
+                }
+                adapterItemMachine.notifyDataSetChanged();
+                refreshRv.setRefreshing(false);
+            }
+        },5000);
+    }
+
+    //actualizar al deslizar hacia abajo method
+    private void swipeDownToRefresh(){
+        refreshRv.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //comienza la carga de la animacion
+                adapterItemMachine.showShimmer=true;
+                adapterItemPlaylist.showShimmer=true;
+                adapterItemMachine.notifyDataSetChanged();
+                adapterItemPlaylist.notifyDataSetChanged();
+                getItemPlaylist(); //get data to rv playlist
+                getItemMachines();
+                setDatosRv();
+
+            }
+        });
+    }
+
 }
