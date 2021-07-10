@@ -101,6 +101,7 @@ public class HomeListMachineFragment extends Fragment {
                  itemMachines.add(new ItemMachine("Garden number B","Modelo: C90"));
                  itemMachines.add(new ItemMachine("Critical Jimbo","Modelo: IC6"));
 
+
                  adapterItemPlaylist.showShimmer= false;
                  adapterItemPlaylist.notifyDataSetChanged();
                  adapterItemMachine.showShimmer= false;
