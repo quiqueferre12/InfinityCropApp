@@ -55,4 +55,8 @@
     <string name="communities_tabItem">Actividad</string>
     <string name="climates_tabItem">Climas</string>
 
+    <!-- reyclerView strings : empty recyclerView -->
+    <string name="empty_primary_text">No hay ninguna máquina todavía</string>
+    <string name="empty_secondary_text">Siéntase libre de agregar uno, sólo toque el botón de abajo o deslice hacia abajo para actualizar la lista</string>
+
 </resources>

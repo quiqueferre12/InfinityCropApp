@@ -2,6 +2,7 @@ package com.example.infinitycropapp.ui.main.home;
 
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,6 +65,7 @@ public class HomeListMachineFragment extends Fragment {
 
     //buttons,images && elements ...
     private FloatingActionButton btn_addMachine;
+    private ConstraintLayout empty_recyclerView;
 
     //--FIN-> poner aca attributes etc... -----//
     @Override
@@ -76,6 +78,7 @@ public class HomeListMachineFragment extends Fragment {
         rv_playlist=v.findViewById(R.id.rv_playlist); //rv playlisdt
         rv_machine=v.findViewById(R.id.rv_machines); //rv machine
         btn_addMachine=v.findViewById(R.id.button_add_machine); //btn add
+        empty_recyclerView=v.findViewById(R.id.empty_recyclerView); //container con img de emty rv
 
 
         //onclick methods
@@ -98,13 +101,21 @@ public class HomeListMachineFragment extends Fragment {
                  //elementos de prueba
                  itemPlaylists.add(new ItemPlaylist(getResources().getString(R.string.playlist_all)));
                  itemPlaylists.add(new ItemPlaylist("Favoritos"));
-                 itemMachines.add(new ItemMachine("Garden number B","Modelo: C90"));
-                 itemMachines.add(new ItemMachine("Critical Jimbo","Modelo: IC6"));
-
+                 //itemMachines.add(new ItemMachine("Garden number B","Modelo: C90"));
+                 //itemMachines.add(new ItemMachine("Critical Jimbo","Modelo: IC6"));
 
                  adapterItemPlaylist.showShimmer= false;
                  adapterItemPlaylist.notifyDataSetChanged();
                  adapterItemMachine.showShimmer= false;
+                 //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
+                 //si el recyclerView esta vacio
+                 if(adapterItemMachine.getItemCount() == 0 ){
+                     rv_machine.setVisibility(View.GONE); //ocultar rv
+                     empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
+                 }else{ //sino
+                     rv_machine.setVisibility(View.VISIBLE); //mostras rv con sus items
+                     empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
+                 }
                  adapterItemMachine.notifyDataSetChanged();
              }
          },5000);

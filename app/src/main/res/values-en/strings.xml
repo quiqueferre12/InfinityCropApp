@@ -36,6 +36,7 @@
     <string name="txtLogIntro">Sustainability at your fingertips</string>
     <!-- Inicio: textos -->
     <string name="txt_myMachine">My machines ></string>
+    <string name="playlist_all">All</string>
     <!-- Inicio: BottomSheet textos -->
     <string name="edit_item">Edit</string>
     <string name="delete_item">Delete</string>
@@ -55,5 +56,9 @@
     <string name="photos_tabItem">Photos</string>
     <string name="communities_tabItem">Activity</string>
     <string name="climates_tabItem">Climates</string>
-    <string name="playlist_all">All</string>
+
+
+    <!-- reyclerView strings : empty recyclerView -->
+    <string name="empty_primary_text">No machine yet</string>
+    <string name="empty_secondary_text">Feel free to add one, just tap de button below or swipe down to refresh the list</string>
 </resources>
