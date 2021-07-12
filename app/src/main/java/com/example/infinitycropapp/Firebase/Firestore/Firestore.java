@@ -7,7 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 //clase en la que estan todos los metodos que interacciones con la base de datos
 public class Firestore {
 
-    private FirebaseFirestore db;
+    private final FirebaseFirestore db;
 
     //constructor , siempre llamar antes de hacer las operaciones
     public Firestore() {
