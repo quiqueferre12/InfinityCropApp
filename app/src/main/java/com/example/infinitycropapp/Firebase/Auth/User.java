@@ -2,6 +2,7 @@ package com.example.infinitycropapp.Firebase.Auth;
 
 import android.net.Uri;
 
+import com.example.infinitycropapp.ui.pojos.ItemUser;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -19,7 +20,7 @@ public class User {
     //varible donde guardo el telefono
     private String phone;
     //varible donde guardo el uri de la foto
-    private Uri urlPhoto;
+    private String urlPhoto;
 
     //instanciar el objeto para usar sus getters
     public User() {
@@ -47,12 +48,12 @@ public class User {
         return phone;
     }
     //devuelve el uri de la foto
-    public Uri getUrlPhoto() {
-        urlPhoto= Objects.requireNonNull(firebaseAuth.getCurrentUser()).getPhotoUrl();
+    public String getUrlPhoto() {
+        urlPhoto= Objects.requireNonNull(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getPhotoUrl()).toString();
         return urlPhoto;
     }
 
-    public void addNewUser(){
-
+    public ItemUser getCurrentUserData(){
+        return new ItemUser( getName() , "" , getEmail(), getUrlPhoto() , 0 , 0 , 0 , 0 , 0 , 0 , true );
     }
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.MainListActivity;
 import com.example.infinitycropapp.ui.tutorial.TutorialActivity;
@@ -33,7 +34,6 @@ public class activity_log_start extends AppCompatActivity {
     private final static int RC_SIGN_IN = 123;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
-
 
     String TAG = "GoogleSignIn";
 
@@ -127,8 +127,9 @@ public class activity_log_start extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            Firestore firestore = new Firestore();
+                            firestore.AddNewUser();
+
                             Intent intent = new Intent(activity_log_start.this,TutorialActivity.class);
                             startActivity(intent);
 
