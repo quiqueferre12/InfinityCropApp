@@ -22,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeListMachineFragment extends Fragment {
     /*---datos necesarios para el fragment -> no cambiar ni rellenar ---*/
@@ -142,7 +143,12 @@ public class HomeListMachineFragment extends Fragment {
             @Override
             public void run() {
                 //elementos de prueba
-                itemPlaylists.add(new ItemPlaylist(getResources().getString(R.string.playlist_all)));
+                try { //sin el try catch al volver atras al tutorial y entrar otra vez muere to fuerte
+                    itemPlaylists.add(new ItemPlaylist(getResources().getString(R.string.playlist_all)));
+                }catch (Exception e){
+
+                }
+
                 itemPlaylists.add(new ItemPlaylist("Favoritos"));
                 itemMachines.add(new ItemMachine("Garden number B","Modelo: C90"));
                 //itemMachines.add(new ItemMachine("Critical Jimbo","Modelo: IC6"));

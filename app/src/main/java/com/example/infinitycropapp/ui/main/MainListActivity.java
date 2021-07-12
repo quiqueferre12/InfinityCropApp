@@ -33,8 +33,8 @@ public class MainListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_main);
         //prueba del tutorial
-        Intent intent = new Intent(this, TutorialActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, TutorialActivity.class);
+        //startActivity(intent);
 
         //definiciones
         chipNavigationBar=findViewById(R.id.list_menuActivity);

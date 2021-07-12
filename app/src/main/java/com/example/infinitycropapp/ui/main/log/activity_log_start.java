@@ -42,7 +42,7 @@ public class activity_log_start extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         if(user!=null){
-            Intent intent = new Intent(activity_log_start.this,MainListActivity.class);
+            Intent intent = new Intent(activity_log_start.this,TutorialActivity.class);
             startActivity(intent);
         }
     }
@@ -129,12 +129,12 @@ public class activity_log_start extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(activity_log_start.this,MainListActivity.class);
+                            Intent intent = new Intent(activity_log_start.this,TutorialActivity.class);
                             startActivity(intent);
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(activity_log_start.this, "error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity_log_start.this, "Operación cancelada", Toast.LENGTH_SHORT).show();
 
 
                         }
