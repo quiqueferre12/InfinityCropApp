@@ -148,7 +148,6 @@ public class HomeListMachineFragment extends Fragment {
                 }catch (Exception e){
 
                 }
-
                 itemPlaylists.add(new ItemPlaylist("Favoritos"));
                 itemMachines.add(new ItemMachine("Garden number B","Modelo: C90"));
                 //itemMachines.add(new ItemMachine("Critical Jimbo","Modelo: IC6"));
