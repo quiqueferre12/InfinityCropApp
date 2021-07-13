@@ -27,6 +27,7 @@ public class EmailActivityL extends AppCompatActivity {
     //objetos visibles
     private EditText Textmail;
     private EditText Textpassword;
+    private TextView BtnCambioPass;
     private Button Btnlogin;
     private TextView BtnRegistro;
     private ProgressDialog progressDialog;
@@ -50,10 +51,16 @@ public class EmailActivityL extends AppCompatActivity {
         //referenciamos los views
         Textmail = (EditText) findViewById(R.id.inputEmail);
         Textpassword = (EditText) findViewById(R.id.inputPassword);
-
+        BtnCambioPass= findViewById(R.id.forgotPassword);
         Btnlogin = (Button) findViewById(R.id.btnLogin);
         progressDialog =new ProgressDialog(this);
 
+        BtnCambioPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recuperarContrasenya();
+            }
+        });
 
         Btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +136,24 @@ public class EmailActivityL extends AppCompatActivity {
 
             }
         });
+    }
+
+    private  void recuperarContrasenya(){
+        String email = Textmail.getText().toString().trim();
+
+        //verificamos si las cajas estan vacias o no
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(this, "Debes introducir tu correo para cambiar la contraseña", Toast.LENGTH_LONG).show();
+
+        }else{
+            firebaseAuth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(EmailActivityL.this, "Revisa tu correo para cambiar tu contraseña", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
     }
 
     @Override
