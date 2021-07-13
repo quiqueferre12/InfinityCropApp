@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class EmailActivityL extends AppCompatActivity {
     //objetos visibles
@@ -31,8 +32,8 @@ public class EmailActivityL extends AppCompatActivity {
     private ProgressDialog progressDialog;
     //objeto firebase
     private FirebaseAuth firebaseAuth;
-
-
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,24 @@ public class EmailActivityL extends AppCompatActivity {
             }
         });
 
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if(user!=null){
+                    if (!user.isEmailVerified()) {
+                        Toast.makeText(EmailActivityL.this, "Verifique su correo", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(EmailActivityL.this, "Iniciando sesión", Toast.LENGTH_LONG).show();
+
+                        Intent intencion = new Intent(getApplication(), MainListActivity.class);
+                        intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intencion);
+                    }
+                }
+
+            }
+        };
     }
     private void loginUsuario() {
         //obtendremos el email y la contraseña desde la caja de texto
@@ -85,11 +104,15 @@ public class EmailActivityL extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 //comprovar si el resultado ha sido resuelto correctamente
                 if (task.isSuccessful()) {
-
-                    Toast.makeText(EmailActivityL.this, "Iniciando sesión", Toast.LENGTH_LONG).show();
-                    //continuar con el dashboard aqui
-                    Intent intencion = new Intent(getApplication(), MainListActivity.class);
-                    startActivity(intencion);
+                    user = firebaseAuth.getCurrentUser();
+                    if (!user.isEmailVerified()) {
+                        Toast.makeText(EmailActivityL.this, "Verifique su correo", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(EmailActivityL.this, "Iniciando sesión", Toast.LENGTH_LONG).show();
+                        Intent intencion = new Intent(getApplication(), MainListActivity.class);
+                        intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intencion);
+                    }
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
                         Toast.makeText(EmailActivityL.this, "Este Usuario ya existe", Toast.LENGTH_SHORT).show();
@@ -106,5 +129,22 @@ public class EmailActivityL extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if(authStateListener!=null){
+            firebaseAuth.removeAuthStateListener(authStateListener);
+        }
     }
 }

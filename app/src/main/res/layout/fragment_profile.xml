@@ -28,7 +28,7 @@
                         android:id="@+id/UserPostsTx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_mono"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/posts"
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="@+id/UserCommunitiesTx"
@@ -119,7 +119,7 @@
                         android:id="@+id/PhotosTabItem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:icon="@drawable/iconos_foto"
+                        android:icon="@drawable/icons_photos_profile"
                         android:text="@string/photos_tabItem" />
 
                     <com.google.android.material.tabs.TabItem
