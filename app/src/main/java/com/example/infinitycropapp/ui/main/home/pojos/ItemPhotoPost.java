@@ -1,13 +1,13 @@
 package com.example.infinitycropapp.ui.main.home.pojos;
 
+import android.graphics.Bitmap;
 import android.media.Image;
-import android.widget.ImageView;
 
 public class ItemPhotoPost {
     private String id;
-    private Image model;
+    private Bitmap model;
 
-    public ItemPhotoPost(String id, Image model) {
+    public ItemPhotoPost(String id, Bitmap model) {
         this.id = id;
         this.model = model;
     }
@@ -20,11 +20,11 @@ public class ItemPhotoPost {
         this.id = id;
     }
 
-    public Image getModel() {
+    public Bitmap getModel() {
         return model;
     }
 
-    public void setModel(Image model) {
+    public void setModel(Bitmap model) {
         this.model = model;
     }
 }

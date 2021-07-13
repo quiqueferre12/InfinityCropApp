@@ -58,17 +58,21 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseFirestore fStore;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
+
     private ProgressDialog progressDialog;
 
     private Uri imageUri;
     private String myUri = "";
     private StorageTask uploadTask;
     private StorageReference storageProfilePicsRef;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+
         //edit texts
         txtname = (EditText) findViewById(R.id.txtName);
         txtEmail = (EditText) findViewById(R.id.mail);
@@ -95,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               uploadProfileImage();
+
                 registerUser();
             }
         });
@@ -107,6 +111,17 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
         /*getUserinfo();*/
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Intent i = new Intent(getApplication(), EmailActivityL.class);
+                    startActivity(i);
+                }
+            }
+        };
     }
 
     private void registerUser() {
@@ -153,6 +168,8 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(RegisterActivity.this,"Verification has been send",Toast.LENGTH_SHORT);
+                            uploadProfileImage();
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -161,29 +178,6 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this,"Error en el envío de correo",Toast.LENGTH_SHORT);
                         }
                     });
-
-                    String userID= mAuth.getCurrentUser().getUid();
-                    DocumentReference documentReference=fStore.collection("Usuarios").document(userID);
-                    Map<String,Object> datauser=new HashMap<>();
-                    datauser.put("username",username);
-                    datauser.put("mail",email);
-                    documentReference.set(datauser).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(RegisterActivity.this, "Iniciando sesión", Toast.LENGTH_LONG).show();
-                            Intent intencion = new Intent (getApplication(), MainListActivity.class);
-                            startActivity(intencion);
-                            finish();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                        }
-                    });
-
-
-
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
                         Toast.makeText(RegisterActivity.this, "Este Usuario ya existe", Toast.LENGTH_SHORT).show();
@@ -223,7 +217,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
+        mAuth.addAuthStateListener(authStateListener);
     }
 
     @Override
@@ -272,6 +266,14 @@ public class RegisterActivity extends AppCompatActivity {
         }else{
             progressDialog.dismiss();
             Toast.makeText(this, "Imagen no seleccionada", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if(mAuth!=null){
+            mAuth.removeAuthStateListener(authStateListener);
         }
     }
 }

@@ -9,24 +9,39 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.ClimasFragment;
 import com.example.infinitycropapp.ui.main.guia.GuiaBotanicaFragment;
 import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
+import com.example.infinitycropapp.ui.main.log.activity_log_start;
 import com.example.infinitycropapp.ui.main.profile.ProfileFragment;
 import com.example.infinitycropapp.ui.tutorial.TutorialActivity;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
 
-public class MainListActivity extends AppCompatActivity {
+public class MainListActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     //objeto menu
     private ChipNavigationBar chipNavigationBar;
     private ViewPager viewPager; //viewpager object
     private Fragment fragment=null; //init var fragment
     private int index = 0; //cont que usaremos para cambiar de fragment
+
+    private GoogleApiClient googleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +75,17 @@ public class MainListActivity extends AppCompatActivity {
         adapter.addFragment(fragment_4);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);//limite de fragments para que no boom
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        googleApiClient=new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
 
 
         index = 1; //1 -> inicio
@@ -184,6 +210,55 @@ public class MainListActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        if(opr.isDone()){
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        }else{
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+                    handleSignInResult(googleSignInResult);
+                }
+            });
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        if(result.isSuccess()){
+            GoogleSignInAccount account= result.getSignInAccount();
+        }else{
+            //goLoginScreen();
+        }
+    }
+
+    private void goLoginScreen() {
+        Intent intent= new Intent(this, activity_log_start.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    public void logOut(View view){
+        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                if(status.isSuccess()){
+                    goLoginScreen();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Cerrando sesión", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
 
