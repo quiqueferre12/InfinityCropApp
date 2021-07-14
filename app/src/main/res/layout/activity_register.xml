@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Hola, te damos la bienvenida!"
+                android:text="@string/hola_te_damos_la_bienvenida"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="Aquí empezarás tus primeros pasos con nosotros"
+            android:text="@string/aqu_empezar_s_tus_primeros_pasos_con_nosotros"
             android:textColor="@color/white"
             android:fontFamily="@font/roboto_bold"
             android:textSize="13dp"
@@ -84,7 +84,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Selecciona una foto"
+                    android:text="@string/selecciona_una_foto"
                     android:layout_gravity="center"
                     android:textColor="@color/button_color"
                     android:fontFamily="@font/roboto">
@@ -99,7 +99,7 @@
                         android:maxLines="1"
                         android:layout_margin="15dp"
                         android:textColorHint="@color/button_color"
-                        android:hint="Nombre"
+                        android:hint="@string/nombre"
                         android:backgroundTint="@color/button_color"
                         />
                 <EditText
@@ -107,7 +107,7 @@
                     android:textColorHint="@color/button_color"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:hint="Correo"
+                        android:hint="@string/correo"
                         android:textColor="@color/black"
                         android:fontFamily="@font/roboto"
                         android:layout_margin="15dp"
@@ -118,7 +118,7 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:hint="Contraseña"
+                    android:hint="@string/contrase_a"
                     android:textColor="@color/black"
                     android:fontFamily="@font/roboto"
                     android:layout_margin="15dp"
@@ -136,7 +136,7 @@
                     android:layout_marginRight="2dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/button_color"
-                    android:text="Registrarse"
+                    android:text="@string/registrarse"
                     android:textColor="@color/white"
                     android:textSize="15dp" />
                 <TextView
@@ -144,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/button_color"
-                    android:text="Tienes una cuenta? Inicia sesión"
+                    android:text="@string/tienes_una_cuenta_inicia_sesi_n"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:textSize="17dp"

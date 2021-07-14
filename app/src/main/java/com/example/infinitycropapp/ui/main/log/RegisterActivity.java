@@ -129,27 +129,27 @@ public class RegisterActivity extends AppCompatActivity {
         String password =txtPasword.getText().toString().trim();
         String username =txtname.getText().toString().trim();
         if(username.isEmpty()){
-           txtname.setError("Introduce un nombre de usuario");
+           txtname.setError(getText(R.string.login_introduce_nombre));
            txtname.requestFocus();
            return;
         }
         if(email.isEmpty()){
-            txtEmail.setError("Introduce un correo");
+            txtEmail.setError(getText(R.string.login_introduce_correo));
             txtEmail.requestFocus();
             return;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            txtEmail.setError("Introduce un correo valido");
+            txtEmail.setError(getText(R.string.login_introduce_correo_ok));
             txtEmail.requestFocus();
             return;
         }
         if(password.isEmpty()){
-            txtPasword.setError("Introduce una contraseña");
+            txtPasword.setError(getText(R.string.login_introduce_contra));
             txtPasword.requestFocus();
             return;
         }
         if(password.length() < 6){
-            txtPasword.setError("La contraseña debe contener al menos 6 carácteres");
+            txtPasword.setError(getText(R.string.login_introduce_contra_ok));
             txtPasword.requestFocus();
             return;
         }
@@ -167,7 +167,7 @@ public class RegisterActivity extends AppCompatActivity {
                     user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(RegisterActivity.this,"Verification has been send",Toast.LENGTH_SHORT);
+                            Toast.makeText(RegisterActivity.this,getText(R.string.login_verifica_correo),Toast.LENGTH_SHORT);
                             uploadProfileImage();
 
                         }
@@ -175,14 +175,14 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
 
-                            Toast.makeText(RegisterActivity.this,"Error en el envío de correo",Toast.LENGTH_SHORT);
+                            Toast.makeText(RegisterActivity.this,getText(R.string.login_error_envio_correo),Toast.LENGTH_SHORT);
                         }
                     });
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
-                        Toast.makeText(RegisterActivity.this, "Este Usuario ya existe", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, getText(R.string.login_usuario_ya_existente), Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(RegisterActivity.this, "No se puede registrar este usuario", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, getText(R.string.login_no_se_puede_registrar), Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -230,14 +230,14 @@ public class RegisterActivity extends AppCompatActivity {
             profileImageView.setImageURI(imageUri);
 
         }else{
-            Toast.makeText(this, "Error, prueba de nuevo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.login_error), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void uploadProfileImage() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Selecciona tu perfil");
-        progressDialog.setMessage("Actualizando tu foto de perfil");
+        progressDialog.setTitle(getText(R.string.login_error_select_profile));
+        progressDialog.setMessage(getText(R.string.login_actualizando_profile));
         if(imageUri!=null){
             final StorageReference fileRef = storageProfilePicsRef
                     .child(mAuth.getCurrentUser().getUid()+ ".jpg");
@@ -265,7 +265,7 @@ public class RegisterActivity extends AppCompatActivity {
             });
         }else{
             progressDialog.dismiss();
-            Toast.makeText(this, "Imagen no seleccionada", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.login_error_imagen), Toast.LENGTH_SHORT).show();
         }
     }
     @Override

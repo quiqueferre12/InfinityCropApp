@@ -75,9 +75,9 @@ public class EmailActivityL extends AppCompatActivity {
                 user = firebaseAuth.getCurrentUser();
                 if(user!=null){
                     if (!user.isEmailVerified()) {
-                        Toast.makeText(EmailActivityL.this, "Verifique su correo", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EmailActivityL.this, getText(R.string.login_verifica_correo), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(EmailActivityL.this, "Iniciando sesión", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EmailActivityL.this, getText(R.string.login_iniciando_sesion), Toast.LENGTH_LONG).show();
 
                         Intent intencion = new Intent(getApplication(), MainListActivity.class);
                         intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -95,11 +95,11 @@ public class EmailActivityL extends AppCompatActivity {
 
         //verificamos si las cajas estan vacias o no
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Debes introducir tu correo", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getText(R.string.login_introduce_correo), Toast.LENGTH_LONG).show();
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Debes introducir tu contraseña", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getText(R.string.login_introduce_contra), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -113,23 +113,23 @@ public class EmailActivityL extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     user = firebaseAuth.getCurrentUser();
                     if (!user.isEmailVerified()) {
-                        Toast.makeText(EmailActivityL.this, "Verifique su correo", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EmailActivityL.this, getText(R.string.login_verifica_correo), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(EmailActivityL.this, "Iniciando sesión", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EmailActivityL.this, getText(R.string.login_iniciando_sesion), Toast.LENGTH_LONG).show();
                         Intent intencion = new Intent(getApplication(), MainListActivity.class);
                         intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intencion);
                     }
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {//si se presenta una colisión
-                        Toast.makeText(EmailActivityL.this, "Este Usuario ya existe", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EmailActivityL.this, getText(R.string.login_usuario_ya_existente), Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(EmailActivityL.this, "No se puede registrar este usuario", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EmailActivityL.this, getText(R.string.login_no_se_puede_registrar), Toast.LENGTH_SHORT).show();
                     }
 
                 }
                 if (!task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Los datos introducidos no son correctos",
+                    Toast.makeText(getApplicationContext(), getText(R.string.login_datos_incorrectos),
                             Toast.LENGTH_LONG).show();
                 }
                 progressDialog.dismiss();
@@ -143,14 +143,14 @@ public class EmailActivityL extends AppCompatActivity {
 
         //verificamos si las cajas estan vacias o no
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Debes introducir tu correo para cambiar la contraseña", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getText(R.string.login_introduce_correo_pass), Toast.LENGTH_LONG).show();
 
         }else{
             firebaseAuth.sendPasswordResetEmail(email)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(EmailActivityL.this, "Revisa tu correo para cambiar tu contraseña", Toast.LENGTH_LONG).show();
+                            Toast.makeText(EmailActivityL.this, getText(R.string.login_revisa_correo), Toast.LENGTH_LONG).show();
                         }
                     });
         }
