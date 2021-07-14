@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Te damos la bienvenida"
+            android:text="@string/te_damos_la_bienvenida"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:fontFamily="@font/roboto"
@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/button_color"
                 android:drawableLeft="@drawable/ic_mail_icon"
-                android:text="Inicia sesión"
+                android:text="@string/inicia_sesi_n"
                 android:textColor="@color/black"
 
                 android:textSize="13dp" />
@@ -85,7 +85,7 @@
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:background="#0000"
-            android:text="No tienes cuenta? Registrate aquí"
+            android:text="@string/no_tienes_cuenta_registrate_aqu"
             android:textColor="@color/black"/>
     </LinearLayout>
 

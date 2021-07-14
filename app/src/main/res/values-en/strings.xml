@@ -61,4 +61,48 @@
     <!-- reyclerView strings : empty recyclerView -->
     <string name="empty_primary_text">No machine yet</string>
     <string name="empty_secondary_text">Feel free to add one, just tap de button below or swipe down to refresh the list</string>
+
+
+    <!--    TOASTS LOGIN-->
+
+    <string name = "login_introduce_nombre"> "Please, enter a username" </string>
+    <string name="login_introduce_correo">"Please, introduce your email"</string>
+    <string name = "login_introduce_correo_ok"> "Please, enter a valid email" </string>
+    <string name="login_introduce_contra">"Please, introduce your password"</string>
+    <string name = "login_introduce_contra_ok"> "The password must contain at least 6 characters" </string>
+    <string name="login_introduce_correo_pass">"We need your email to recover your password"</string>
+    <string name="login_verifica_correo">"Verify your email"</string>
+    <string name="login_iniciando_sesion">"Logging in"</string>
+    <string name="login_revisa_correo">"Check your email to change your password"</string>
+    <string name="login_contenido_en_linea">"Getting content online ..."</string>
+    <string name="login_usuario_ya_existente">"This user already exists"</string>
+    <string name="login_no_se_puede_registrar">"Cannot register this user"</string>
+    <string name="login_datos_incorrectos">"The entered data is not correct"</string>
+    <string name="login_error_envio_correo">"Failure sending mail"</string>
+    <string name="login_error">"Error, try again"</string>
+    <string name = "login_error_select_profile">"Select your profile"</string>
+    <string name = "login_error_imagen"> "Image not selected" </string>
+    <string name = "login_actualizando_profile"> "Updating profile" </string>
+
+    <!--    XML LOGIN PRIMERO-->
+    <string name="te_damos_la_bienvenida">Welcome</string>
+    <string name="inicia_sesi_n">Log in by email</string>
+    <string name="no_tienes_cuenta_registrate_aqu">You do not have an account? sign up here</string>
+
+    <!--    XML LOGIN SEGUNDO-->
+    <string name="email">Email</string>
+    <string name="contrase_a">Password</string>
+    <string name="he_olvidado_mi_contrase_a">I forgot my password</string>
+    <string name="tienes_una_cuenta">You have an account?</string>
+    <string name="eres_nuevo_reg_strate_aqu">You are new? Sign up here</string>
+    <string name="o">Or</string>
+
+    <!--    XML REGISTRO-->
+    <string name="hola_te_damos_la_bienvenida">Hello, we welcome you!</string>
+    <string name="aqu_empezar_s_tus_primeros_pasos_con_nosotros">Here you will start your first steps with us</string>
+    <string name="selecciona_una_foto">Select a photo</string>
+    <string name="nombre">Name</string>
+    <string name="correo">Email</string>
+    <string name="registrarse">Sign in</string>
+    <string name="tienes_una_cuenta_inicia_sesi_n">You have an account? Log in</string>
 </resources>
