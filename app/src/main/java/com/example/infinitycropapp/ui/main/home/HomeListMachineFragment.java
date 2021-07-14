@@ -1,5 +1,6 @@
 package com.example.infinitycropapp.ui.main.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,8 +17,11 @@ import android.view.ViewGroup;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemMachine;
 import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemPlaylist;
+import com.example.infinitycropapp.ui.main.home.newMachine.NewMachineActivity;
 import com.example.infinitycropapp.ui.main.home.pojos.ItemMachine;
 import com.example.infinitycropapp.ui.main.home.pojos.ItemPlaylist;
+import com.example.infinitycropapp.ui.main.log.activity_log_start;
+import com.example.infinitycropapp.ui.tutorial.TutorialActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -88,7 +92,8 @@ public class HomeListMachineFragment extends Fragment {
         btn_addMachine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), NewMachineActivity.class);
+                startActivity(intent);
             }
         });
 

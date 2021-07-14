@@ -49,6 +49,7 @@
     <string name="posts">PUBLICACIONES</string>
 
 
+
     <!--    Fragment Usuario: TabItems-->
 
     <string name="photos_tabItem">Fotos</string>
@@ -103,4 +104,9 @@
     <string name="registrarse">Registrarse</string>
     <string name="tienes_una_cuenta_inicia_sesi_n">¿Tienes una cuenta? Inicia sesión</string>
 
+    <!--    activity new machine: textos-->
+    <string name="tittle_newMachine">Nueva máquina</string>
+    <string name="subtittle_newMachine">Pasos para añadir una nueva máquina</string>
+    <string name="body_newMachine">Necesitamos verificar su información de la maquina.</string>
+    <string name="body2_newMachine">Por favor siga los pasos abajo para procesar su máquina.</string>
 </resources>
