@@ -111,4 +111,10 @@
     <string name="subtittle_newMachine">Steps to add a new machine</string>
     <string name="body_newMachine">We need to verify your machine information.</string>
     <string name="body2_newMachine">Please follow the steps below to process your machine.</string>
+    <string name="step1_newMachine">Step 1</string>
+    <string name="step2_newMachine">Step 2</string>
+    <string name="step3_newMachine">Step 3</string>
+    <string name="step1Text_newMachine">Scan QR code</string>
+    <string name="step2Text_newMachine">Add information</string>
+    <string name="step3Text_newMachine">Verify data</string>
 </resources>
