@@ -72,7 +72,7 @@
     <string name="login_revisa_correo">"Revisa tu correo para cambiar tu contraseña"</string>
     <string name="login_verifica_correo">"Verifique su correo"</string>
     <string name="login_iniciando_sesion">"Iniciando sesión"</string>
-    <string name="login_contenido_en_linea">"Obteniendo contenido en línea..."</string>
+    <string name="login_contenido_en_linea">"Obteniendo contenido en línea…"</string>
     <string name="login_usuario_ya_existente">"Este Usuario ya existe"</string>
     <string name="login_no_se_puede_registrar">"No se puede registrar este usuario"</string>
     <string name="login_datos_incorrectos">"Los datos introducidos no son correctos"</string>
@@ -115,4 +115,9 @@
     <string name="step1Text_newMachine">Escanear código QR</string>
     <string name="step2Text_newMachine">Añadir información</string>
     <string name="step3Text_newMachine">Comprobar datos</string>
+
+
+    <!--    SNACKBAR INTERNET DISMISS-->
+    <string name="snack_close">Cerrar</string>
+    <string name="snack_no_internet">Internet no disponible, verifique su conectividad a Internet y vuelva a intentarlo</string>
 </resources>

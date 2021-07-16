@@ -74,7 +74,7 @@
     <string name="login_verifica_correo">"Verify your email"</string>
     <string name="login_iniciando_sesion">"Logging in"</string>
     <string name="login_revisa_correo">"Check your email to change your password"</string>
-    <string name="login_contenido_en_linea">"Getting content online ..."</string>
+    <string name="login_contenido_en_linea">"Getting content online …"</string>
     <string name="login_usuario_ya_existente">"This user already exists"</string>
     <string name="login_no_se_puede_registrar">"Cannot register this user"</string>
     <string name="login_datos_incorrectos">"The entered data is not correct"</string>
@@ -117,4 +117,8 @@
     <string name="step1Text_newMachine">Scan QR code</string>
     <string name="step2Text_newMachine">Add information</string>
     <string name="step3Text_newMachine">Verify data</string>
+
+    <!--    SNACKBAR INTERNET DISMISS-->
+    <string name="snack_close">Close</string>
+    <string name="snack_no_internet">Internet not available, Cross check your internet connectivity and try again</string>
 </resources>

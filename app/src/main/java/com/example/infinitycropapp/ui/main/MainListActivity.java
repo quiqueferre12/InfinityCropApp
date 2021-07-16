@@ -1,14 +1,28 @@
 package com.example.infinitycropapp.ui.main;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +32,7 @@ import com.example.infinitycropapp.ui.main.guia.GuiaBotanicaFragment;
 import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.example.infinitycropapp.ui.main.log.activity_log_start;
 import com.example.infinitycropapp.ui.main.profile.ProfileFragment;
+import com.example.infinitycropapp.ui.receivers.NetworkStateChangeReceiver;
 import com.example.infinitycropapp.ui.tutorial.TutorialActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,17 +43,26 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.common.internal.Constants;
+import com.google.android.material.snackbar.Snackbar;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
 
+import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
+import static com.example.infinitycropapp.ui.receivers.NetworkStateChangeReceiver.IS_NETWORK_AVAILABLE;
+import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
+
 public class MainListActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
+    private static final int REQUEST_CODE = 777;
     //objeto menu
     private ChipNavigationBar chipNavigationBar;
     private ViewPager viewPager; //viewpager object
     private Fragment fragment=null; //init var fragment
     private int index = 0; //cont que usaremos para cambiar de fragment
+    private static final String WIFI_STATE_CHANGE_ACTION = "android.net.wifi.WIFI_STATE_CHANGED";
+
 
     private GoogleApiClient googleApiClient;
 
@@ -50,6 +74,8 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
         //prueba del tutorial
         //Intent intent = new Intent(this, TutorialActivity.class);
         //startActivity(intent);
+        //register
+        registerForNetworkChangeEvents(this);
 
         //definiciones
         chipNavigationBar=findViewById(R.id.list_menuActivity);
@@ -75,6 +101,54 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
         adapter.addFragment(fragment_4);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);//limite de fragments para que no boom
+
+
+        //intent filter no internet
+        IntentFilter intentFilter = new IntentFilter(NetworkStateChangeReceiver.NETWORK_AVAILABLE_ACTION);
+
+        //Si entra y está desconectado
+        if(!isOnline()){
+            //Muestra el snackbar
+            Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_list_main), getText(R.string.snack_no_internet),Snackbar.LENGTH_LONG);
+            snackBar.setActionTextColor(Color.CYAN);
+            snackBar.setAction(getText(R.string.snack_close), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    snackBar.dismiss();
+                }
+            });
+            snackBar.show();
+        }
+
+        //Receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                try {
+
+                    boolean isNetworkAvailable = intent.getBooleanExtra(IS_NETWORK_AVAILABLE, false);
+                    String networkStatus = isNetworkAvailable ? "connected" : "disconnected";
+
+                    //Muestra el snackbar si está desconectado
+                    if(networkStatus.equals("disconnected")){
+                        if(!isOnline()){
+                            Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_list_main), getText(R.string.snack_no_internet),Snackbar.LENGTH_LONG);
+                            snackBar.setActionTextColor(Color.CYAN);
+                            snackBar.setAction(getText(R.string.snack_close), new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    snackBar.dismiss();
+                                }
+                            });
+                            snackBar.show();
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Log.d("INTERNET", "Show Dialog: " + e.getMessage());
+                }
+            }
+        }, intentFilter);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -292,5 +366,50 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
 
         }
 
+    }
+
+
+    private void Verifypermissions()
+    {
+        Log.d("PERMISSIONS","Verify permissions: asking user for permissions");
+        String[] permissions={Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA};
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                permissions[0])== PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                permissions[1])==PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                permissions[2])== PackageManager.PERMISSION_GRANTED)
+        {
+            return;
+        }
+
+        else
+        {
+            ActivityCompat.requestPermissions(MainListActivity.this,permissions,REQUEST_CODE);
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Verifypermissions();
+    }
+
+
+    public static void registerForNetworkChangeEvents(final Context context) {
+        NetworkStateChangeReceiver networkStateChangeReceiver = new NetworkStateChangeReceiver();
+        context.registerReceiver(networkStateChangeReceiver, new IntentFilter(CONNECTIVITY_ACTION));
+        context.registerReceiver(networkStateChangeReceiver, new IntentFilter(WIFI_STATE_CHANGE_ACTION));
+    }
+    public boolean isOnline() {
+        ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+
+        if(netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()){
+            return false;
+        }
+        return true;
     }
 }
