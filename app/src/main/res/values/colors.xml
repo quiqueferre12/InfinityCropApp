@@ -21,4 +21,6 @@
     <color name="button_color">#62c050</color>
     <!-- loader animation color -->
     <color name="shimmer_loader_color">#dddddd</color>
+    <!-- material design item hover -->
+    <color name="material_item_hover">#1f000000</color>
 </resources>
