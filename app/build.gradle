@@ -69,9 +69,6 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.firebaseui:firebase-ui-firestore:6.3.0'
 
-
-
-
     //shimmer effect (efectos de carga de datos)
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
@@ -79,4 +76,7 @@ dependencies {
 
     //glide images
     implementation 'com.github.bumptech.glide:glide:4.7.1'
+
+    //QR scan library
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'//añadimos esta libreria para qr
 }

@@ -97,7 +97,8 @@
         app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7">
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:rippleColor="@color/material_item_hover">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -189,7 +190,8 @@
         app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/step1_card">
+        app:layout_constraintTop_toBottomOf="@+id/step1_card"
+        app:rippleColor="@color/material_item_hover">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -281,7 +283,8 @@
         app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/step2_card">
+        app:layout_constraintTop_toBottomOf="@+id/step2_card"
+        app:rippleColor="@color/material_item_hover">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
