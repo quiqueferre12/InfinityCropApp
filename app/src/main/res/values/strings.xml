@@ -115,4 +115,10 @@
     <string name="step1Text_newMachine">Escanear código QR</string>
     <string name="step2Text_newMachine">Añadir información</string>
     <string name="step3Text_newMachine">Comprobar datos</string>
+
+
+
+    <!--    SNACKBAR INTERNET DISMISS-->
+    <string name="snack_close">Cerrar</string>
+    <string name="snack_no_internet">Internet no disponible, Comprueba tu conexión y prueba de nuevo</string>
 </resources>

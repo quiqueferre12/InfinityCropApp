@@ -109,15 +109,16 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
         //Si entra y está desconectado
         if(!isOnline()){
             //Muestra el snackbar
-            Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_list_main), getText(R.string.snack_no_internet),Snackbar.LENGTH_LONG);
+            /*Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_list_main), getText(R.string.snack_no_internet),Snackbar.LENGTH_LONG);
             snackBar.setActionTextColor(Color.CYAN);
+            snackBar.setAnchorView(R.id.list_menuActivity);
             snackBar.setAction(getText(R.string.snack_close), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     snackBar.dismiss();
                 }
             });
-            snackBar.show();
+            snackBar.show();*/
         }
 
         //Receiver
@@ -133,6 +134,11 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
                     if(networkStatus.equals("disconnected")){
                         if(!isOnline()){
                             Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_list_main), getText(R.string.snack_no_internet),Snackbar.LENGTH_LONG);
+                            if(viewPager.getCurrentItem()==0){
+                                snackBar.setAnchorView(R.id.button_add_machine);
+                            }else{
+                                snackBar.setAnchorView(R.id.list_menuActivity);
+                            }
                             snackBar.setActionTextColor(Color.CYAN);
                             snackBar.setAction(getText(R.string.snack_close), new View.OnClickListener() {
                                 @Override
@@ -141,6 +147,7 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
                                 }
                             });
                             snackBar.show();
+
                         }
                     }
 
@@ -394,6 +401,7 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Verifypermissions();
     }
 
