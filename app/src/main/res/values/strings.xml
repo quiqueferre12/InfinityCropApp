@@ -115,9 +115,10 @@
     <string name="step1Text_newMachine">Escanear código QR</string>
     <string name="step2Text_newMachine">Añadir información</string>
     <string name="step3Text_newMachine">Comprobar datos</string>
-
-
-
+    <!--    activity new machine: step2 bottom sheet-->
+    <string name="step2tittle_bottom_sheet">Nombre de la máquina</string>
+    <string name="step2checkbox_bottom_sheet">Agregar a la lista de favoritos</string>
+    <string name="step2input_text_bottom_sheet">Nombre</string>
     <!--    SNACKBAR INTERNET DISMISS-->
     <string name="snack_close">Cerrar</string>
     <string name="snack_no_internet">Internet no disponible, Comprueba tu conexión y prueba de nuevo</string>

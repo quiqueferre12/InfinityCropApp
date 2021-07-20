@@ -17,10 +17,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/confirm_step2_bottom_sheet"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginEnd="16dp"
+        app:tint="@color/button_color"
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView9"
@@ -30,16 +31,16 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Nombre de la máquina"
+        android:layout_marginTop="16dp"
+        android:text="@string/step2tittle_bottom_sheet"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
-        app:layout_constraintStart_toEndOf="@+id/imageView9"
+        app:layout_constraintEnd_toStartOf="@+id/confirm_step2_bottom_sheet"
+        app:layout_constraintStart_toEndOf="@+id/quit_step2_bottom_sheet"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/quit_step2_bottom_sheet"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
@@ -62,41 +63,43 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/outlinedTextField"
+        android:id="@+id/step2_textField_new_machine"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:hint="Nombre"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        android:hint="@string/step2input_text_bottom_sheet"
         app:counterEnabled="true"
         app:counterMaxLength="20"
-        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/step2_editText_new_machine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/step2_checkbox_new_machine"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
-        android:text="Añadir a la lista de favoritos"
+        android:layout_marginBottom="64dp"
+        android:text="@string/step2checkbox_bottom_sheet"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/outlinedTextField" />
+        app:layout_constraintTop_toBottomOf="@+id/step2_textField_new_machine" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

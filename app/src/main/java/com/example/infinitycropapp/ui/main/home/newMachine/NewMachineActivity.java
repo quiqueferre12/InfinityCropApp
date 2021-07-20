@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,8 +18,12 @@ import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import java.util.Objects;
 
 public class NewMachineActivity extends AppCompatActivity {
     //-----poner aca attributes etc... -----//
@@ -38,9 +44,16 @@ public class NewMachineActivity extends AppCompatActivity {
     private final boolean isStep3Done = false;
     //back button
     private ImageView backButton;
+    //step 2 bottom sheet
+    private TextInputEditText name_machineInput;
+    private ImageView quit_step2_bottom_sheet;
+    private ImageView confirm_step2_bottom_sheet;
+    private CheckBox checkbox_step2_bottom_sheet;
+    private TextInputLayout layout_name_machineInput;
     //string , int ....
     private String machineCode;
     private String nameMachine;
+    private boolean isFavorite;
 
     //--FIN-> poner aca attributes etc... -----//
     @Override
@@ -77,11 +90,7 @@ public class NewMachineActivity extends AppCompatActivity {
         step2Card.setOnClickListener(new View.OnClickListener() { //step1 card click
             @Override
             public void onClick(View v) {
-                //set the bottom sheet
-                BottomSheetDialog optionsBottomSheet = new BottomSheetDialog(NewMachineActivity.this);
-                //set the layout of the bottom sheet
-                optionsBottomSheet.setContentView(R.layout.activity_new_machine_step2_bottom_sheet);
-                optionsBottomSheet.show();
+                initStep2BottomSheet();
             }
         });
         step3Card.setOnClickListener(new View.OnClickListener() { //step1 card click
@@ -155,5 +164,63 @@ public class NewMachineActivity extends AppCompatActivity {
         step2State.setImageTintList(ColorStateList.valueOf(getColor(R.color.black)));
         step3State.setImageResource(R.drawable.icons_inactive_state);
         step3State.setImageTintList(ColorStateList.valueOf(getColor(R.color.black)));
+    }
+
+
+
+    private void initStep2BottomSheet(){
+        //set the bottom sheet
+        BottomSheetDialog optionsBottomSheet = new BottomSheetDialog(NewMachineActivity.this);
+        //set the layout of the bottom sheet
+        optionsBottomSheet.setContentView(R.layout.activity_new_machine_step2_bottom_sheet);
+        //findbyid del bottom sheet
+        name_machineInput=optionsBottomSheet.findViewById(R.id.step2_editText_new_machine);
+        quit_step2_bottom_sheet=optionsBottomSheet.findViewById(R.id.quit_step2_bottom_sheet);
+        confirm_step2_bottom_sheet=optionsBottomSheet.findViewById(R.id.confirm_step2_bottom_sheet);
+        checkbox_step2_bottom_sheet=optionsBottomSheet.findViewById(R.id.step2_checkbox_new_machine);
+        layout_name_machineInput=optionsBottomSheet.findViewById(R.id.step2_textField_new_machine);
+        //onclick methods
+        //si ya ha insertado el nombre
+        if(!nameMachine.equals("")){
+            name_machineInput.setText(nameMachine); //mostrarlo
+        }
+        //si ya lo ha anyadido a favoritos
+        if(isFavorite){
+            checkbox_step2_bottom_sheet.setChecked(true);
+        }
+        //quit bottomsheet
+        quit_step2_bottom_sheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                optionsBottomSheet.dismiss();
+            }
+        });
+        //confirm data of the bottom sheet
+        confirm_step2_bottom_sheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String textInput=name_machineInput.getText().toString(); //get the texto of the input
+                if(textInput.equals("")){ //si no hay nombre en el editext
+                    layout_name_machineInput.setErrorEnabled(true); //activar error
+                    layout_name_machineInput.setError("QUIEOR MORIR"); //set texto error
+                }else //si la longitud del nombre es mayor de la maxima permitida
+                    if(layout_name_machineInput.getCounterMaxLength() < textInput.length()){
+                    layout_name_machineInput.setErrorEnabled(true);
+                    layout_name_machineInput.setError("mucho texto");
+                }else //si existe el nombre de la maquina
+                    if(textInput.equals("")){
+
+                }else{ //si all gucci
+                    layout_name_machineInput.setErrorEnabled(false);
+                    nameMachine=textInput;
+                    isFavorite= checkbox_step2_bottom_sheet.isChecked();
+
+                    step2StateActive();
+                    optionsBottomSheet.dismiss();
+                }
+            }
+        });
+
+        optionsBottomSheet.show();
     }
 }
