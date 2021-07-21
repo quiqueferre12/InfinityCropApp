@@ -1,4 +1,4 @@
-package com.example.infinitycropapp.ui.tutorial;
+package com.example.infinitycropapp.ui.main.tutorial;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +13,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.MainListActivity;
-import com.example.infinitycropapp.ui.main.log.activity_log_start;
-import com.example.infinitycropapp.ui.tutorial.Adapter.SliderAdapter;
+import com.example.infinitycropapp.ui.main.tutorial.Adapter.SliderAdapter;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class TutorialActivity extends AppCompatActivity {

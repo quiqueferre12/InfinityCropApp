@@ -1,4 +1,4 @@
-package com.example.infinitycropapp.ui.main.home.pojos;
+package com.example.infinitycropapp.ui.pojos;
 
 public class ItemMachine {
 

@@ -18,15 +18,12 @@ import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemMachine;
 import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemPlaylist;
 import com.example.infinitycropapp.ui.main.home.newMachine.NewMachineActivity;
-import com.example.infinitycropapp.ui.main.home.pojos.ItemMachine;
-import com.example.infinitycropapp.ui.main.home.pojos.ItemPlaylist;
-import com.example.infinitycropapp.ui.main.log.activity_log_start;
-import com.example.infinitycropapp.ui.tutorial.TutorialActivity;
+import com.example.infinitycropapp.ui.pojos.ItemMachine;
+import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class HomeListMachineFragment extends Fragment {
     /*---datos necesarios para el fragment -> no cambiar ni rellenar ---*/

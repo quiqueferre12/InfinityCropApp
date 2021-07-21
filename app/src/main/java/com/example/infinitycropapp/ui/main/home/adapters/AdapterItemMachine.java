@@ -11,14 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infinitycropapp.R;
-import com.example.infinitycropapp.ui.main.home.pojos.ItemMachine;
-import com.example.infinitycropapp.ui.main.home.pojos.ItemPlaylist;
+import com.example.infinitycropapp.ui.pojos.ItemMachine;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 

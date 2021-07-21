@@ -1,21 +1,18 @@
-package com.example.infinitycropapp.ui.main.home.adapters;
+package com.example.infinitycropapp.ui.main.profile.adapters;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.infinitycropapp.R;
-import com.example.infinitycropapp.ui.main.home.pojos.ItemMachine;
-import com.example.infinitycropapp.ui.main.home.pojos.ItemPhotoPost;
+import com.example.infinitycropapp.ui.pojos.ItemPhotoPost;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 

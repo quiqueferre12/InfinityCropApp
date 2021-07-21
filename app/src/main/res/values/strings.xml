@@ -122,6 +122,9 @@
     <!--    SNACKBAR INTERNET DISMISS-->
     <string name="snack_close">Cerrar</string>
     <string name="snack_no_internet">Internet no disponible, Comprueba tu conexión y prueba de nuevo</string>
-    <string name="snack_yes_internet">Vuuelves a tener conexion a Internet</string>
-
+    <string name="snack_yes_internet">Vuelves a tener conexion a Internet</string>
+    <!-- Error text of the editext inputs-->
+    <string name="error_empty_editext">Introduce un nombre válido</string>
+    <string name="error_a_lot_text_editext">Introduce un nombre válido</string>
+    <string name="error_name_exists">El nombre ya existe en tu lista de maquinas</string>
 </resources>

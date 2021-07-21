@@ -1,7 +1,6 @@
 package com.example.infinitycropapp.ui.main;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -14,7 +13,6 @@ import androidx.viewpager.widget.ViewPager;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -33,7 +31,6 @@ import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.example.infinitycropapp.ui.main.log.activity_log_start;
 import com.example.infinitycropapp.ui.main.profile.ProfileFragment;
 import com.example.infinitycropapp.ui.receivers.NetworkStateChangeReceiver;
-import com.example.infinitycropapp.ui.tutorial.TutorialActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -43,7 +40,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.common.internal.Constants;
 import com.google.android.material.snackbar.Snackbar;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
@@ -51,7 +47,6 @@ import java.util.ArrayList;
 
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static com.example.infinitycropapp.ui.receivers.NetworkStateChangeReceiver.IS_NETWORK_AVAILABLE;
-import static com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG;
 
 public class MainListActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 

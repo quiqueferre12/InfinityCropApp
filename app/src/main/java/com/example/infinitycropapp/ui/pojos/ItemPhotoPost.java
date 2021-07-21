@@ -1,4 +1,4 @@
-package com.example.infinitycropapp.ui.main.home.pojos;
+package com.example.infinitycropapp.ui.pojos;
 
 import android.graphics.Bitmap;
 import android.media.Image;

@@ -1,4 +1,4 @@
-package com.example.infinitycropapp.ui.pantalla_carga;
+package com.example.infinitycropapp.ui.main.pantalla_carga;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,7 +1,6 @@
 package com.example.infinitycropapp.ui.main.home.adapters;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infinitycropapp.R;
-import com.example.infinitycropapp.ui.main.home.pojos.ItemPlaylist;
+import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.List;

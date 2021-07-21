@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infinitycropapp.R;
-import com.example.infinitycropapp.ui.main.home.adapters.PhotoPostProfileAdapter;
-import com.example.infinitycropapp.ui.main.home.pojos.ItemPhotoPost;
+import com.example.infinitycropapp.ui.main.profile.adapters.PhotoPostProfileAdapter;
+import com.example.infinitycropapp.ui.pojos.ItemPhotoPost;
 
 import java.util.ArrayList;
 import java.util.List;

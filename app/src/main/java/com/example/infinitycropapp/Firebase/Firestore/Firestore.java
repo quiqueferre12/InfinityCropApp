@@ -21,7 +21,6 @@ public class Firestore {
             //add to collection User un documento nombre : id del user -> sus datos en los campos del firebase
             db.collection("User").document(user.getId()).set(newUser);
         }
-
     }
 
 }

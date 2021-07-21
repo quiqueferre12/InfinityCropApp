@@ -1,4 +1,4 @@
-package com.example.infinitycropapp.ui.main.home.pojos;
+package com.example.infinitycropapp.ui.pojos;
 
 //pojo para item de la playlist
 public class ItemPlaylist {

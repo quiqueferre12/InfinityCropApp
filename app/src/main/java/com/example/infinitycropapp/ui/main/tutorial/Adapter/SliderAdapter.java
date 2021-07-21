@@ -1,4 +1,4 @@
-package com.example.infinitycropapp.ui.tutorial.Adapter;
+package com.example.infinitycropapp.ui.main.tutorial.Adapter;
 
 
 import android.content.Context;

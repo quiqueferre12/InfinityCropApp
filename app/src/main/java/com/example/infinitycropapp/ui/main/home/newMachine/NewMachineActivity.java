@@ -39,9 +39,9 @@ public class NewMachineActivity extends AppCompatActivity {
     //save check button
 
     //bools
-    private final boolean isStep1Done = false;
-    private final boolean isStep2Done = false;
-    private final boolean isStep3Done = false;
+    private  boolean isStep1Done = false;
+    private  boolean isStep2Done = false;
+    private  boolean isStep3Done = false;
     //back button
     private ImageView backButton;
     //step 2 bottom sheet
@@ -132,26 +132,32 @@ public class NewMachineActivity extends AppCompatActivity {
     private void step1StateActive(){
         step1State.setImageResource(R.drawable.icons_active_state); //change icon to active
         step1State.setImageTintList(ColorStateList.valueOf(getColor(R.color.button_color))); //change color to active
+        isStep1Done=true;
     }
     private void step1StateInactive(){
         step1State.setImageResource(R.drawable.icons_inactive_state); //change icon to Inactive
         step1State.setImageTintList(ColorStateList.valueOf(getColor(R.color.black))); //change color to Inactive
+        isStep1Done=false;
     }
     private void step2StateActive(){
         step2State.setImageResource(R.drawable.icons_active_state); //change icon to active
         step2State.setImageTintList(ColorStateList.valueOf(getColor(R.color.button_color))); //change color to active
+        isStep2Done=true;
     }
     private void step2StateInactive(){
         step2State.setImageResource(R.drawable.icons_inactive_state); //change icon to Inactive
         step2State.setImageTintList(ColorStateList.valueOf(getColor(R.color.black))); //change color to Inactive
+        isStep2Done=false;
     }
     private void step3StateActive(){
         step3State.setImageResource(R.drawable.icons_active_state); //change icon to active
         step3State.setImageTintList(ColorStateList.valueOf(getColor(R.color.button_color))); //change color to active
+        isStep3Done=true;
     }
     private void step3StateInactive(){
         step3State.setImageResource(R.drawable.icons_inactive_state); //change icon to Inactive
         step3State.setImageTintList(ColorStateList.valueOf(getColor(R.color.black))); //change color to Inactive
+        isStep3Done=false;
     }
 
     private void ClearAllState(){
@@ -202,11 +208,11 @@ public class NewMachineActivity extends AppCompatActivity {
                 String textInput=name_machineInput.getText().toString(); //get the texto of the input
                 if(textInput.equals("")){ //si no hay nombre en el editext
                     layout_name_machineInput.setErrorEnabled(true); //activar error
-                    layout_name_machineInput.setError("QUIEOR MORIR"); //set texto error
+                    layout_name_machineInput.setError(getString(R.string.error_empty_editext)); //set texto error
                 }else //si la longitud del nombre es mayor de la maxima permitida
                     if(layout_name_machineInput.getCounterMaxLength() < textInput.length()){
                     layout_name_machineInput.setErrorEnabled(true);
-                    layout_name_machineInput.setError("mucho texto");
+                    layout_name_machineInput.setError(getString(R.string.error_a_lot_text_editext));
                 }else //si existe el nombre de la maquina
                     if(textInput.equals("")){
 

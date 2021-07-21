@@ -22,7 +22,7 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".ui.main.log.RegisterActivity" /> <!-- ALa pantalla de carga es la primera que ve el usuario -->
-        <activity android:name=".ui.pantalla_carga.SplashScreen">
+        <activity android:name=".ui.main.pantalla_carga.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +37,7 @@
             android:name=".ui.main.MainListActivity"
             android:screenOrientation="portrait" /> <!-- Activity del tutorial de la App -->
         <activity
-            android:name=".ui.tutorial.TutorialActivity"
+            android:name=".ui.main.tutorial.TutorialActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.log.activity_log_start"
