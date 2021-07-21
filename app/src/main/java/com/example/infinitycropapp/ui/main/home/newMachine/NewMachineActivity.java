@@ -2,14 +2,17 @@ package com.example.infinitycropapp.ui.main.home.newMachine;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.infinitycropapp.R;
@@ -44,12 +47,22 @@ public class NewMachineActivity extends AppCompatActivity {
     private  boolean isStep3Done = false;
     //back button
     private ImageView backButton;
+    //confirm create machine button
+    private ImageView confirmButton;
     //step 2 bottom sheet
     private TextInputEditText name_machineInput;
     private ImageView quit_step2_bottom_sheet;
     private ImageView confirm_step2_bottom_sheet;
     private CheckBox checkbox_step2_bottom_sheet;
     private TextInputLayout layout_name_machineInput;
+    //step 3 bottom sheet
+    private ImageView quit_step3_bottom_sheet;
+    private ImageView confirm_step3_bottom_sheet;
+    private TextView step3_model_text;
+    private TextView step3_name_text;
+    private ImageView step3_1_state;
+    private ImageView step3_2_state;
+    private TextView step3_favorite_state;
     //string , int ....
     private String machineCode;
     private String nameMachine;
@@ -69,6 +82,7 @@ public class NewMachineActivity extends AppCompatActivity {
         step2State=findViewById(R.id.step2_state);
         step3State=findViewById(R.id.step3_state);
         backButton=findViewById(R.id.back_newMachine);
+        confirmButton=findViewById(R.id.confirm_create_machine);
 
         //call methods
         ClearAllState(); //all to default
@@ -96,7 +110,18 @@ public class NewMachineActivity extends AppCompatActivity {
         step3Card.setOnClickListener(new View.OnClickListener() { //step1 card click
             @Override
             public void onClick(View v) {
+                initStep3BottomSheet();
+            }
+        });
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isStep1Done && isStep2Done && isStep3Done){
+                    Intent intent = new Intent(getApplicationContext(), MainListActivity.class);
+                    startActivity(intent);
+                }else{
 
+                }
             }
         });
     }
@@ -117,11 +142,11 @@ public class NewMachineActivity extends AppCompatActivity {
         if(result != null) {
             if(result.getContents() == null) {
                 machineCode="";
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+
                 step1StateInactive();
             } else {
                 machineCode=result.getContents().toString();
-                Toast.makeText(this, "Scanned: " + machineCode, Toast.LENGTH_LONG).show();
+
                 step1StateActive();
             }
         } else {
@@ -138,6 +163,8 @@ public class NewMachineActivity extends AppCompatActivity {
         step1State.setImageResource(R.drawable.icons_inactive_state); //change icon to Inactive
         step1State.setImageTintList(ColorStateList.valueOf(getColor(R.color.black))); //change color to Inactive
         isStep1Done=false;
+        //cuando hay 1 paso incompleto el paso 3 automaticamente pasa a incompleto
+        step3StateInactive();
     }
     private void step2StateActive(){
         step2State.setImageResource(R.drawable.icons_active_state); //change icon to active
@@ -148,6 +175,8 @@ public class NewMachineActivity extends AppCompatActivity {
         step2State.setImageResource(R.drawable.icons_inactive_state); //change icon to Inactive
         step2State.setImageTintList(ColorStateList.valueOf(getColor(R.color.black))); //change color to Inactive
         isStep2Done=false;
+        //cuando hay 1 paso incompleto el paso 3 automaticamente pasa a incompleto
+        step3StateInactive();
     }
     private void step3StateActive(){
         step3State.setImageResource(R.drawable.icons_active_state); //change icon to active
@@ -228,5 +257,92 @@ public class NewMachineActivity extends AppCompatActivity {
         });
 
         optionsBottomSheet.show();
+    }
+    private void initStep3BottomSheet(){
+        //set the bottom sheet
+        BottomSheetDialog verificationBottomSheet = new BottomSheetDialog(NewMachineActivity.this);
+        //set the layout of the bottom sheet
+        verificationBottomSheet.setContentView(R.layout.activity_new_machine_step3_bottom_sheet);
+        //findbyid del bottom sheet
+        quit_step3_bottom_sheet=verificationBottomSheet.findViewById(R.id.quit_step3_bottom_sheet);
+        confirm_step3_bottom_sheet=verificationBottomSheet.findViewById(R.id.confirm_step3_bottom_sheet);
+        step3_model_text=verificationBottomSheet.findViewById(R.id.qr_code_step3);
+        step3_name_text=verificationBottomSheet.findViewById(R.id.name_machine_step3);
+        step3_1_state=verificationBottomSheet.findViewById(R.id.state_1_step3);
+        step3_2_state=verificationBottomSheet.findViewById(R.id.state_2_step3);
+        step3_favorite_state=verificationBottomSheet.findViewById(R.id.step3_favorite_state);
+        //onclick methods
+        //quit bottomsheet
+        quit_step3_bottom_sheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verificationBottomSheet.dismiss();
+            }
+        });
+        //confirm check button onclick
+        confirm_step3_bottom_sheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isStep1Done && isStep2Done){ //si estan hechos los pasos 1 y 2
+                    step3StateActive(); //call function
+                }else{ //sino
+                    step3StateInactive();
+                }
+                verificationBottomSheet.dismiss(); //cerramos bottom sheet
+            }
+        });
+        //si el paso 1 esta completado
+        if(isStep1Done){
+            //inserto su string en el textview
+            step3_model_text.setText(machineCode);
+            //hacer el texto bold
+            step3_model_text.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+            //cambio de color
+            step3_model_text.setTextColor(getColor(R.color.black));
+            //set activate img state
+            step3_1_state.setImageResource(R.drawable.icons_active_state);
+            //change color
+            step3_1_state.setImageTintList(ColorStateList.valueOf(getColor(R.color.button_color)));
+        }else{
+            //inserto string default en el textview
+            step3_model_text.setText(getString(R.string.step3_empty));
+            //hacer el texto normal
+            step3_model_text.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+            //set inactive img state
+            step3_1_state.setImageResource(R.drawable.icons_inactive_state);
+            //change color
+            step3_1_state.setImageTintList(ColorStateList.valueOf(getColor(R.color.black)));
+        }
+        //si el paso 2 esta completado
+        if(isStep2Done){
+            //inserto su string en el textview
+            step3_name_text.setText(nameMachine);
+            //hacer el texto bold
+            step3_name_text.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+            //cambio de color
+            step3_name_text.setTextColor(getColor(R.color.black));
+            //set activate img state
+            step3_2_state.setImageResource(R.drawable.icons_active_state);
+            //change color
+            step3_2_state.setImageTintList(ColorStateList.valueOf(getColor(R.color.button_color)));
+        }else{
+            //inserto string default en el textview
+            step3_name_text.setText(getString(R.string.step3_empty));
+            //hacer el texto normal
+            step3_name_text.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+            //set inactive img state
+            step3_2_state.setImageResource(R.drawable.icons_inactive_state);
+            //change color
+            step3_2_state.setImageTintList(ColorStateList.valueOf(getColor(R.color.black)));
+        }
+        //si la maquina se ha anyadido a la lista de favoritos
+        if(isFavorite){
+            //inserto su string en el textview
+            step3_favorite_state.setText(getString(R.string.step3_favorite_yes));
+        }else{
+            //inserto su string default en el textview
+            step3_favorite_state.setText(getString(R.string.step3_favorite_no));
+        }
+        verificationBottomSheet.show();
     }
 }

@@ -119,6 +119,13 @@
     <string name="step2tittle_bottom_sheet">Nombre de la máquina</string>
     <string name="step2checkbox_bottom_sheet">Agregar a la lista de favoritos</string>
     <string name="step2input_text_bottom_sheet">Nombre</string>
+    <!--    activity new machine: step3 bottom sheet-->
+    <string name="step3tittle_bottom_sheet">Verificación de los datos</string>
+    <string name="step3image_state">Estado</string>
+    <string name="step3_empty">Paso no completado</string>
+    <string name="step3_favorite">Favoritos</string>
+    <string name="step3_favorite_yes">Si</string>
+    <string name="step3_favorite_no">No</string>
     <!--    SNACKBAR INTERNET DISMISS-->
     <string name="snack_close">Cerrar</string>
     <string name="snack_no_internet">Internet no disponible, Comprueba tu conexión y prueba de nuevo</string>

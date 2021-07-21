@@ -25,17 +25,18 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/back_newMachine"
-        app:layout_constraintEnd_toStartOf="@+id/imageView8"
+        app:layout_constraintEnd_toStartOf="@+id/confirm_create_machine"
         app:layout_constraintStart_toEndOf="@+id/back_newMachine"
         app:layout_constraintTop_toTopOf="@+id/back_newMachine" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/confirm_create_machine"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        app:tint="@color/button_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="parent"
