@@ -122,4 +122,6 @@
     <!--    SNACKBAR INTERNET DISMISS-->
     <string name="snack_close">Cerrar</string>
     <string name="snack_no_internet">Internet no disponible, Comprueba tu conexión y prueba de nuevo</string>
+    <string name="snack_yes_internet">Vuuelves a tener conexion a Internet</string>
+
 </resources>

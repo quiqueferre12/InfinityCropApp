@@ -63,6 +63,7 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
     private int index = 0; //cont que usaremos para cambiar de fragment
     private static final String WIFI_STATE_CHANGE_ACTION = "android.net.wifi.WIFI_STATE_CHANGED";
 
+    private boolean connectionLost;
 
     private GoogleApiClient googleApiClient;
 
@@ -106,21 +107,6 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
         //intent filter no internet
         IntentFilter intentFilter = new IntentFilter(NetworkStateChangeReceiver.NETWORK_AVAILABLE_ACTION);
 
-        //Si entra y está desconectado
-        if(!isOnline()){
-            //Muestra el snackbar
-            /*Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_list_main), getText(R.string.snack_no_internet),Snackbar.LENGTH_LONG);
-            snackBar.setActionTextColor(Color.CYAN);
-            snackBar.setAnchorView(R.id.list_menuActivity);
-            snackBar.setAction(getText(R.string.snack_close), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    snackBar.dismiss();
-                }
-            });
-            snackBar.show();*/
-        }
-
         //Receiver
         LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
             @Override
@@ -133,7 +119,28 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
                     //Muestra el snackbar si está desconectado
                     if(networkStatus.equals("disconnected")){
                         if(!isOnline()){
-                            Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_list_main), getText(R.string.snack_no_internet),Snackbar.LENGTH_LONG);
+                            if(!connectionLost){
+                                Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_list_main), getText(R.string.snack_no_internet),Snackbar.LENGTH_LONG);
+                                if(viewPager.getCurrentItem()==0){
+                                    snackBar.setAnchorView(R.id.button_add_machine);
+                                }else{
+                                    snackBar.setAnchorView(R.id.list_menuActivity);
+                                }
+                                snackBar.setActionTextColor(Color.CYAN);
+                                snackBar.setAction(getText(R.string.snack_close), new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        snackBar.dismiss();
+                                    }
+                                });
+                                snackBar.show();
+                                connectionLost=true;
+                            }
+
+                        }
+                    }else{
+                        if(connectionLost){
+                            Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_list_main), getText(R.string.snack_yes_internet),Snackbar.LENGTH_LONG);
                             if(viewPager.getCurrentItem()==0){
                                 snackBar.setAnchorView(R.id.button_add_machine);
                             }else{
@@ -147,7 +154,7 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
                                 }
                             });
                             snackBar.show();
-
+                            connectionLost=false;
                         }
                     }
 
