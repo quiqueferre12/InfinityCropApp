@@ -112,6 +112,7 @@
     <string name="step1_newMachine">Paso 1</string>
     <string name="step2_newMachine">Paso 2</string>
     <string name="step3_newMachine">Paso 3</string>
+    <string name="step3_modelText_newMachine">Modelo:</string>
     <string name="step1Text_newMachine">Escanear código QR</string>
     <string name="step2Text_newMachine">Añadir información</string>
     <string name="step3Text_newMachine">Comprobar datos</string>
@@ -128,8 +129,14 @@
     <string name="step3_favorite_no">No</string>
     <!--    SNACKBAR INTERNET DISMISS-->
     <string name="snack_close">Cerrar</string>
-    <string name="snack_no_internet">Internet no disponible, Comprueba tu conexión y prueba de nuevo</string>
-    <string name="snack_yes_internet">Vuelves a tener conexion a Internet</string>
+    <string name="snack_no_internet">Internet no disponible, Comprueba tu conexión y prueba de nuevo.</string>
+    <string name="snack_yes_internet">Vuelves a tener conexion a Internet.</string>
+    <!--    SNACKBAR machine already exists-->
+    <string name="snack_machine_exists">Esta máquina ya ha sido registrada antes en nuestra base de datos.</string>
+    <!--    SNACKBAR faltan pasos por hacer new machine steps-->
+    <string name="snack_steps_remain">Faltan pasos por hacer.</string>
+    <!--    SNACKBAR qr falso-->
+    <string name="snack_qr_error">El QR no es oficial de Infinity Crop.</string>
     <!-- Error text of the editext inputs-->
     <string name="error_empty_editext">Introduce un nombre válido</string>
     <string name="error_a_lot_text_editext">Introduce un nombre válido</string>

@@ -2,35 +2,37 @@ package com.example.infinitycropapp.ui.main.home.newMachine;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.MainListActivity;
-import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
+import com.example.infinitycropapp.ui.pojos.ItemMachine;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.util.Objects;
-
 public class NewMachineActivity extends AppCompatActivity {
     //-----poner aca attributes etc... -----//
-
+    //firestore
+    private Firestore db;
     //cards
     private MaterialCardView step1Card;
     private MaterialCardView step2Card;
@@ -64,6 +66,7 @@ public class NewMachineActivity extends AppCompatActivity {
     private ImageView step3_2_state;
     private TextView step3_favorite_state;
     //string , int ....
+    private String machineModel;
     private String machineCode;
     private String nameMachine;
     private boolean isFavorite;
@@ -73,6 +76,10 @@ public class NewMachineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_machine);
+
+        //firestore
+        //llamamos al back end service
+        db=new Firestore();
 
         //findById elements
         step1Card=findViewById(R.id.step1_card);
@@ -116,11 +123,17 @@ public class NewMachineActivity extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isStep1Done && isStep2Done && isStep3Done){
+                if(isStep1Done && isStep2Done && isStep3Done){ //si todos los pasos estas terminados
+                    //guardamos los datos en el objeto machine
+                    ItemMachine newMachine= new ItemMachine(nameMachine, machineModel);
+                    //llamamos al metodo corresponiente
+                    db.AddMachine("Machine",newMachine,machineCode, true);
+
+                    //cambio de actividad
                     Intent intent = new Intent(getApplicationContext(), MainListActivity.class);
                     startActivity(intent);
-                }else{
-
+                }else{ //faltan pasos por hacer
+                    setSnackbar(findViewById(R.id.general_layout_activity_new_machine), getString(R.string.snack_steps_remain));
                 }
             }
         });
@@ -141,13 +154,22 @@ public class NewMachineActivity extends AppCompatActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
             if(result.getContents() == null) {
+                machineModel ="";
                 machineCode="";
-
                 step1StateInactive();
             } else {
-                machineCode=result.getContents().toString();
+                machineModel =result.getContents().toString(); //get the machine code
 
-                step1StateActive();
+                String[] strings= machineModel.split("-");
+                if(strings.length > 1){ //si es un qr de infinity crop
+                    machineModel = strings[1];
+                    machineCode = strings[0];
+                    //comprobar si la maquina ya esta registrada o no
+                    ExistDocByIdDocument("Machine",machineCode); //call back end method
+                }else{ //si no es nuestro qr
+                    setSnackbar(findViewById(R.id.general_layout_activity_new_machine), getString(R.string.snack_qr_error));
+                }
+
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -190,7 +212,8 @@ public class NewMachineActivity extends AppCompatActivity {
     }
 
     private void ClearAllState(){
-        machineCode=""; //clear el codigo escaneado
+        machineModel =""; //clear el codigo escaneado
+        machineCode =""; //clear el codigo escaneado
         nameMachine=""; //clear el nombre puesto
         //clear todos los iconos a incompleto
         step1State.setImageResource(R.drawable.icons_inactive_state);
@@ -242,9 +265,6 @@ public class NewMachineActivity extends AppCompatActivity {
                     if(layout_name_machineInput.getCounterMaxLength() < textInput.length()){
                     layout_name_machineInput.setErrorEnabled(true);
                     layout_name_machineInput.setError(getString(R.string.error_a_lot_text_editext));
-                }else //si existe el nombre de la maquina
-                    if(textInput.equals("")){
-
                 }else{ //si all gucci
                     layout_name_machineInput.setErrorEnabled(false);
                     nameMachine=textInput;
@@ -293,8 +313,9 @@ public class NewMachineActivity extends AppCompatActivity {
         });
         //si el paso 1 esta completado
         if(isStep1Done){
+            String modelResult=getString(R.string.step3_modelText_newMachine) + " "+ machineModel;
             //inserto su string en el textview
-            step3_model_text.setText(machineCode);
+            step3_model_text.setText(modelResult);
             //hacer el texto bold
             step3_model_text.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             //cambio de color
@@ -344,5 +365,43 @@ public class NewMachineActivity extends AppCompatActivity {
             step3_favorite_state.setText(getString(R.string.step3_favorite_no));
         }
         verificationBottomSheet.show();
+    }
+
+    //comprobar si existe documento/campo dentro de una collecion conociendo el id del usario
+    public void ExistDocByIdDocument(String collection, String scannedCode){
+        //exist or not var
+        FirebaseFirestore db2= FirebaseFirestore.getInstance();
+        db2.collection(collection) //busco en la collection
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){ //si all gucci
+                        QuerySnapshot document = task.getResult(); //get result
+                        int cont=0;
+                        for (QueryDocumentSnapshot doc : document) {
+                           if(doc.getId().equals(scannedCode)){ //si ya existe esa maquina
+                               cont++; // ++
+                           }
+                        }
+
+                        if (cont >= 1) { //ese campo ya existe
+                            step1StateInactive();
+                            setSnackbar(findViewById(R.id.general_layout_activity_new_machine), (String) getText(R.string.snack_machine_exists));
+                        } else { //no existe
+                            step1StateActive();
+                        }
+                    }
+                });
+    }
+    //set snackbar method
+    public void setSnackbar(View actualActivity, String snackBarText){
+        Snackbar snackBar = Snackbar.make(actualActivity, snackBarText,Snackbar.LENGTH_LONG);
+        snackBar.setActionTextColor(Color.CYAN);
+        snackBar.setAction(getText(R.string.snack_close), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackBar.dismiss();
+            }
+        });
+        snackBar.show();
     }
 }
