@@ -3,13 +3,20 @@ package com.example.infinitycropapp.ui.pojos;
 //pojo para item de la playlist
 public class ItemPlaylist {
     //attributes
-    //solo necesito el nombre para filtrar en firebase los elementos que pertenecen a ese nombre
     private String name;
+    private String creatorID;
 
     //contructor
+    public ItemPlaylist() { }
     public ItemPlaylist(String name) {
         this.name = name;
     }
+
+    public ItemPlaylist(String name, String creatorID) {
+        this.name = name;
+        this.creatorID = creatorID;
+    }
+
     //getter
     public String getName() {
         return name;
@@ -17,5 +24,13 @@ public class ItemPlaylist {
     //setter
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCreatorID() {
+        return creatorID;
+    }
+
+    public void setCreatorID(String creatorID) {
+        this.creatorID = creatorID;
     }
 }

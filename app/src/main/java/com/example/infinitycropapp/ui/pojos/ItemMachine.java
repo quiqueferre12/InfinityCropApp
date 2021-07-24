@@ -5,10 +5,14 @@ public class ItemMachine {
     private String name;
     private String model;
     private String creatorID;
+    private boolean favorite;
 
-    public ItemMachine(String name, String model) {
+    public ItemMachine() { }
+
+    public ItemMachine(String name, String model, boolean favorite) {
         this.name = name;
         this.model = model;
+        this.favorite = favorite;
     }
 
     public ItemMachine(String name, String model, String creatorID) {
@@ -39,5 +43,13 @@ public class ItemMachine {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }

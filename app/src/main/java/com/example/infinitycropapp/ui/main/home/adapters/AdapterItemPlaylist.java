@@ -20,7 +20,7 @@ public class AdapterItemPlaylist extends RecyclerView.Adapter<AdapterItemPlaylis
     //attributes
     private List<ItemPlaylist> itemPlaylists; //lista de pojos
     private Context context; //contexto
-    private int cont=0; //variable para comprabar que item esta pulsado
+    public int cont=0; //variable para comprabar que item esta pulsado
     public boolean showShimmer=true; //mostrar o no loader
     //contructor
     public AdapterItemPlaylist(List<ItemPlaylist> itemPlaylists, Context context) {
@@ -54,15 +54,6 @@ public class AdapterItemPlaylist extends RecyclerView.Adapter<AdapterItemPlaylis
             final ItemPlaylist pojoItem=itemPlaylists.get(position);
             //declaro el texto del button
             holder.item_playlist.setText(pojoItem.getName());
-
-            //cuando  se pulsa el item se guarda la posicion en una variable
-            holder.item_playlist.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cont=position;
-                    notifyDataSetChanged();
-                }
-            });
             //este metodo recorre todos los items , entonces cuando encuentre lo que he pulsado se cambiara su color
             if(cont==position){
                 holder.item_playlist.setBackgroundResource(R.drawable.button_primary);

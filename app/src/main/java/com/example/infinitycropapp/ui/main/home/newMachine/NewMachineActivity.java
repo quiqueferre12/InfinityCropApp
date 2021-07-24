@@ -125,7 +125,7 @@ public class NewMachineActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isStep1Done && isStep2Done && isStep3Done){ //si todos los pasos estas terminados
                     //guardamos los datos en el objeto machine
-                    ItemMachine newMachine= new ItemMachine(nameMachine, machineModel);
+                    ItemMachine newMachine= new ItemMachine(nameMachine, machineModel, isFavorite);
                     //llamamos al metodo corresponiente
                     db.AddMachine("Machine",newMachine,machineCode, true);
 
