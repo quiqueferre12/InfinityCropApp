@@ -36,7 +36,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_profil_config" />
+                        app:srcCompat="@drawable/ic_profile_conf" />
 
                     <TextView
                         android:id="@+id/textView12"
@@ -44,11 +44,11 @@
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/imageView2"
                         android:layout_alignBottom="@+id/imageView2"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/imageView2"
                         android:fontFamily="@font/roboto"
                         android:gravity="center"
-                        android:text="@string/app_name"
+                        android:text="@string/name_item_list_perfil"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -63,9 +63,10 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
+                        android:background="#FFFFFF"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/logo_without_background" />
+                        app:srcCompat="@drawable/icons_user" />
 
                     <TextView
                         android:id="@+id/UserPostsTx"
@@ -74,7 +75,7 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/posts"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/UserCommunitiesTx"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -85,7 +86,7 @@
                         android:id="@+id/UserNameTx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/roboto_bold"
                         android:text="@string/user_name"
                         android:textColor="@color/black"
@@ -142,7 +143,7 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/communities"
                         android:textColor="@color/black"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/UserPostsTx"
                         app:layout_constraintHorizontal_bias="0.5"
