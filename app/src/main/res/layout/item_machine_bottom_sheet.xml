@@ -85,7 +85,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/addList_machineItem"
+        android:id="@+id/favorite_bs_machineItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -97,7 +97,7 @@
         app:layout_constraintTop_toBottomOf="@+id/delete_machineItem">
 
         <ImageView
-            android:id="@+id/addList_image"
+            android:id="@+id/favorite_bs_image"
             android:layout_width="25dp"
             android:layout_height="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -106,7 +106,7 @@
             app:srcCompat="@drawable/icons_add_favorites" />
 
         <TextView
-            android:id="@+id/addList_text"
+            android:id="@+id/favorite_bs_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -115,12 +115,12 @@
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/addList_image"
+            app:layout_constraintStart_toEndOf="@+id/favorite_bs_image"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/addFavorite_machineItem"
+        android:id="@+id/addList_machineItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -131,10 +131,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addList_machineItem">
+        app:layout_constraintTop_toBottomOf="@+id/favorite_bs_machineItem">
 
         <ImageView
-            android:id="@+id/addFavorite_image"
+            android:id="@+id/addList_image"
             android:layout_width="25dp"
             android:layout_height="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -143,7 +143,7 @@
             app:srcCompat="@drawable/icons_add_to_list" />
 
         <TextView
-            android:id="@+id/addFavorite_text"
+            android:id="@+id/addList_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -152,7 +152,7 @@
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/addFavorite_image"
+            app:layout_constraintStart_toEndOf="@+id/addList_image"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

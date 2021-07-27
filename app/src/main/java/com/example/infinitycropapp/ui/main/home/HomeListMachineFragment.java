@@ -1,6 +1,7 @@
 package com.example.infinitycropapp.ui.main.home;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -77,6 +79,7 @@ public class HomeListMachineFragment extends Fragment {
     //lists
     private List<ItemPlaylist> itemPlaylists=new ArrayList<>(); //playlist
     private List<ItemMachine> itemMachines=new ArrayList<>(); //machines
+    private List<String> itemIDs= new ArrayList<>(); // list of id string
     private List<String> playlistOfMachines=new ArrayList<>(); //machines
     //firebase
     private FirebaseFirestore db;
@@ -195,7 +198,7 @@ public class HomeListMachineFragment extends Fragment {
     private void getItemMachines() {
         itemMachines.clear(); //clear la list para que no se duplique
         //creo un adaptador pasandole los elementos al contructor
-        adapterItemMachine=new AdapterItemMachine(itemMachines,getContext());
+        adapterItemMachine=new AdapterItemMachine(itemMachines, itemIDs ,getContext(), this);
         //declaro que cual es el adaptador el rv
         rv_machine.setAdapter(adapterItemMachine);
     }
@@ -206,16 +209,20 @@ public class HomeListMachineFragment extends Fragment {
         refreshRv.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //comienza la carga de la animacion
-                adapterItemMachine.showShimmer=true;
-                adapterItemPlaylist.showShimmer=true;
-                adapterItemMachine.notifyDataSetChanged();
-                adapterItemPlaylist.notifyDataSetChanged();
-                getItemPlaylist(); //get data to rv playlist
-                setPlaylistDatos();
-                setMachineDatos("All",null);
+                RefreshRv();
             }
         });
+    }
+
+    public void RefreshRv(){
+        //comienza la carga de la animacion
+        adapterItemMachine.showShimmer=true;
+        adapterItemPlaylist.showShimmer=true;
+        adapterItemMachine.notifyDataSetChanged();
+        adapterItemPlaylist.notifyDataSetChanged();
+        getItemPlaylist(); //get data to rv playlist
+        setPlaylistDatos();
+        setMachineDatos("All",null);
     }
 
     private void setPlaylistDatos(){
@@ -291,6 +298,7 @@ public class HomeListMachineFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 ItemMachine itemMachine=document.toObject(ItemMachine.class);
+                                itemIDs.add(document.getId());
                                 if(filtro.equals("All")){
                                     itemMachines.add(itemMachine);
                                 }else if(filtro.equals("Favorites")){
@@ -327,6 +335,20 @@ public class HomeListMachineFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    //set snackbar method
+    public void setSnackbar(String snackBarText){
+        Snackbar snackBar = Snackbar.make( getActivity().findViewById(R.id.general_layout_fragment_listmachine), snackBarText,Snackbar.LENGTH_LONG);
+        snackBar.setActionTextColor(Color.CYAN);
+        snackBar.setAnchorView(R.id.button_add_machine);
+        snackBar.setAction(getText(R.string.snack_close), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackBar.dismiss();
+            }
+        });
+        snackBar.show();
     }
 
 }

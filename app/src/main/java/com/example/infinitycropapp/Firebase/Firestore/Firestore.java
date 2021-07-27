@@ -1,9 +1,14 @@
 package com.example.infinitycropapp.Firebase.Firestore;
 
+import androidx.annotation.NonNull;
+
 import com.example.infinitycropapp.Firebase.Auth.User;
 import com.example.infinitycropapp.ui.pojos.ItemMachine;
 import com.example.infinitycropapp.ui.pojos.ItemUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 //clase en la que estan todos los metodos que interacciones con la base de datos
@@ -42,6 +47,40 @@ public class Firestore {
                 }
             }
             db.collection(collection).document(idDocument).set(machine);
+        }
+    }
+
+    //delete machine
+    public void DeleteMachine(String collection, ItemMachine machine, String idDocument){
+        if(collection != null && machine != null) { //si todos los datos existen
+            //borrar todos los elementos de la colleccion machine -> id -> clima
+            db.collection(collection).document(idDocument).collection("Clima")
+            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            db.collection(collection).document(idDocument)
+                                    .collection("Clima")
+                                    .document(document.getId()).delete();
+                        }
+                    }
+                }
+            });
+            //borrar la maquina
+            db.collection(collection).document(idDocument).delete();
+        }
+    }
+
+    public void setFavoriteMachine(String collection, ItemMachine machine, String idDocument, boolean favorite){
+        if(collection != null && machine != null) { //si todos los datos existen
+
+            if(favorite){ //si queremos add to favorite
+                machine.setFavorite(true);
+            }else{ //si queremos quitarlo
+                machine.setFavorite(false);
+            }
+            db.collection(collection).document(idDocument).update("favorite", machine.isFavorite());
         }
     }
 }

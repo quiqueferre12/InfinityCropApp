@@ -41,8 +41,12 @@
     <string name="edit_item">Edit</string>
     <string name="delete_item">Delete</string>
     <string name="addFavorite_item">Add to favorites</string>
+    <string name="quitFavorite_item">Remove from favorites</string>
     <string name="addList_item">Add to list</string>
-
+    <!-- dialogs -->
+    <string name="deleteText_dialog">Remove the machine?</string>
+    <string name="cancelButton_dialog">Cancelar</string>
+    <string name="deleteConfirmButton_dialog">Remove</string>
 
     <!--    Fragment Usuario: Top-->
 
@@ -139,6 +143,10 @@
     <string name="snack_steps_remain">Steps remain to be done.</string>
     <!--    SNACKBAR qr falso-->
     <string name="snack_qr_error">The QR is not official of Infinity Crop.</string>
+    <!--    SNACKBAR item actions (delete,add,favorite....)-->
+    <string name="snack_machine_favorite">Machine saved to your favorites.</string>
+    <string name="snack_machine_quit_favorite">Machine removed from your favorites.</string>
+    <string name="snack_machine_delete">The machine has been deleted.</string>
     <!-- Error text of the editext inputs-->
     <string name="error_empty_editext">Please enter a valid name</string>
     <string name="error_a_lot_text_editext">Please enter a valid name</string>

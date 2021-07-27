@@ -40,7 +40,12 @@
     <string name="edit_item">Editar</string>
     <string name="delete_item">Eliminar</string>
     <string name="addFavorite_item">Añadir a favoritos</string>
+    <string name="quitFavorite_item">Quitar de favoritos</string>
     <string name="addList_item">Añadir a la lista</string>
+    <!-- dialogs -->
+    <string name="deleteText_dialog">Eliminar la maquina?</string>
+    <string name="cancelButton_dialog">Cancelar</string>
+    <string name="deleteConfirmButton_dialog">Eliminar</string>
 
     <!--    Fragment Usuario: Top-->
 
@@ -137,6 +142,10 @@
     <string name="snack_steps_remain">Faltan pasos por hacer.</string>
     <!--    SNACKBAR qr falso-->
     <string name="snack_qr_error">El QR no es oficial de Infinity Crop.</string>
+    <!--    SNACKBAR item actions (delete,add,favorite....)-->
+    <string name="snack_machine_favorite">Máquina guardada en tus favoritos.</string>
+    <string name="snack_machine_quit_favorite">Máquina quitada de tus favoritos.</string>
+    <string name="snack_machine_delete">Se ha eliminado la máquina.</string>
     <!-- Error text of the editext inputs-->
     <string name="error_empty_editext">Introduce un nombre válido</string>
     <string name="error_a_lot_text_editext">Introduce un nombre válido</string>
