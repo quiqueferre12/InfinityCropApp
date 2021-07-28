@@ -150,4 +150,11 @@
     <string name="error_empty_editext">Introduce un nombre válido</string>
     <string name="error_a_lot_text_editext">Introduce un nombre válido</string>
     <string name="error_name_exists">El nombre ya existe en tu lista de maquinas</string>
+
+
+    <!--    XML CLIMAS-->
+
+    <string name="mis_climas">Mis Climas</string>
+    <string name="climas_de_infinitycrop">Climas de InfinityCrop</string>
+    <string name="climas_de_la_comunidad">Climas de la comunidad</string>
 </resources>

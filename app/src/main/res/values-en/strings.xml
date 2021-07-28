@@ -151,4 +151,11 @@
     <string name="error_empty_editext">Please enter a valid name</string>
     <string name="error_a_lot_text_editext">Please enter a valid name</string>
     <string name="error_name_exists">The name already exists in your machine list</string>
+
+
+    <!--    XML CLIMAS-->
+
+    <string name="mis_climas">My Climates</string>
+    <string name="climas_de_infinitycrop">InfinityCrop Climates</string>
+    <string name="climas_de_la_comunidad">Our Community Climates</string>
 </resources>

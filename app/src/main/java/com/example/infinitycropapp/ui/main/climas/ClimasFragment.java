@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -69,12 +72,54 @@ public class ClimasFragment extends Fragment {
         }
     }
 
+    /*---FIN -> datos necesarios para el fragment -> no cambiar ni rellenar ---*/
+
+    //-----poner aca attributes etc... -----//
+
+    //rvs
+    private RecyclerView rv_climasUser; //Mis Climas
+    private RecyclerView rv_climasInfinity; //Climas de InfinityCrop
+    private RecyclerView rv_climasCommunity; //Climas de la comunidad
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_climas, container, false);
+        //INICIO ----------- Create View
+        View view = inflater.inflate(R.layout.fragment_climas, container, false);
+
+        //findById elements
+        rv_climasUser=view.findViewById(R.id.rvClimasUser); //rv Climas User
+        rv_climasInfinity=view.findViewById(R.id.rvClimasInfinity); //rv Climas Infinity
+        rv_climasCommunity=view.findViewById(R.id.rvClimasCommunity); //rv Climas Community
+
+
+
+        //FINAL ------------- Inflate the layout for this fragment
+        return view;
 
     }
+
+    // init Rvs
+    private void initRvUser(){
+        //defino que el rv no tenga fixed size
+        rv_climasUser.setHasFixedSize(false);
+        //manejador para declarar la direccion de los items del rv
+        rv_climasUser.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+    }
+    private void initRvInf() {
+        //defino que el rv no tenga fixed size
+        rv_climasInfinity.setHasFixedSize(false);
+        //manejador para declarar la direccion de los items del rv
+        rv_climasInfinity.setLayoutManager(new GridLayoutManager(getContext(), 2));
+    }
+    private void initRvCom(){
+        //defino que el rv no tenga fixed size
+        rv_climasCommunity.setHasFixedSize(false);
+        //manejador para declarar la direccion de los items del rv
+        rv_climasCommunity.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+    }
+
+    // FIN -> init Rvs
 }
