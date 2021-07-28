@@ -10,18 +10,30 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.infinitycropapp.Firebase.Auth.User;
+import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.MainListActivity;
 import com.example.infinitycropapp.ui.main.climas.ClimasFragment;
 import com.example.infinitycropapp.ui.main.guia.GuiaBotanicaFragment;
 import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.example.infinitycropapp.ui.main.profile.fotos_profile.FotosProfileFragment;
+import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
+import com.example.infinitycropapp.ui.pojos.ItemUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Console;
 import java.util.ArrayList;
@@ -41,6 +53,9 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    //Firebase
+    private FirebaseFirestore db;
 
 
 
@@ -77,6 +92,14 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        //TextViews
+        TextView userNametx=null;
+        TextView emailUserTx=null;
+
+        userNametx = (TextView) view.findViewById(R.id.UserNameTx);
+        emailUserTx = (TextView) view.findViewById(R.id.emailUserTx);
+
 
         //Tabs
         TabLayout tabLayout = null;
@@ -133,8 +156,41 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        //Firebase Firestore
+        db= FirebaseFirestore.getInstance();
+
+        setUserData(userNametx, emailUserTx);//Llamamos a setUserData para rellenar los tx con datos del usuario
+
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void setUserData(TextView userNametx, TextView userEmailtx){
+        //Declaramos variables
+        Firestore firestore=new Firestore();
+        final ItemUser[] itemUser = {new ItemUser()};
+
+        db.collection("User")
+                .document(firestore.GetIdUser())
+                .get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document != null) {
+                    itemUser[0] = document.toObject(ItemUser.class);// here
+
+                    //Rellenamos los tx
+                    userNametx.setText(itemUser[0].getName());
+                    userEmailtx.setText(itemUser[0].getMail());
+                    return;
+                }
+
+            } else {
+                Log.d("FragNotif", "get failed with ", task.getException());
+            }
+        });
+
+
     }
 
 

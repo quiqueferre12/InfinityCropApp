@@ -39,7 +39,7 @@
                         app:srcCompat="@drawable/ic_profile_conf" />
 
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/emailUserTx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/imageView2"

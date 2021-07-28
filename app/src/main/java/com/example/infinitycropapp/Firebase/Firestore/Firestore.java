@@ -1,12 +1,16 @@
 package com.example.infinitycropapp.Firebase.Firestore;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.infinitycropapp.Firebase.Auth.User;
 import com.example.infinitycropapp.ui.pojos.ItemMachine;
+import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.example.infinitycropapp.ui.pojos.ItemUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -26,6 +30,7 @@ public class Firestore {
         User user=new User(); //declaramos objeto
         return user.getId();
     }
+
 
     public void AddNewUser(){
         User user = new User(); //recuperamos los datos del user Auth.
