@@ -32,7 +32,18 @@
     <string name="boton_skip_final">EMPIEZA</string>
     <!-- Intro Log-->
     <string name="txtLogIntro">Sostenibilidad a tu alcance</string>
-
+    <string name="btniniciosesion">INICIAR SESIÓN</string>
+    <!-- Intro logemail-->
+    <string name="txtLogEmail">Correo o nombre de usuario</string>
+    <string name="txtPass">Contraseña</string>
+    <!-- Intro registeremail-->
+    <string name="txtregsection">Nuevo usuario</string>
+    <string name="txtregbienvenida">Te damos la bienvenida a Infinity Crop</string>
+    <string name="txtregbienvenida2">Rellena los siguientes campos para continuar</string>
+    <string name="txtregEmail">Correo electrónico</string>
+    <string name="txtregUsername">Nombre de usuario</string>
+    <string name="txtregName">Nombre y apellidos</string>
+    <string name="txtregPass">Contraseña</string>
     <!-- Inicio: textos -->
     <string name="txt_myMachine">Mis máquinas ></string>
     <string name="playlist_all">Todas</string>

@@ -12,6 +12,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -52,7 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
     private CircleImageView profileImageView;
     private Button btnRegistrar;
     private TextView banner;
-    private EditText txtEmail, txtname, txtPasword;
+    private TextInputEditText txtEmail, txtname, txtPasword, txtUsername;
+    private TextInputLayout layEmail, layName, layPassword, layUsername;
+    private ImageView btnBack;
 
 
     private FirebaseFirestore fStore;
@@ -74,9 +79,18 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         //edit texts
-        txtname = (EditText) findViewById(R.id.txtName);
-        txtEmail = (EditText) findViewById(R.id.mail);
-        txtPasword = (EditText) findViewById(R.id.password);
+        txtname = (TextInputEditText) findViewById(R.id.txtName);
+        txtEmail = (TextInputEditText) findViewById(R.id.mail);
+        txtPasword = (TextInputEditText) findViewById(R.id.password);
+        txtUsername =(TextInputEditText) findViewById(R.id.username);
+        //inputslayouts
+        layName = (TextInputLayout) findViewById(R.id.reginame);
+        layUsername = (TextInputLayout) findViewById(R.id.regiusername);
+        layEmail = (TextInputLayout) findViewById(R.id.regimail);
+        layPassword = (TextInputLayout) findViewById(R.id.registPassword);
+
+        //boton atras
+        btnBack =(ImageView) findViewById(R.id.back_log);
         banner = findViewById(R.id.banner);
         progressDialog =new ProgressDialog(this);
         banner.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +106,12 @@ public class RegisterActivity extends AppCompatActivity {
         storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("Profile pic");
 
         profileImageView = findViewById(R.id.imgPerfil);
-
+        btnBack.setOnClickListener(new View.OnClickListener() { //btn volver atras
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //boton de registrar
         fStore=FirebaseFirestore.getInstance();
         btnRegistrar = findViewById(R.id.btnregist);
@@ -129,29 +148,35 @@ public class RegisterActivity extends AppCompatActivity {
         String password =txtPasword.getText().toString().trim();
         String username =txtname.getText().toString().trim();
         if(username.isEmpty()){
-           txtname.setError(getText(R.string.login_introduce_nombre));
-           txtname.requestFocus();
+            layName.setError("You need to enter a name and surname");
            return;
+        }else{
+            layName.setError(null);
         }
         if(email.isEmpty()){
-            txtEmail.setError(getText(R.string.login_introduce_correo));
-            txtEmail.requestFocus();
+            layUsername.setError("You need to enter a username");
             return;
+        }else{
+        layName.setError(null);
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            txtEmail.setError(getText(R.string.login_introduce_correo_ok));
-            txtEmail.requestFocus();
+            layEmail.setError(getText(R.string.login_introduce_correo_ok));
             return;
+        }else{
+            layName.setError(null);
         }
         if(password.isEmpty()){
-            txtPasword.setError(getText(R.string.login_introduce_contra));
+            layPassword.setError(getText(R.string.login_introduce_contra));
             txtPasword.requestFocus();
             return;
+        }else{
+            layName.setError(null);
         }
         if(password.length() < 6){
-            txtPasword.setError(getText(R.string.login_introduce_contra_ok));
-            txtPasword.requestFocus();
+            layPassword.setError(getText(R.string.login_introduce_contra_ok));
             return;
+        }else{
+            layName.setError(null);
         }
 
 

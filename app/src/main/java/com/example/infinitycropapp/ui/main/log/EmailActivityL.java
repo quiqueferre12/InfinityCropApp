@@ -18,6 +18,8 @@ import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.MainListActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -25,8 +27,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class EmailActivityL extends AppCompatActivity {
     //objetos visibles
-    private EditText Textmail;
-    private EditText Textpassword;
+    private TextInputEditText Textmail, Textpassword ;
+    private TextInputLayout layEmail, layPassword;
+
+
     private TextView BtnCambioPass;
     private Button Btnlogin;
     private TextView BtnRegistro;
@@ -49,9 +53,15 @@ public class EmailActivityL extends AppCompatActivity {
         });
         firebaseAuth = FirebaseAuth.getInstance();
         //referenciamos los views
-        Textmail = (EditText) findViewById(R.id.inputEmail);
-        Textpassword = (EditText) findViewById(R.id.inputPassword);
+        Textmail = (TextInputEditText) findViewById(R.id.editText_loguser);
+        Textpassword = (TextInputEditText) findViewById(R.id.editText_logpassword);
+        // los layouts de los text
+        layEmail = (TextInputLayout) findViewById(R.id.loguser);
+        layPassword = (TextInputLayout) findViewById(R.id.inputPassword);
+
+        //botones
         BtnCambioPass= findViewById(R.id.forgotPassword);
+
         Btnlogin = (Button) findViewById(R.id.btnLogin);
         progressDialog =new ProgressDialog(this);
 
@@ -95,12 +105,16 @@ public class EmailActivityL extends AppCompatActivity {
 
         //verificamos si las cajas estan vacias o no
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, getText(R.string.login_introduce_correo), Toast.LENGTH_LONG).show();
+            layEmail.setError(getText(R.string.login_introduce_correo_ok));
             return;
+        }else{
+            layEmail.setError(null);
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, getText(R.string.login_introduce_contra), Toast.LENGTH_LONG).show();
+            layPassword.setError( getText(R.string.login_introduce_contra));
             return;
+        }else{
+            layPassword.setError(null);
         }
 
         progressDialog.setMessage("Obteniendo contenido en línea...");
@@ -125,6 +139,8 @@ public class EmailActivityL extends AppCompatActivity {
                         Toast.makeText(EmailActivityL.this, getText(R.string.login_usuario_ya_existente), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EmailActivityL.this, getText(R.string.login_no_se_puede_registrar), Toast.LENGTH_SHORT).show();
+                        layEmail.setError(getText(R.string.login_introduce_correo_ok));
+                        layPassword.setError( getText(R.string.login_introduce_contra));
                     }
 
                 }

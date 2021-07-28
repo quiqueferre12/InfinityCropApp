@@ -36,6 +36,7 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private GoogleApiClient googleApiClient;
+    private  Button btnregist;
 
     String TAG = "GoogleSignIn";
 
@@ -63,7 +64,14 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_start);
-
+        btnregist= (Button) findViewById(R.id.btngoregist);
+        btnregist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent register = new Intent(activity_log_start.this, RegisterActivity.class);
+                startActivity(register);
+            }
+        });
         mAuth = FirebaseAuth.getInstance();
         SignInButton signInButton = findViewById(R.id.sign_in_button);
 

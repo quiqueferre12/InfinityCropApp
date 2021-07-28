@@ -8,153 +8,227 @@
     android:gravity="center"
     android:layout_gravity="center"
     tools:context=".ui.main.log.RegisterActivity"
-    android:background="@drawable/login_btn_bg">
+    android:background="@color/white">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentTop="true">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        android:padding="20dp">
 
-        <RelativeLayout
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="148dp"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/hola_te_damos_la_bienvenida"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
-
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="75dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="-25dp"
-                android:layout_marginLeft="142dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginRight="-25dp"
-                android:layout_marginBottom="0dp"
-                android:src="@drawable/family" />
-        </RelativeLayout>
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:text="@string/aqu_empezar_s_tus_primeros_pasos_con_nosotros"
-            android:textColor="@color/white"
-            android:fontFamily="@font/roboto_bold"
-            android:textSize="13dp"
-            />
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="10dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgPerfil"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/logoselefoto"
-                    app:civ_border_color="@color/button_color"
-                    app:civ_border_width="2dp"/>
 
-                <!--<ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/logoselefoto"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"></ImageView>-->
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/back_log"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icons_arrow" />
+
                 <TextView
+                    android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/selecciona_una_foto"
-                    android:layout_gravity="center"
-                    android:textColor="@color/button_color"
-                    android:fontFamily="@font/roboto">
-
-                </TextView>
-                <EditText
-                        android:id="@+id/txtName"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/roboto"
-                        android:maxLines="1"
-                        android:layout_margin="15dp"
-                        android:textColorHint="@color/button_color"
-                        android:hint="@string/nombre"
-                        android:backgroundTint="@color/button_color"
-                        />
-                <EditText
-                        android:id="@+id/mail"
-                    android:textColorHint="@color/button_color"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:hint="@string/correo"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/roboto"
-                        android:layout_margin="15dp"
-                        android:maxLines="1"
-                        android:backgroundTint="@color/button_color"
-                        />
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="@string/contrase_a"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/txtregsection"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/roboto"
-                    android:layout_margin="15dp"
-                    android:maxLines="1"
-                    android:textColorHint="@color/button_color"
-                    android:password="true"
-                    android:backgroundTint="@color/button_color"
-                    />
-                <Button
-                    android:id="@+id/btnregist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/button_color"
-                    android:text="@string/registrarse"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
-                <TextView
-                    android:id="@+id/banner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/button_color"
-                    android:text="@string/tienes_una_cuenta_inicia_sesi_n"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:textSize="17dp"
-                    android:fontFamily="@font/roboto_bold">
-
-                </TextView>
-
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/back_newMachine"
+                    app:layout_constraintEnd_toStartOf="@+id/confirm_create_machine"
+                    app:layout_constraintStart_toEndOf="@+id/back_newMachine"
+                    app:layout_constraintTop_toTopOf="@+id/back_newMachine" />
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:layout_width="200sp"
+                android:layout_height="200sp"
+                android:src="@drawable/ilustregist"
+                android:layout_gravity="center"
+                ></ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txtregbienvenida"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto">
+
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txtregbienvenida2"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto">
+
+            </TextView>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgPerfil"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logoselefoto"
+                app:civ_border_color="@color/black"
+                android:layout_marginTop="20dp"
+                app:civ_border_width="2dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/selecciona_una_foto"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto">
+
+            </TextView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/reginame"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/txtregName"
+                app:boxStrokeColor="@color/black"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topText2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="16dp"
+                    android:maxLines="1"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/regiusername"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/txtregUsername"
+                app:errorEnabled="true"
+                app:boxStrokeColor="@color/black"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topText2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="16dp"
+                    android:maxLines="1"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/regimail"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/txtregEmail"
+                app:errorEnabled="true"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topText2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="16dp"
+                    android:maxLines="1"
+                    android:inputType="textEmailSubject"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/txtPass"
+                app:errorEnabled="true"
+                app:endIconMode="password_toggle"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loguser">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:drawablePadding="16dp"
+                android:maxLines="1"
+                android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnregist"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/button_color"
+                android:text="@string/registrarse"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/banner"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/button_color"
+                android:text="@string/tienes_una_cuenta_inicia_sesi_n"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textSize="17dp"
+                android:fontFamily="@font/roboto_bold">
+
+            </TextView>
+
+
     </LinearLayout>
 
 </ScrollView>

@@ -34,6 +34,18 @@
     <string name="boton_skip_final">GET STARTED</string>
     <!-- Intro Log-->
     <string name="txtLogIntro">Sustainability at your fingertips</string>
+    <string name="txtLogEmail">Mail or user name</string>
+    <string name="txtPass">Password</string>
+    <string name="btniniciosesion">LOG IN</string>
+
+    <!-- Intro registeremail-->
+    <string name="txtregsection">New User</string>
+    <string name="txtregbienvenida">Welcome to Infinity Crop</string>
+    <string name="txtregbienvenida2">Fill in the following fields to continue</string>
+    <string name="txtregEmail">Mail</string>
+    <string name="txtregUsername">User name</string>
+    <string name="txtregName">Name and Surname</string>
+    <string name="txtregPass">Password</string>
     <!-- Inicio: textos -->
     <string name="txt_myMachine">My machines ></string>
     <string name="playlist_all">All</string>

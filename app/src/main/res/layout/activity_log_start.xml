@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.main.log.activity_log_start"
     android:background="@color/white"
-    android:padding="30dp">
+    android:padding="15dp"
+    tools:context=".ui.main.log.activity_log_start">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txtLogIntro"
-            android:textSize="27sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/roboto_bold"
             android:layout_marginBottom="15dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/txtLogIntro"
+            android:textColor="@color/black"
+            android:textSize="27sp"
 
             />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/te_damos_la_bienvenida"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/roboto"
             android:layout_marginBottom="40dp"
-            />
+            android:fontFamily="@font/roboto"
+            android:text="@string/te_damos_la_bienvenida"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
 
         <com.airbnb.lottie.LottieAnimationView
@@ -48,10 +50,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="30dp"
             android:layout_gravity="center"
-            >
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/loginact"
@@ -63,8 +64,8 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/button_color"
                 android:drawableLeft="@drawable/ic_mail_icon"
-                android:text="@string/inicia_sesi_n"
-                android:textColor="@color/black"
+                android:text="@string/btniniciosesion"
+                android:textColor="@color/color_primary"
 
                 android:textSize="13dp" />
 
@@ -72,21 +73,21 @@
                 android:id="@+id/sign_in_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
-                />
+                android:layout_weight="1" />
 
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/btngoregist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:background="#0000"
             android:text="@string/no_tienes_cuenta_registrate_aqu"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
     </LinearLayout>
 
 </ScrollView>
