@@ -5,19 +5,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
@@ -30,10 +27,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -197,6 +191,7 @@ public class HomeListMachineFragment extends Fragment {
     }
     private void getItemMachines() {
         itemMachines.clear(); //clear la list para que no se duplique
+        itemIDs.clear();
         //creo un adaptador pasandole los elementos al contructor
         adapterItemMachine=new AdapterItemMachine(itemMachines, itemIDs ,getContext(), this);
         //declaro que cual es el adaptador el rv
@@ -262,6 +257,7 @@ public class HomeListMachineFragment extends Fragment {
         getItemMachines();
         itemMachines.clear();
         playlistOfMachines.clear();
+        itemIDs.clear();
         adapterItemMachine.showShimmer= true;
         adapterItemMachine.notifyDataSetChanged();
         Firestore firestore=new Firestore();
