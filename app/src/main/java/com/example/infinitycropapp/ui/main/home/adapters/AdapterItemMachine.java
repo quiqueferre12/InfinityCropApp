@@ -1,18 +1,19 @@
 package com.example.infinitycropapp.ui.main.home.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
@@ -160,6 +161,40 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                                 }
                             });
                             alertDialogBuilder.show();
+                        }
+                    });
+
+                    //add list machine bottom sheet button
+                    addListMachine.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //cerrar el bottom sheet al pulsar add list
+                            optionsBottomSheet.dismiss();
+
+                            Dialog dialog= new Dialog(context);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setCancelable(true);
+                            dialog.setContentView(R.layout.add_list_dialog);
+                            //set the correct width
+                            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            ImageView back=dialog.findViewById(R.id.back_add_list_dialog);
+                            back.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            dialog.show();
+                        }
+                    });
+
+                    //edit machine bottom sheet button
+                    editMachine.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
                         }
                     });
 
