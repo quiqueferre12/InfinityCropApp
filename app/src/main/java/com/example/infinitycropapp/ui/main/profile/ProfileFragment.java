@@ -130,15 +130,15 @@ public class ProfileFragment extends Fragment {
         final FotosProfileFragment fragment_1 = new FotosProfileFragment();
         final ClimasFragment fragment_2 = new ClimasFragment();
         final GuiaBotanicaFragment fragment_3 = new GuiaBotanicaFragment();
-        final ProfileFragment fragment_4 = new ProfileFragment();
         //set fragments into adapter
-        adapter.addFragment(fragment_1);
-        adapter.addFragment(fragment_2);
-        adapter.addFragment(fragment_3);
+        adapter.addFragment(fragment_1, getString(R.string.photos_tabItem));
+        adapter.addFragment(fragment_2, getString(R.string.climates_tabItem));
+        adapter.addFragment(fragment_3, getString(R.string.communities_tabItem));
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);//limite de fragments para que no boom
 
         ViewPager finalViewPager = viewPager;
+        tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -155,6 +155,9 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
+        TabLayout finalTabLayout = tabLayout;
+
 
         //Firebase Firestore
         db= FirebaseFirestore.getInstance();
@@ -197,18 +200,24 @@ public class ProfileFragment extends Fragment {
     //clase adaptador para el menu
     class ViewPagerAdapter extends FragmentPagerAdapter {
         //lista donde estan los fragments
-        private ArrayList<Fragment> fragments;
+        private ArrayList<Fragment> fragments = new ArrayList<>();
         //lista del nombre de los fragments
-        private ArrayList<String> titles;
+
+        private String[] tabTitles = new String[]{getString(R.string.photos_tabItem), getString(R.string.climates_tabItem), getString(R.string.communities_tabItem)};
+
         //constructor
         ViewPagerAdapter (FragmentManager fm){
             super(fm);
-            this.fragments = new ArrayList<>();
-            this.titles = new ArrayList<>();
 
         }
         //get la posicion del fragment de la lista
         @NonNull
+
+        // overriding getPageTitle()
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabTitles[position];
+        }
         @Override
         public Fragment getItem(int position) {
             return fragments.get(position);
@@ -219,9 +228,8 @@ public class ProfileFragment extends Fragment {
             return fragments.size();
         }
         //añadir fragment
-        public void addFragment(Fragment fragment){
+        public void addFragment(Fragment fragment, String title){
             fragments.add(fragment);
-
         }
 
     }

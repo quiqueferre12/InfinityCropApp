@@ -3,24 +3,40 @@ package com.example.infinitycropapp.ui.main.climas;
 import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
+import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.MainListActivity;
+import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesUser;
 import com.example.infinitycropapp.ui.main.guia.GuiaBotanicaFragment;
 import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
+import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemMachine;
 import com.example.infinitycropapp.ui.main.profile.ProfileFragment;
+import com.example.infinitycropapp.ui.pojos.ItemClimate;
+import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,6 +96,18 @@ public class ClimasFragment extends Fragment {
     private RecyclerView rv_climasUser; //Mis Climas
     private RecyclerView rv_climasInfinity; //Climas de InfinityCrop
     private RecyclerView rv_climasCommunity; //Climas de la comunidad
+    //lists
+    private List<ItemClimate> itemClimatesUser=new ArrayList<>(); //user
+    private List<ItemClimate> itemClimatesInfinity=new ArrayList<>(); //infinity
+    private List<ItemClimate> itemClimatesCommunity=new ArrayList<>(); //community
+    //adapters
+    private AdapterItemClimatesUser adapterItemClimatesUser;
+    private AdapterItemClimatesUser adapterItemClimatesInfinity;
+    private AdapterItemClimatesUser adapterItemClimatesCommunity;
+    //firebase
+    private FirebaseFirestore db;
+
+
 
 
     @Override
@@ -89,12 +117,22 @@ public class ClimasFragment extends Fragment {
         //INICIO ----------- Create View
         View view = inflater.inflate(R.layout.fragment_climas, container, false);
 
+        //firestore
+        db= FirebaseFirestore.getInstance();
+
         //findById elements
         rv_climasUser=view.findViewById(R.id.rvClimasUser); //rv Climas User
         rv_climasInfinity=view.findViewById(R.id.rvClimasInfinity); //rv Climas Infinity
         rv_climasCommunity=view.findViewById(R.id.rvClimasCommunity); //rv Climas Community
 
 
+        //config rv
+        initRvUser();
+        setRvUserDatos();
+        initRvInf();
+        setRvInfDatos();
+        initRvCom();
+        setRvInfCom();
 
         //FINAL ------------- Inflate the layout for this fragment
         return view;
@@ -119,6 +157,115 @@ public class ClimasFragment extends Fragment {
         rv_climasCommunity.setHasFixedSize(false);
         //manejador para declarar la direccion de los items del rv
         rv_climasCommunity.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+    }
+
+    private void getItemUser(){
+        itemClimatesCommunity.clear(); //clear la list para que no se duplique
+        //creo un adaptador pasandole los elementos al contructor
+        adapterItemClimatesUser=new AdapterItemClimatesUser(itemClimatesUser ,getContext());
+        //declaro que cual es el adaptador el rv
+        rv_climasUser.setAdapter(adapterItemClimatesUser);
+    }
+
+    private void getItemInf(){
+        itemClimatesInfinity.clear(); //clear la list para que no se duplique
+        //creo un adaptador pasandole los elementos al contructor
+        adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity ,getContext());
+        //declaro que cual es el adaptador el rv
+        rv_climasInfinity.setAdapter(adapterItemClimatesInfinity);
+    }
+
+
+    private void getItemCom(){
+        itemClimatesCommunity.clear(); //clear la list para que no se duplique
+        //creo un adaptador pasandole los elementos al contructor
+        adapterItemClimatesCommunity=new AdapterItemClimatesUser(itemClimatesCommunity ,getContext());
+        //declaro que cual es el adaptador el rv
+        rv_climasCommunity.setAdapter(adapterItemClimatesCommunity);
+    }
+
+
+    private void setRvUserDatos(){
+        getItemUser();
+        adapterItemClimatesUser.showShimmer=true;
+        Firestore firestore=new Firestore();
+        String id=firestore.GetIdUser();
+        db.collection("Climate")
+                .whereEqualTo("Creator Id", id)
+                .limit(5)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ItemClimate itemClimateUser=document.toObject(ItemClimate.class);
+                                itemClimatesUser.add(itemClimateUser);
+                            }
+
+                            //dismiss loader
+                            adapterItemClimatesUser.showShimmer= false;
+                            adapterItemClimatesUser.notifyDataSetChanged();
+                        } else {
+
+                        }
+                    }
+                });
+
+    }
+
+    private void setRvInfDatos(){
+        getItemInf();
+        adapterItemClimatesInfinity.showShimmer=true;
+        db.collection("Climate")
+                .whereEqualTo("InfinityCropClimate", true)
+                .limit(5)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ItemClimate itemClimateInf=document.toObject(ItemClimate.class);
+                                itemClimatesInfinity.add(itemClimateInf);
+                            }
+
+                            //dismiss loader
+                            adapterItemClimatesInfinity.showShimmer= false;
+                            adapterItemClimatesInfinity.notifyDataSetChanged();
+                        } else {
+
+                        }
+                    }
+                });
+
+    }
+
+    private void setRvInfCom(){
+        getItemCom();
+        adapterItemClimatesCommunity.showShimmer=true;
+        db.collection("Climate")
+                .orderBy("numberShared", Query.Direction.DESCENDING)
+                .limit(5)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ItemClimate itemClimateCom=document.toObject(ItemClimate.class);
+                                itemClimatesCommunity.add(itemClimateCom);
+                            }
+
+                            //dismiss loader
+                            adapterItemClimatesCommunity.showShimmer= false;
+                            adapterItemClimatesCommunity.notifyDataSetChanged();
+                        } else {
+
+                        }
+                    }
+                });
+
     }
 
     // FIN -> init Rvs
