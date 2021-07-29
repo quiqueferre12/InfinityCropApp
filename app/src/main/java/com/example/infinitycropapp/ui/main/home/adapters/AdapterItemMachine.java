@@ -9,17 +9,20 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.example.infinitycropapp.ui.pojos.ItemMachine;
+import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
@@ -177,14 +180,48 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                             dialog.setContentView(R.layout.add_list_dialog);
                             //set the correct width
                             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
+                            //findById
                             ImageView back=dialog.findViewById(R.id.back_add_list_dialog);
+                            TextView textAllList=dialog.findViewById(R.id.text_all_list_dialog);
+                            RecyclerView rv_playlist=dialog.findViewById(R.id.rv_playlist_item_add_list);
+                            List<ItemPlaylist> itemPlaylistsAddList=new ArrayList<>();; //lista de pojos
+                            AdapterItemPlaylistAddList adapterItemPlaylistAddList;
+                            //onlclick methods
                             back.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     dialog.dismiss();
                                 }
                             });
+
+                            //methods
+
+                            //defino que el rv no tenga fixed size
+                            rv_playlist.setHasFixedSize(true);
+                            //manejador para declarar la direccion de los items del rv
+                            rv_playlist.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+                            //get data for rv
+                            itemPlaylistsAddList.clear();
+
+                            itemPlaylistsAddList.add(new ItemPlaylist("Favoritos"));
+                            itemPlaylistsAddList.add(new ItemPlaylist("RUN"));
+                            itemPlaylistsAddList.add(new ItemPlaylist("temasos Cuarentena"));
+
+
+                            adapterItemPlaylistAddList=new AdapterItemPlaylistAddList(itemPlaylistsAddList,context);
+                            //declaro que cual es el adaptador el rv
+                            rv_playlist.setAdapter(adapterItemPlaylistAddList);
+
+                            //si hay playlist creados por el user , muestra un texto que esta en gone por default
+                            if(adapterItemPlaylistAddList.getItemCount() > 1){
+                                textAllList.setVisibility(View.VISIBLE);
+                            }else{
+                                textAllList.setVisibility(View.GONE);
+                            }
+
+                            //FIN ->methods
+
+
 
                             dialog.show();
                         }
@@ -233,4 +270,5 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
             options_machine=itemView.findViewById(R.id.options_machineItem);
         }
     }
+
 }
