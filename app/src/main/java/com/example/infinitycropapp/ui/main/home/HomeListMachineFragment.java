@@ -231,7 +231,7 @@ public class HomeListMachineFragment extends Fragment {
 
         }
         itemPlaylists.add(new ItemPlaylist(getResources().getString(R.string.step3_favorite)));
-        db.collection("Playlist")
+        db.collection("Playlist machine")
                 .whereEqualTo("creatorID", id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -266,8 +266,8 @@ public class HomeListMachineFragment extends Fragment {
         //si la playlist es creada por el user
         if(!filtro.equals("All") && !filtro.equals("Favorites")){
             // get all documento of collection playlist -> docuemnt -> coll Machine -> bucle doc
-            db.collection("Playlist").document(itemPlaylist.getCreatorID())
-                    .collection("Machine")
+            db.collection("Playlist machine").document(itemPlaylist.getCreatorID())
+                    .collection("Machines")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -283,54 +283,55 @@ public class HomeListMachineFragment extends Fragment {
                         }
                     });
 
-        }
-
-        db.collection("Machine")
-                .whereEqualTo("creatorID", id)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                ItemMachine itemMachine=document.toObject(ItemMachine.class);
-                                itemIDs.add(document.getId());
-                                if(filtro.equals("All")){
-                                    itemMachines.add(itemMachine);
-                                }else if(filtro.equals("Favorites")){
-                                    if(itemMachine.isFavorite()){
+        }else{
+            //si es una playlist
+            db.collection("Machine")
+                    .whereEqualTo("creatorID", id)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    ItemMachine itemMachine=document.toObject(ItemMachine.class);
+                                    itemIDs.add(document.getId());
+                                    if(filtro.equals("All")){
                                         itemMachines.add(itemMachine);
-                                    }
-                                }else{
-                                    if(itemPlaylist != null){
-                                        if(!playlistOfMachines.isEmpty()){ //si no esta vacio
-                                            for(String id: playlistOfMachines){ //recorro all los id de las maq
-                                                if(document.getId().equals(id)){ //si son iguales
-                                                    itemMachines.add(itemMachine);
+                                    }else if(filtro.equals("Favorites")){
+                                        if(itemMachine.isFavorite()){
+                                            itemMachines.add(itemMachine);
+                                        }
+                                    }else{
+                                        if(itemPlaylist != null){
+                                            if(!playlistOfMachines.isEmpty()){ //si no esta vacio
+                                                for(String id: playlistOfMachines){ //recorro all los id de las maq
+                                                    if(document.getId().equals(id)){ //si son iguales
+                                                        itemMachines.add(itemMachine);
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }
-                            //dismiss loader
-                            adapterItemMachine.showShimmer= false;
-                            //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
-                            //si el recyclerView esta vacio
-                            if(adapterItemMachine.getItemCount() == 0 ){
-                                rv_machine.setVisibility(View.GONE); //ocultar rv
-                                empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
-                            }else{ //sino
-                                rv_machine.setVisibility(View.VISIBLE); //mostras rv con sus items
-                                empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
-                            }
-                            adapterItemMachine.notifyDataSetChanged();
-                            refreshRv.setRefreshing(false);
-                        } else {
+                                //dismiss loader
+                                adapterItemMachine.showShimmer= false;
+                                //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
+                                //si el recyclerView esta vacio
+                                if(adapterItemMachine.getItemCount() == 0 ){
+                                    rv_machine.setVisibility(View.GONE); //ocultar rv
+                                    empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
+                                }else{ //sino
+                                    rv_machine.setVisibility(View.VISIBLE); //mostras rv con sus items
+                                    empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
+                                }
+                                adapterItemMachine.notifyDataSetChanged();
+                                refreshRv.setRefreshing(false);
+                            } else {
 
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     //set snackbar method

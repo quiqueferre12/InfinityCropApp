@@ -9,11 +9,16 @@ import com.example.infinitycropapp.ui.pojos.ItemMachine;
 import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.example.infinitycropapp.ui.pojos.ItemUser;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 //clase en la que estan todos los metodos que interacciones con la base de datos
 public class Firestore {
@@ -88,4 +93,33 @@ public class Firestore {
             db.collection(collection).document(idDocument).update("favorite", machine.isFavorite());
         }
     }
+
+    //playlist method
+    public void AddPlaylist(String collection, ItemPlaylist playlist, String idMachine){
+        if(collection != null && playlist != null && idMachine != null) { //si todos los datos existen
+            String id= GetIdUser(); //get the id of the auth user
+            if(id != null){
+                playlist.setCreatorID(id); //set the id to the itemMachine object
+                //collection -> add docuement
+                db.collection(collection).add(playlist)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                //cuando creamos la playlist la maquina que queriamos anyadir a una playlist
+                                //se anyade a una subcollecion del documento que se acaba de crear
+                                String id=documentReference.getId();
+                                //necesitamos anyadir un campo a un docuemnto
+                                //ya que no puede estar vacio sin campos
+                                Map<String, Object> machine = new HashMap<>();
+                                machine.put("idMachine", idMachine);
+                                // collection -> document -> collection -> add document
+                                db.collection(collection).document(id)
+                                        .collection("Machines").document(idMachine).set(machine);
+
+                            }
+                        });
+            }
+        }
+    }
+    // FIN -> playlist method
 }

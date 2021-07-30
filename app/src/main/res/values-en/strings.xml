@@ -159,11 +159,14 @@
     <string name="snack_machine_favorite">Machine saved to your favorites.</string>
     <string name="snack_machine_quit_favorite">Machine removed from your favorites.</string>
     <string name="snack_machine_delete">The machine has been deleted.</string>
+    <string name="snack_playlist_add">Saved machine in the list</string>
     <!-- Error text of the editext inputs-->
     <string name="error_empty_editext">Please enter a valid name</string>
     <string name="error_a_lot_text_editext">Please enter a valid name</string>
     <string name="error_name_exists">The name already exists in your machine list</string>
-
+    <string name="error_empty_editext_list">Please enter a valid title</string>
+    <string name="error_a_lot_text_editext_list">Please enter a valid title</string>
+    <string name="error_name_exists_list">The list already exists, enter a different one</string>
 
     <!--    XML CLIMAS-->
 
@@ -171,4 +174,12 @@
     <string name="climas_de_infinitycrop">InfinityCrop Climates</string>
     <string name="climas_de_la_comunidad">Our Community Climates</string>
     <string name="explorar_climas">Explore Climates</string>
+
+    <!-- item machine -> dialog add list -->
+    <string name="add_list_dialog_tittle">Add to machine list</string>
+    <string name="add_list_dialog_subtittle">All machine lists</string>
+    <string name="add_list_dialog_btn_text">New list</string>
+    <!-- item machine -> dialog new list -->
+    <string name="create_list_dialog_tittle">Create List</string>
+    <string name="create_list_dialog_input_text">Title</string>
 </resources>

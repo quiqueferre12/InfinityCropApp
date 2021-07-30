@@ -9,9 +9,9 @@
         android:id="@+id/back_add_list_dialog"
         android:layout_width="28dp"
         android:layout_height="28dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icons_close" />
 
@@ -22,12 +22,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Añadir maquina a la lista"
+        android:text="@string/add_list_dialog_tittle"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/back_add_list_dialog"
-        app:layout_constraintEnd_toStartOf="@+id/back_add_list_dialog"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/back_add_list_dialog"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -37,8 +37,10 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/button_secondary"
         android:backgroundTint="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@+id/textView19"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintBottom_toTopOf="@+id/rv_playlist_item_add_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <TextView
         android:id="@+id/text_all_list_dialog"
@@ -48,7 +50,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Todas las listas de maquinas"
+        android:text="@string/add_list_dialog_subtittle"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
         android:visibility="gone"
@@ -64,7 +66,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_secondary"
         android:backgroundTint="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/create_add_list_dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -78,20 +80,20 @@
         app:layout_constraintTop_toBottomOf="@+id/text_all_list_dialog" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/create_add_list_dialog"
+        style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/button_primary"
         android:layout_marginBottom="16dp"
-        android:text="Nueva lista"
+        android:background="@drawable/button_primary"
+        android:text="@string/add_list_dialog_btn_text"
         android:textColor="@color/black"
         app:icon="@drawable/icons_add_machine"
+        app:iconGravity="textStart"
         app:iconSize="23dp"
         app:iconTint="@color/black"
-        app:iconGravity="textStart"
-        style="@style/Widget.MaterialComponents.Button.Icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

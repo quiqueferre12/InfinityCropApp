@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,10 +25,17 @@ import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.example.infinitycropapp.ui.pojos.ItemMachine;
 import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +97,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                 public void onClick(View v) {
 
                     Firestore firestore=new Firestore();
-
+                    String idUser = firestore.GetIdUser(); //get the user id
                     //set the bottom sheet
                     BottomSheetDialog optionsBottomSheet = new BottomSheetDialog(context);
                     //set the layout of the bottom sheet
@@ -155,6 +163,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                                 public void onClick(DialogInterface dialog, int which) {
                                     firestore.DeleteMachine("Machine",pojoItem, idDocument);
                                     optionsBottomSheet.dismiss();
+                                    //actualizamos el rv
                                     itemMachines.remove(position);
                                     notifyItemRemoved(position);
                                     notifyDataSetChanged();
@@ -176,26 +185,19 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
 
                             Dialog dialog= new Dialog(context);
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                            dialog.setCancelable(true);
+                            dialog.setCancelable(true); //al pulsar fuera del dialog se quita
                             dialog.setContentView(R.layout.add_list_dialog);
                             //set the correct width
                             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             //findById
                             ImageView back=dialog.findViewById(R.id.back_add_list_dialog);
+                            Button btn_create= dialog.findViewById(R.id.create_add_list_dialog);
                             TextView textAllList=dialog.findViewById(R.id.text_all_list_dialog);
                             RecyclerView rv_playlist=dialog.findViewById(R.id.rv_playlist_item_add_list);
                             List<ItemPlaylist> itemPlaylistsAddList=new ArrayList<>();; //lista de pojos
                             AdapterItemPlaylistAddList adapterItemPlaylistAddList;
-                            //onlclick methods
-                            back.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                }
-                            });
-
                             //methods
-
+                            FirebaseFirestore db2= FirebaseFirestore.getInstance();//firebase
                             //defino que el rv no tenga fixed size
                             rv_playlist.setHasFixedSize(true);
                             //manejador para declarar la direccion de los items del rv
@@ -203,15 +205,18 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                             //get data for rv
                             itemPlaylistsAddList.clear();
 
-                            itemPlaylistsAddList.add(new ItemPlaylist("Favoritos"));
-                            itemPlaylistsAddList.add(new ItemPlaylist("RUN"));
-                            itemPlaylistsAddList.add(new ItemPlaylist("temasos Cuarentena"));
+                            itemPlaylistsAddList.add(new ItemPlaylist(context.getResources().getString(R.string.step3_favorite)));
+                            //get the playlist of the user
+
 
 
                             adapterItemPlaylistAddList=new AdapterItemPlaylistAddList(itemPlaylistsAddList,context);
                             //declaro que cual es el adaptador el rv
                             rv_playlist.setAdapter(adapterItemPlaylistAddList);
 
+                            //quitamos el shimmer effect
+                            adapterItemPlaylistAddList.showShimmer=false;
+                            adapterItemPlaylistAddList.notifyDataSetChanged();
                             //si hay playlist creados por el user , muestra un texto que esta en gone por default
                             if(adapterItemPlaylistAddList.getItemCount() > 1){
                                 textAllList.setVisibility(View.VISIBLE);
@@ -220,6 +225,104 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                             }
 
                             //FIN ->methods
+                            //onlclick methods
+                            back.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    //cerrar el anterior dialog
+                                    dialog.dismiss();
+                                }
+                            });
+                            //btn nueva lista
+                            btn_create.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    //cerrar el anterior dialog
+                                    dialog.dismiss();
+
+                                    Dialog createList_dialog= new Dialog(context);
+                                    createList_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                    createList_dialog.setCancelable(true); //al pulsar fuera del dialog se quita
+                                    createList_dialog.setContentView(R.layout.create_list_dialog);
+                                    //set the correct width
+                                    createList_dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    //findById
+                                    ImageView back= createList_dialog.findViewById(R.id.create_list_btn_back);
+                                    ImageView check= createList_dialog.findViewById(R.id.create_list_btn_check);
+                                    TextInputEditText nameList= createList_dialog.findViewById(R.id.create_list_name_input_dialog);
+                                    TextInputLayout layout_nameList= createList_dialog.findViewById(R.id.create_list_layout_input_dialog);
+                                    //methods
+                                    // FIN -> methods
+                                    //onclick methods
+                                    back.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            createList_dialog.dismiss();
+                                            dialog.show();
+                                        }
+                                    });
+
+                                    check.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            String textInput=nameList.getText().toString(); //get the texto of the input
+                                            //if is empty
+                                            if(textInput.equals("")){
+                                                layout_nameList.setErrorEnabled(true); // activate error
+                                                //text error
+                                                layout_nameList.setError(context.getString(R.string.error_a_lot_text_editext_list));
+                                            }else if(layout_nameList.getCounterMaxLength() < textInput.length()) { //error length max
+                                                layout_nameList.setErrorEnabled(true); // activate error
+                                                //text error
+                                                layout_nameList.setError(context.getString(R.string.error_a_lot_text_editext_list));
+                                            }else{ //comprobar si el nombre existe
+                                                if(idUser != null){
+                                                    db2.collection("Playlist machine") //busco en la collection
+                                                            .whereEqualTo("creatorID", idUser ) //saco todas las listas del user
+                                                            .get()
+                                                            .addOnCompleteListener(task -> {
+                                                                if(task.isSuccessful()){ //si all gucci
+                                                                    QuerySnapshot document = task.getResult(); //get result
+                                                                    int cont=0;
+                                                                    for (QueryDocumentSnapshot doc : document) {
+                                                                        if(doc.getString("name").equals(textInput)){ //si ya existe ese nombre
+                                                                            cont++; // ++
+                                                                            break; //como solo puede existir 1 nombre por user , salimos del for
+                                                                        }
+                                                                    }
+
+                                                                    if (cont >= 1) { //ese campo ya existe
+                                                                        layout_nameList.setErrorEnabled(true); // activate error
+                                                                        //text error
+                                                                        layout_nameList.setError(context.getString(R.string.error_name_exists_list));
+                                                                    } else { //no existe
+                                                                        // all gucci
+                                                                        layout_nameList.setErrorEnabled(false);
+                                                                        //convert data to pojo
+                                                                        ItemPlaylist playlist= new ItemPlaylist(textInput);
+                                                                        // call firestore to create new list
+                                                                        firestore.AddPlaylist("Playlist machine", playlist, idDocument);
+                                                                        //exit dialog
+                                                                        createList_dialog.dismiss();
+                                                                        //set snackbar action
+                                                                        String listMessage= " "+"'"+textInput+"'."; //mensaje con el nombre de la lista
+                                                                        String snackBarMessage= context.getString(R.string.snack_playlist_add)+listMessage;
+                                                                        ((HomeListMachineFragment) fragment).setSnackbar(snackBarMessage);
+                                                                    }
+                                                                }
+                                                            });
+                                                }
+                                            }
+                                        }
+                                    });
+                                    // FIN -> onclick methods
+
+                                    createList_dialog.show();
+                                }
+                            });
+
+                            // FIN -> onlclick methods
+
 
 
 

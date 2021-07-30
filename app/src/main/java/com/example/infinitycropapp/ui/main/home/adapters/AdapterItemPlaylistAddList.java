@@ -21,7 +21,7 @@ public class AdapterItemPlaylistAddList extends RecyclerView.Adapter<AdapterItem
     //atributes
     private List<ItemPlaylist> itemPlaylists; //lista de pojos
     private Context context; //contexto
-    public boolean showShimmer=false; //mostrar o no loader
+    public boolean showShimmer=true; //mostrar o no loader
 
     public AdapterItemPlaylistAddList(List<ItemPlaylist> itemPlaylists, Context context) {
         this.itemPlaylists = itemPlaylists;
@@ -40,14 +40,21 @@ public class AdapterItemPlaylistAddList extends RecyclerView.Adapter<AdapterItem
     @Override
     public void onBindViewHolder(@NonNull ItemPlaylistAddListHolder holder, int position) {
         if(showShimmer){ //modo carga
-            holder.shimmer.startShimmer();
-            holder.namePlaylist.setVisibility(View.INVISIBLE);
-            holder.numPlaylist.setVisibility(View.INVISIBLE);
+            holder.shimmerText.startShimmer();
+            holder.shimmerNumMachinetext.startShimmer();
+            holder.namePlaylist.setText("");
+            //COMO el num de maquinas no puede estar vacio porque sino no se ve al no estar pegado a algo como el nombre
+            //quitamos el shimmer directamente
+            holder.shimmerNumMachinetext.setVisibility(View.GONE);
         }else{
-            holder.shimmer.stopShimmer();
-            holder.shimmer.setShimmer(null); //remove shimmer
-            holder.namePlaylist.setVisibility(View.VISIBLE);
+            holder.shimmerText.stopShimmer();
+            holder.shimmerNumMachinetext.stopShimmer();
+            holder.shimmerText.setShimmer(null); //remove shimmer
+            holder.shimmerNumMachinetext.setShimmer(null); //remove shimmer
             holder.numPlaylist.setVisibility(View.VISIBLE);
+            //quitar fondo gris de carga del item
+            holder.namePlaylist.setBackground(null);
+            holder.numPlaylist.setBackground(null);
 
             //get the item
             ItemPlaylist pojoItem= itemPlaylists.get(position);
@@ -62,7 +69,7 @@ public class AdapterItemPlaylistAddList extends RecyclerView.Adapter<AdapterItem
 
     @Override
     public int getItemCount() {
-        int itemLoading=6; //numero de items animacion de cargar
+        int itemLoading=4; //numero de items animacion de cargar
         if(showShimmer){
             return itemLoading;
         }else{
@@ -76,11 +83,13 @@ public class AdapterItemPlaylistAddList extends RecyclerView.Adapter<AdapterItem
         protected ConstraintLayout itemLayout;
         protected TextView namePlaylist;
         protected TextView numPlaylist;
-        protected ShimmerFrameLayout shimmer;
+        protected ShimmerFrameLayout shimmerText;
+        protected ShimmerFrameLayout shimmerNumMachinetext;
         public ItemPlaylistAddListHolder(@NonNull View itemView) {
             super(itemView);
 
-            shimmer=itemView.findViewById(R.id.shimmer_playlist_item_add_list);
+            shimmerText=itemView.findViewById(R.id.shimmer_text_add_list_item);
+            shimmerNumMachinetext=itemView.findViewById(R.id.shimmer_text2_add_list_item);
             itemLayout=itemView.findViewById(R.id.add_list_layout_playlist_item);
             namePlaylist=itemView.findViewById(R.id.add_list_name_playlist_item);
             numPlaylist=itemView.findViewById(R.id.add_list_num_playlist_item);
