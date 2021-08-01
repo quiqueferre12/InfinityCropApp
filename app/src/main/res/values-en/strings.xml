@@ -50,7 +50,7 @@
     <string name="txt_myMachine">My machines ></string>
     <string name="playlist_all">All</string>
     <!-- Inicio: BottomSheet textos -->
-    <string name="edit_item">Edit</string>
+    <string name="edit_item">Edit name</string>
     <string name="delete_item">Delete</string>
     <string name="addFavorite_item">Add to favorites</string>
     <string name="quitFavorite_item">Remove from favorites</string>
@@ -162,6 +162,7 @@
     <string name="snack_playlist_add">Saved machine in the list</string>
     <string name="snack_playlist_already_favorite">This machine is already in favorites.</string>
     <string name="snack_playlist_document_playlist_exists">This machine is already on the list</string>
+    <string name="snack_machine_edit_name">Machine updated correctly.</string>
     <!-- Error text of the editext inputs-->
     <string name="error_empty_editext">Please enter a valid name</string>
     <string name="error_a_lot_text_editext">Please enter a valid name</string>
@@ -187,4 +188,6 @@
     <!-- item machine -> dialog new list -->
     <string name="create_list_dialog_tittle">Create List</string>
     <string name="create_list_dialog_input_text">Title</string>
+    <!-- edit name machine dialog -->
+    <string name="edit_name_machine_tittle">Edit machine name</string>
 </resources>

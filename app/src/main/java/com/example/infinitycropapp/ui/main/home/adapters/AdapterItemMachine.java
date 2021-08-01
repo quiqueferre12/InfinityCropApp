@@ -373,11 +373,66 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                         }
                     });
 
-                    //edit machine bottom sheet button
+                    //edit machine bottom sheet button -> abre un dialog
                     editMachine.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            //cerrar el bottom sheet al pulsar add list
+                            optionsBottomSheet.dismiss();
 
+                            Dialog dialogEditName= new Dialog(context);
+                            dialogEditName.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialogEditName.setCancelable(true); //al pulsar fuera del dialog se quita
+                            dialogEditName.setContentView(R.layout.edit_machine_dialog);
+                            //set the correct width
+                            dialogEditName.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            //findById
+                            ImageView back=dialogEditName.findViewById(R.id.edit_name_machine_btn_back);
+                            ImageView check=dialogEditName.findViewById(R.id.edit_name_machine_btn_check);
+                            TextInputLayout layoutInput=dialogEditName.findViewById(R.id.edit_name_machine_layout_input);
+                            TextInputEditText input=dialogEditName.findViewById(R.id.edit_name_machine_input);
+
+                            //methods & Attributes
+                            input.setText(pojoItem.getName());
+
+                            // FIN -> methods & Attributes
+
+                            //onclick
+                            back.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialogEditName.dismiss();
+                                    optionsBottomSheet.show();
+                                }
+                            });
+                            check.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String textInput = input.getText().toString(); //get the texto of the input
+                                    if (textInput.equals("")) { //si no hay nombre en el editext
+                                        layoutInput.setErrorEnabled(true); //activar error
+                                        layoutInput.setError(context.getString(R.string.error_empty_editext)); //set texto error
+                                    } else //si la longitud del nombre es mayor de la maxima permitida
+                                        if (layoutInput.getCounterMaxLength() < textInput.length()) {
+                                            layoutInput.setErrorEnabled(true);
+                                            layoutInput.setError(context.getString(R.string.error_a_lot_text_editext));
+                                        } else { //si all gucci
+                                            layoutInput.setErrorEnabled(false); //quitar lo rojo del error
+                                            //call to method in firestore class to update the name of the machine
+                                            pojoItem.setName(textInput);
+                                            firestore.UpdateNameMachine("Machine" , pojoItem , idDocument);
+                                            //close dialog
+                                            dialogEditName.dismiss();
+                                            // notify rv are changed
+                                            notifyDataSetChanged();
+                                            //set snackbar
+                                            String message= context.getString(R.string.snack_machine_edit_name);
+                                            ((HomeListMachineFragment) fragment).setSnackbar(message);
+                                        }
+                                }
+                            });
+                            //FIN -> onclick
+                            dialogEditName.show();
                         }
                     });
 

@@ -82,6 +82,12 @@ public class Firestore {
         }
     }
 
+    public void UpdateNameMachine(String collection, ItemMachine machine , String idDocument){
+        if(collection != null && machine != null && idDocument != null) { //si todos los datos existen
+            db.collection(collection).document(idDocument).update("name",machine.getName());
+        }
+    }
+
     public void setFavoriteMachine(String collection, ItemMachine machine, String idDocument, boolean favorite){
         if(collection != null && machine != null) { //si todos los datos existen
 
