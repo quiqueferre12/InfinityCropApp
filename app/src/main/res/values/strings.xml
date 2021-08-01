@@ -157,6 +157,8 @@
     <string name="snack_machine_quit_favorite">Máquina quitada de tus favoritos.</string>
     <string name="snack_machine_delete">Se ha eliminado la máquina.</string>
     <string name="snack_playlist_add">Máquina guardada en la lista</string>
+    <string name="snack_playlist_already_favorite">Esta máquina ya está en favoritos.</string>
+    <string name="snack_playlist_document_playlist_exists">Esta máquina ya está en la lista</string>
     <!-- Error text of the editext inputs-->
     <string name="error_empty_editext">Introduce un nombre válido</string>
     <string name="error_a_lot_text_editext">Introduce un nombre válido</string>
@@ -177,6 +179,9 @@
     <string name="add_list_dialog_tittle">Añadir a lista de máquinas</string>
     <string name="add_list_dialog_subtittle">Todas las listas de máquinas</string>
     <string name="add_list_dialog_btn_text">Nueva lista</string>
+    <string name="add_list_dialog_empty_playlist">Vacío</string>
+    <string name="add_list_dialog_more_playlist">máquinas</string>
+    <string name="add_list_dialog_one_playlist">máquina</string>
     <!-- item machine -> dialog new list -->
     <string name="create_list_dialog_tittle">Crear lista</string>
     <string name="create_list_dialog_input_text">Título</string>

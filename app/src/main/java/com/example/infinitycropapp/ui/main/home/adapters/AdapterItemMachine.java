@@ -33,6 +33,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -48,6 +49,15 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
     private Context context; //contexto
     public boolean showShimmer=true; //mostrar o no loader
     private Fragment fragment;
+
+    //add list rv playlist
+    private List<ItemPlaylist> itemPlaylistsAddList=new ArrayList<>(); //lista de pojos
+    private List<String> playlistAddListString= new ArrayList<>();
+    private AdapterItemPlaylistAddList adapterItemPlaylistAddList;
+    private FirebaseFirestore db2= FirebaseFirestore.getInstance();//firebase
+    private Firestore firestore=new Firestore();
+    private String idUser= firestore.GetIdUser(); //get the user id
+
 
     public AdapterItemMachine(List<ItemMachine> itemMachines, List<String> itemIDs , Context context, Fragment fragment) {
         this.itemMachines = itemMachines;
@@ -95,9 +105,6 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
             holder.options_machine.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Firestore firestore=new Firestore();
-                    String idUser = firestore.GetIdUser(); //get the user id
                     //set the bottom sheet
                     BottomSheetDialog optionsBottomSheet = new BottomSheetDialog(context);
                     //set the layout of the bottom sheet
@@ -192,40 +199,80 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                             //findById
                             ImageView back=dialog.findViewById(R.id.back_add_list_dialog);
                             Button btn_create= dialog.findViewById(R.id.create_add_list_dialog);
-                            TextView textAllList=dialog.findViewById(R.id.text_all_list_dialog);
                             RecyclerView rv_playlist=dialog.findViewById(R.id.rv_playlist_item_add_list);
-                            List<ItemPlaylist> itemPlaylistsAddList=new ArrayList<>();; //lista de pojos
-                            AdapterItemPlaylistAddList adapterItemPlaylistAddList;
                             //methods
-                            FirebaseFirestore db2= FirebaseFirestore.getInstance();//firebase
+
                             //defino que el rv no tenga fixed size
                             rv_playlist.setHasFixedSize(true);
                             //manejador para declarar la direccion de los items del rv
                             rv_playlist.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
-                            //get data for rv
-                            itemPlaylistsAddList.clear();
-
-                            itemPlaylistsAddList.add(new ItemPlaylist(context.getResources().getString(R.string.step3_favorite)));
-                            //get the playlist of the user
-
-
-
-                            adapterItemPlaylistAddList=new AdapterItemPlaylistAddList(itemPlaylistsAddList,context);
+                            adapterItemPlaylistAddList=new AdapterItemPlaylistAddList(itemPlaylistsAddList,playlistAddListString,context);
                             //declaro que cual es el adaptador el rv
                             rv_playlist.setAdapter(adapterItemPlaylistAddList);
-
-                            //quitamos el shimmer effect
-                            adapterItemPlaylistAddList.showShimmer=false;
-                            adapterItemPlaylistAddList.notifyDataSetChanged();
-                            //si hay playlist creados por el user , muestra un texto que esta en gone por default
-                            if(adapterItemPlaylistAddList.getItemCount() > 1){
-                                textAllList.setVisibility(View.VISIBLE);
-                            }else{
-                                textAllList.setVisibility(View.GONE);
-                            }
-
+                            //get data for rv
+                            itemPlaylistsAddList.clear();
+                            playlistAddListString.clear();
+                            itemPlaylistsAddList.add(new ItemPlaylist(context.getResources().getString(R.string.step3_favorite)));
+                            //get the playlist of the user
+                            getPlaylistUser();
                             //FIN ->methods
+
                             //onlclick methods
+                            //onclick item rv playlist add list
+                            adapterItemPlaylistAddList.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    int position=rv_playlist.getChildLayoutPosition(v);
+                                    ItemPlaylist playlistClick=itemPlaylistsAddList.get(position);
+                                    final String[] message = {""};
+                                    //si es la playlist de favoritos
+                                    if(playlistClick.getName().equals(context.getString(R.string.step3_favorite))){
+                                        //si ya esta en favoritos
+                                        if(pojoItem.isFavorite()){
+                                            //texto para snackbar de que ya esta en favoritos
+                                            message[0] = context.getString(R.string.snack_playlist_already_favorite) ;
+                                        }else{ //add to favorites
+                                            message[0] = context.getString(R.string.snack_machine_favorite) ;
+                                            //ponerlo como favorito en firestore
+                                            firestore.setFavoriteMachine("Machine",pojoItem, idDocument, true);
+                                        }
+                                        //cerrar dialog
+                                        dialog.dismiss();
+                                        //llamar a la funcion que hace el snackbar
+                                        ((HomeListMachineFragment) fragment).setSnackbar(message[0]);
+                                    }else{
+                                        //get the id of the clicked docuemnt (es -1 por la playlist por defecto favorites)
+                                        String idPlaylistClick=playlistAddListString.get(position-1);
+
+                                        //comprobar si esa maquina ya esta en la palylist o no
+                                        db2.collection("Playlist machine").document(idPlaylistClick)
+                                                .collection("Machines").document(idDocument)
+                                                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()) { //si es doc existe
+                                                        String listMessage= " "+"'"+playlistClick.getName()+"'."; //mensaje con el nombre de la lista
+                                                        message[0] = context.getString(R.string.snack_playlist_document_playlist_exists)+listMessage;
+                                                    } else { //sino existe
+                                                        //set message for snackbar
+                                                        String listMessage= " "+"'"+playlistClick.getName()+"'."; //mensaje con el nombre de la lista
+                                                        message[0] = context.getString(R.string.snack_playlist_add)+listMessage;
+                                                        //add the machine into the collection playlist -> doc -> collection -> add
+                                                        firestore.addMachineToPlaylist("Playlist machine", idDocument , idPlaylistClick);
+                                                    }
+                                                    //cerrar dialog
+                                                    dialog.dismiss();
+                                                    //llamar a la funcion que hace el snackbar
+                                                    ((HomeListMachineFragment) fragment).setSnackbar(message[0]);
+                                                } else { }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                            //onclick close dialog
                             back.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -322,10 +369,6 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                             });
 
                             // FIN -> onlclick methods
-
-
-
-
                             dialog.show();
                         }
                     });
@@ -342,6 +385,29 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                 }
             });
         }
+    }
+    //metodo para rellenar la lista de playlist add list
+    private void getPlaylistUser(){
+        db2.collection("Playlist machine")
+                .whereEqualTo("creatorID", idUser)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ItemPlaylist itemPlaylist=document.toObject(ItemPlaylist.class);
+                                itemPlaylistsAddList.add(itemPlaylist);
+                                playlistAddListString.add(document.getId()); //guardo los ids de los doc en otra lista
+                            }
+                            //quitamos el shimmer effect
+                            adapterItemPlaylistAddList.showShimmer=false;
+                            adapterItemPlaylistAddList.notifyDataSetChanged();
+                        } else {
+
+                        }
+                    }
+                });
     }
 
     @Override

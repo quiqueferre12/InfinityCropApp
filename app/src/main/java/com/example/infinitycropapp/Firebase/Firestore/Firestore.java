@@ -108,18 +108,22 @@ public class Firestore {
                                 //cuando creamos la playlist la maquina que queriamos anyadir a una playlist
                                 //se anyade a una subcollecion del documento que se acaba de crear
                                 String id=documentReference.getId();
-                                //necesitamos anyadir un campo a un docuemnto
-                                //ya que no puede estar vacio sin campos
-                                Map<String, Object> machine = new HashMap<>();
-                                machine.put("idMachine", idMachine);
-                                // collection -> document -> collection -> add document
-                                db.collection(collection).document(id)
-                                        .collection("Machines").document(idMachine).set(machine);
+                                addMachineToPlaylist(collection ,idMachine , id);
 
                             }
                         });
             }
         }
+    }
+
+    public void addMachineToPlaylist(String collection,String idMachine , String idPlaylist){
+        //necesitamos anyadir un campo a un docuemnto
+        //ya que no puede estar vacio sin campos
+        Map<String, Object> machine = new HashMap<>();
+        machine.put("idMachine", idMachine);
+        // collection -> document -> collection -> add document
+        db.collection(collection).document(idPlaylist)
+                .collection("Machines").document(idMachine).set(machine);
     }
     // FIN -> playlist method
 }
