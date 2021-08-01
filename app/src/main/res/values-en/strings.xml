@@ -189,5 +189,5 @@
     <string name="create_list_dialog_tittle">Create List</string>
     <string name="create_list_dialog_input_text">Title</string>
     <!-- edit name machine dialog -->
-    <string name="edit_name_machine_tittle">Edit machine name</string>
+    <string name="edit_name_machine_tittle">Edit name</string>
 </resources>
