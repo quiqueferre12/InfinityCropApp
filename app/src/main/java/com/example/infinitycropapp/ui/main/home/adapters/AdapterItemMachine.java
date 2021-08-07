@@ -45,11 +45,10 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
 
     //attributes
     private List<ItemMachine> itemMachines; //lista de pojos
-    private List<String> itemIDs= new ArrayList<>(); // list of id string
+    private List<String> itemIDs; // list of id string
     private Context context; //contexto
     public boolean showShimmer=true; //mostrar o no loader
     private Fragment fragment;
-
     //add list rv playlist
     private List<ItemPlaylist> itemPlaylistsAddList=new ArrayList<>(); //lista de pojos
     private List<String> playlistAddListString= new ArrayList<>();
@@ -94,7 +93,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
             holder.item_machine.setBackgroundTintList(null); //quitar el tinte (color) gris del loader
 
             //get the item
-            final ItemMachine pojoItem= itemMachines.get(position); // get the item pojo
+            ItemMachine pojoItem= itemMachines.get(position); // get the item pojo
             String idDocument= itemIDs.get(position); //get the id of the current document
 
             //set the attributes
@@ -112,7 +111,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                     //findByid
                     ConstraintLayout editMachine= optionsBottomSheet.findViewById(R.id.edit_machineItem);
                     ConstraintLayout deleteMachine= optionsBottomSheet.findViewById(R.id.delete_machineItem);
-                    ConstraintLayout addListMachine= optionsBottomSheet.findViewById(R.id.addList_machineItem);
+                    //ConstraintLayout addListMachine= optionsBottomSheet.findViewById(R.id.addList_machineItem);
                     ConstraintLayout addFavoriteMachine= optionsBottomSheet.findViewById(R.id.favorite_bs_machineItem);
                     ImageView image_favoriteMachine=optionsBottomSheet.findViewById(R.id.favorite_bs_image);
                     TextView text_favoriteMachine=optionsBottomSheet.findViewById(R.id.favorite_bs_text);
@@ -135,7 +134,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                                 //ponerlo como favorito
                                 firestore.setFavoriteMachine("Machine",pojoItem, idDocument, true);
                             }
-                            notifyItemInserted(position);
+                            notifyItemChanged(position);
                             notifyDataSetChanged();
                             //refrescar los rv del fragment
                             ((HomeListMachineFragment) fragment).RefreshRv();
@@ -182,8 +181,9 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                             alertDialogBuilder.show();
                         }
                     });
-
+                    //playlist add / create
                     //add list machine bottom sheet button
+                    /*
                     addListMachine.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -372,7 +372,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                             dialog.show();
                         }
                     });
-
+                     */
                     //edit machine bottom sheet button -> abre un dialog
                     editMachine.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -442,6 +442,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
         }
     }
     //metodo para rellenar la lista de playlist add list
+    /*
     private void getPlaylistUser(){
         db2.collection("Playlist machine")
                 .whereEqualTo("creatorID", idUser)
@@ -463,8 +464,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                         }
                     }
                 });
-    }
-
+    }     */
     @Override
     public int getItemCount() {
         int itemLoading=6; //numero de items animacion de cargar

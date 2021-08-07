@@ -74,7 +74,6 @@ public class HomeListMachineFragment extends Fragment {
     private List<ItemPlaylist> itemPlaylists=new ArrayList<>(); //playlist
     private List<ItemMachine> itemMachines=new ArrayList<>(); //machines
     private List<String> itemIDs= new ArrayList<>(); // list of id string
-    private List<String> playlistOfMachines=new ArrayList<>(); //machines
     //firebase
     private FirebaseFirestore db;
     //buttons,images && elements ...
@@ -114,10 +113,8 @@ public class HomeListMachineFragment extends Fragment {
         initRvMachines(); //init rv machines
         getItemPlaylist(); //get data to rv playlist
         setPlaylistDatos(); //set playlist data
-        setMachineDatos("All",null); //set all machines
+        setMachineDatos("All"); //set all machines
         swipeDownToRefresh(); //swipe down to refresh
-
-
         return v;
     }
     // init Rvs
@@ -162,14 +159,11 @@ public class HomeListMachineFragment extends Fragment {
                         String nameCurrent=itemPlaylist.getName();
                         //Toast.makeText(getContext(),itemPlaylist.getName() ,Toast.LENGTH_SHORT).show();
                         if(nameCurrent.equals("All") || nameCurrent.equals("Todas")){
-                            setMachineDatos("All",itemPlaylist);
+                            setMachineDatos("All");
                         }else
                             if (nameCurrent.equals("Favorites") || nameCurrent.equals("Favoritos")){
-                                setMachineDatos("Favorites",itemPlaylist);
-                        }else{
-                            setMachineDatos("",itemPlaylist);
+                                setMachineDatos("Favorites");
                         }
-
                         return true;
                     }
                 }catch (Exception e){
@@ -217,13 +211,11 @@ public class HomeListMachineFragment extends Fragment {
         adapterItemPlaylist.notifyDataSetChanged();
         getItemPlaylist(); //get data to rv playlist
         setPlaylistDatos();
-        setMachineDatos("All",null);
+        setMachineDatos("All");
     }
 
     private void setPlaylistDatos(){
         itemPlaylists.clear();
-        Firestore firestore=new Firestore();
-        String id=firestore.GetIdUser();
         //elementos de prueba
         try { //sin el try catch al volver atras al tutorial y entrar otra vez muere to fuerte
             itemPlaylists.add(new ItemPlaylist(getResources().getString(R.string.playlist_all)));
@@ -231,7 +223,20 @@ public class HomeListMachineFragment extends Fragment {
 
         }
         itemPlaylists.add(new ItemPlaylist(getResources().getString(R.string.step3_favorite)));
-        db.collection("Playlist machine")
+        //dismiss loader
+        adapterItemPlaylist.showShimmer= false;
+        adapterItemPlaylist.notifyDataSetChanged();
+        refreshRv.setRefreshing(false);
+    }
+
+    private void setMachineDatos(String filtro){
+        getItemMachines();
+        adapterItemMachine.showShimmer= true;
+        adapterItemMachine.notifyDataSetChanged();
+        Firestore firestore=new Firestore();
+        String id=firestore.GetIdUser();
+        //si es una playlist
+        db.collection("Machine")
                 .whereEqualTo("creatorID", id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -239,99 +244,36 @@ public class HomeListMachineFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                ItemPlaylist itemPlaylist=document.toObject(ItemPlaylist.class);
-                                itemPlaylists.add(itemPlaylist);
+                                ItemMachine itemMachine=document.toObject(ItemMachine.class);
+                                if(filtro.equals("All")){
+                                    itemIDs.add(document.getId());
+                                    itemMachines.add(itemMachine);
+                                }else if(filtro.equals("Favorites")){
+                                    if(itemMachine.isFavorite()){
+                                        itemIDs.add(document.getId());
+                                        itemMachines.add(itemMachine);
+                                    }
+                                }
                             }
                             //dismiss loader
-                            adapterItemPlaylist.showShimmer= false;
-                            adapterItemPlaylist.notifyDataSetChanged();
+                            adapterItemMachine.showShimmer= false;
+                            //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
+                            //si el recyclerView esta vacio
+                            if(adapterItemMachine.getItemCount() == 0 ){
+                                rv_machine.setVisibility(View.GONE); //ocultar rv
+                                empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
+                            }else{ //sino
+                                rv_machine.setVisibility(View.VISIBLE); //mostras rv con sus items
+                                empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
+                            }
+                            adapterItemMachine.notifyDataSetChanged();
                             refreshRv.setRefreshing(false);
                         } else {
 
                         }
                     }
                 });
-    }
 
-    private void setMachineDatos(String filtro, ItemPlaylist itemPlaylist){
-        getItemMachines();
-        itemMachines.clear();
-        playlistOfMachines.clear();
-        itemIDs.clear();
-        adapterItemMachine.showShimmer= true;
-        adapterItemMachine.notifyDataSetChanged();
-        Firestore firestore=new Firestore();
-        String id=firestore.GetIdUser();
-
-        //si la playlist es creada por el user
-        if(!filtro.equals("All") && !filtro.equals("Favorites")){
-            // get all documento of collection playlist -> docuemnt -> coll Machine -> bucle doc
-            db.collection("Playlist machine").document(itemPlaylist.getCreatorID())
-                    .collection("Machines")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    //almaceno los ids de las maquinas que pertenecen a esa playlist
-                                    playlistOfMachines.add(document.getId());
-                                }
-                            } else {
-                                //error not found
-                            }
-                        }
-                    });
-
-        }else{
-            //si es una playlist
-            db.collection("Machine")
-                    .whereEqualTo("creatorID", id)
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    ItemMachine itemMachine=document.toObject(ItemMachine.class);
-                                    itemIDs.add(document.getId());
-                                    if(filtro.equals("All")){
-                                        itemMachines.add(itemMachine);
-                                    }else if(filtro.equals("Favorites")){
-                                        if(itemMachine.isFavorite()){
-                                            itemMachines.add(itemMachine);
-                                        }
-                                    }else{
-                                        if(itemPlaylist != null){
-                                            if(!playlistOfMachines.isEmpty()){ //si no esta vacio
-                                                for(String id: playlistOfMachines){ //recorro all los id de las maq
-                                                    if(document.getId().equals(id)){ //si son iguales
-                                                        itemMachines.add(itemMachine);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                //dismiss loader
-                                adapterItemMachine.showShimmer= false;
-                                //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
-                                //si el recyclerView esta vacio
-                                if(adapterItemMachine.getItemCount() == 0 ){
-                                    rv_machine.setVisibility(View.GONE); //ocultar rv
-                                    empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
-                                }else{ //sino
-                                    rv_machine.setVisibility(View.VISIBLE); //mostras rv con sus items
-                                    empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
-                                }
-                                adapterItemMachine.notifyDataSetChanged();
-                                refreshRv.setRefreshing(false);
-                            } else {
-
-                            }
-                        }
-                    });
-        }
     }
 
     //set snackbar method
