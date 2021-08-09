@@ -17,6 +17,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.InfinityCrop">
+        <activity android:name=".ui.main.home.models.IC6Activity"></activity>
         <activity android:name=".ui.main.home.newMachine.NewMachineActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

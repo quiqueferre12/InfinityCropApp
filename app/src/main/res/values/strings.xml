@@ -188,4 +188,30 @@
     <string name="create_list_dialog_input_text">Título</string>
     <!-- edit name machine dialog -->
     <string name="edit_name_machine_tittle">Editar nombre</string>
+
+    <!-- control panel machine -->
+    <!-- general -->
+    <string name="machine_control_subtitle">Datos generales ></string>
+    <string name="machine_control_txt_temp">Temperatura</string>
+    <string name="machine_control_txt_luz">Luminosidad</string>
+    <string name="machine_control_txt_hum">Humedad</string>
+    <string name="machine_control_txt_depos">Deposito</string>
+    <string name="machine_control_txt_temp_cortado">Temp.</string>
+    <string name="machine_control_txt_luz_cortado">Lumin.</string>
+    <string name="machine_control_txt_hum_cortado">Hum.</string>
+    <string name="machine_control_txt_riego_activo">Activo</string>
+    <string name="machine_control_txt_riego_inactivo">Inactivo</string>
+    <string name="machine_control_txt_riego">Riego:</string>
+    <string name="machine_control_txt_parte_superior">PARTE SUPERIOR</string>
+    <string name="machine_control_txt_parte_inferior">PARTE INFERIOR</string>
+    <!-- general -> acciones/modos -->
+    <string name="machine_control_txt_extraccion_on">Extracción on</string>
+    <string name="machine_control_txt_extraccion_off">Extracción off</string>
+    <string name="machine_control_txt_engine_on">Iniciar máquina</string>
+    <string name="machine_control_txt_engine_off">Apagar máquina</string>
+    <string name="machine_control_txt_clima_on">Clima on</string>
+    <string name="machine_control_txt_clima_of">Clima off</string>
+
+    <!-- ic6 model -->
+    <string name="ic6_model_title">Su modelo IC6</string>
 </resources>

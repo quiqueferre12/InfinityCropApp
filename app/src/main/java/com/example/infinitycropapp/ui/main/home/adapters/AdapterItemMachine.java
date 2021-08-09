@@ -3,6 +3,7 @@ package com.example.infinitycropapp.ui.main.home.adapters;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
+import com.example.infinitycropapp.ui.main.home.models.IC6Activity;
 import com.example.infinitycropapp.ui.pojos.ItemMachine;
 import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -101,6 +103,16 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
             holder.model_machine.setText(pojoItem.getModel()); //set model
 
             //onclick methods
+            //entrar en el panel de control de la maquina
+            holder.enter_machine.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //comprobar que modelo es y entrar en el activity adecuado
+                    Intent intent = new Intent(context, IC6Activity.class);
+                    context.startActivity(intent);
+                }
+            });
+            //options of machine
             holder.options_machine.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
