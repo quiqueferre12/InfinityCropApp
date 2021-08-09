@@ -399,8 +399,8 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                             //set the correct width
                             dialogEditName.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                             //findById
-                            ImageView back=dialogEditName.findViewById(R.id.edit_name_machine_btn_back);
-                            ImageView check=dialogEditName.findViewById(R.id.edit_name_machine_btn_check);
+                            ConstraintLayout back=dialogEditName.findViewById(R.id.edit_name_machine_btn_back);
+                            ConstraintLayout check=dialogEditName.findViewById(R.id.edit_name_machine_btn_check);
                             TextInputLayout layoutInput=dialogEditName.findViewById(R.id.edit_name_machine_layout_input);
                             TextInputEditText input=dialogEditName.findViewById(R.id.edit_name_machine_input);
 

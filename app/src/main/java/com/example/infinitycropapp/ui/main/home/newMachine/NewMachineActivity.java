@@ -2,6 +2,7 @@ package com.example.infinitycropapp.ui.main.home.newMachine;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -48,18 +49,18 @@ public class NewMachineActivity extends AppCompatActivity {
     private  boolean isStep2Done = false;
     private  boolean isStep3Done = false;
     //back button
-    private ImageView backButton;
+    private ConstraintLayout backButton;
     //confirm create machine button
-    private ImageView confirmButton;
+    private ConstraintLayout confirmButton;
     //step 2 bottom sheet
     private TextInputEditText name_machineInput;
-    private ImageView quit_step2_bottom_sheet;
-    private ImageView confirm_step2_bottom_sheet;
+    private ConstraintLayout quit_step2_bottom_sheet;
+    private ConstraintLayout confirm_step2_bottom_sheet;
     private CheckBox checkbox_step2_bottom_sheet;
     private TextInputLayout layout_name_machineInput;
     //step 3 bottom sheet
-    private ImageView quit_step3_bottom_sheet;
-    private ImageView confirm_step3_bottom_sheet;
+    private ConstraintLayout quit_step3_bottom_sheet;
+    private ConstraintLayout confirm_step3_bottom_sheet;
     private TextView step3_model_text;
     private TextView step3_name_text;
     private ImageView step3_1_state;
