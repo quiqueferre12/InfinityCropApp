@@ -27,11 +27,32 @@
 
     <!-- button style -->
     <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="materialThemeOverlay">@style/GreenButtonThemeOverlay</item>
+        <item name="materialThemeOverlay">@style/GrayButtonThemeOverlay</item>
     </style>
-    <style name="GreenButtonThemeOverlay">
+    <style name="GrayButtonThemeOverlay">
         <item name="colorPrimary">@color/shimmer_loader_color</item>
     </style>
+    <!-- FIN -> button style -->
+    <!-- on button style -->
+    <style name="OnButtonStyle" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="materialThemeOverlay">@style/OnButtonThemeOverlay</item>
+    </style>
+    <style name="OnButtonThemeOverlay">
+        <item name="colorPrimary">@color/button_color</item>
+        <item name="background">@drawable/button_primary</item>
+        <item name="iconSize">28dp</item>
+    </style>
+    <!-- FIN -> on button style -->
+    <!-- off button style -->
+    <style name="OffButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton.Icon">
+        <item name="materialThemeOverlay">@style/OffButtonThemeOverlay</item>
+    </style>
+    <style name="OffButtonThemeOverlay">
+        <item name="colorPrimary">@color/button_color</item>
+        <item name="background">@drawable/button_secondary</item>
+        <item name="iconSize">28dp</item>
+    </style>
+    <!-- FIN -> off button style -->
 
     <style name="Widget.MaterialComponents.Button.IconOnly">
         <item name="iconPadding">0dp</item>

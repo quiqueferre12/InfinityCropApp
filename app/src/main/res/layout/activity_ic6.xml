@@ -621,7 +621,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button2"
+                android:id="@+id/ic6_model_btn_action_machine"
                 style="@style/Widget.MaterialComponents.Button.IconOnly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -641,9 +641,9 @@
                 android:textColor="@android:color/darker_gray"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/button2"
-                app:layout_constraintStart_toStartOf="@+id/button2"
-                app:layout_constraintTop_toBottomOf="@+id/button2" />
+                app:layout_constraintEnd_toEndOf="@+id/ic6_model_btn_action_machine"
+                app:layout_constraintStart_toStartOf="@+id/ic6_model_btn_action_machine"
+                app:layout_constraintTop_toBottomOf="@+id/ic6_model_btn_action_machine" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -655,7 +655,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button3"
+                android:id="@+id/ic6_model_btn_extraction"
                 style="@style/Widget.MaterialComponents.Button.IconOnly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -675,9 +675,9 @@
                 android:textColor="@android:color/darker_gray"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/button3"
-                app:layout_constraintStart_toStartOf="@+id/button3"
-                app:layout_constraintTop_toBottomOf="@+id/button3" />
+                app:layout_constraintEnd_toEndOf="@+id/ic6_model_btn_extraction"
+                app:layout_constraintStart_toStartOf="@+id/ic6_model_btn_extraction"
+                app:layout_constraintTop_toBottomOf="@+id/ic6_model_btn_extraction" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -691,7 +691,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view9">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button"
+                android:id="@+id/ic6_model_btn_clima"
                 style="@style/Widget.MaterialComponents.Button.IconOnly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -711,9 +711,9 @@
                 android:textColor="@android:color/darker_gray"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/button"
-                app:layout_constraintStart_toStartOf="@+id/button"
-                app:layout_constraintTop_toBottomOf="@+id/button" />
+                app:layout_constraintEnd_toEndOf="@+id/ic6_model_btn_clima"
+                app:layout_constraintStart_toStartOf="@+id/ic6_model_btn_clima"
+                app:layout_constraintTop_toBottomOf="@+id/ic6_model_btn_clima" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
