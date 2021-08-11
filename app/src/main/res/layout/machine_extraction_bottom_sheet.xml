@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ic6_model_layout_machine_bs"
+    android:id="@+id/ic6_model_layout_extraction_bs"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ic6_model_close_machine_bs"
+            android:id="@+id/ic6_model_close_extraction_bs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/textView32"
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/ic6_model_title"
+            android:text="@string/ic6_model_extraction_title"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,14 +69,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
         <Button
-            android:id="@+id/ic6_model_btn_machine_action"
+            android:id="@+id/ic6_model_btn_extraction_action"
             style="@style/OffButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:padding="15dp"
-            android:text="@string/machine_control_txt_engine_on"
-            app:icon="@drawable/icons_shutdown"
+            android:text="@string/machine_control_txt_extraccion_on"
+            app:icon="@drawable/icons_extraction"
             app:iconSize="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,12 +89,11 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/ic6_model_btn_machine_action"
+            app:layout_constraintBottom_toTopOf="@+id/ic6_model_btn_extraction_action"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView42"
             app:srcCompat="@drawable/ic6_dual" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

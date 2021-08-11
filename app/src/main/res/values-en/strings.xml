@@ -208,11 +208,14 @@
     <string name="machine_control_txt_parte_inferior">BOTTOM</string>
     <!-- general -> acciones/modos -->
     <string name="machine_control_txt_extraccion_on">Extraction on</string>
-    <string name="machine_control_txt_extraccion_off">Extraction off</string>
+    <string name="machine_control_txt_extraccion_off">Switch off</string>
     <string name="machine_control_txt_engine_on">Start engine</string>
     <string name="machine_control_txt_engine_off">Switch off</string>
     <string name="machine_control_txt_clima_on">Climate on</string>
     <string name="machine_control_txt_clima_of">Climate off</string>
+    <string name="machine_control_subtittle_on_machine">Switched on</string>
+    <string name="machine_control_subtittle_off_machine">Switched off</string>
+    <string name="ic6_model_extraction_title">Extraction mode</string>
     <!-- ic6 model -->
     <string name="ic6_model_title">Your Model IC6</string>
 </resources>
