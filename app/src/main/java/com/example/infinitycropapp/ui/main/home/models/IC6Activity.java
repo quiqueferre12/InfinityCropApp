@@ -3,6 +3,7 @@ package com.example.infinitycropapp.ui.main.home.models;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -180,10 +181,16 @@ public class IC6Activity extends AppCompatActivity {
                 //texto que apagar maquina (porque si es true esta encendida)
                 txt_action_machine.setText(getString(R.string.machine_control_txt_engine_off));
                 btn_machine_action.setText(getString(R.string.machine_control_txt_engine_off));
+                //cambiar el color del boton del activity_ic6
+                btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
+                btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
             }else{
                 //texto por defecto encender maquina
                 txt_action_machine.setText(getString(R.string.machine_control_txt_engine_on));
                 btn_machine_action.setText(getString(R.string.machine_control_txt_engine_on));
+                //cambiar el color del boton del activity_ic6
+                btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
             }
         }
         //btn extraction on/off
@@ -192,10 +199,16 @@ public class IC6Activity extends AppCompatActivity {
                 //texto apagar extraccion porque esta encendida
                 txt_extraction.setText(getString(R.string.machine_control_txt_extraccion_off));
                 btn_extraction_action.setText(getString(R.string.machine_control_txt_extraccion_off));
+                //cambiar el color del boton del activity_ic6
+                btn_extraction.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
+                btn_extraction.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
             }else{
                 //texto por defecto encender maquina
                 txt_extraction.setText(getString(R.string.machine_control_txt_extraccion_on));
                 btn_extraction_action.setText(getString(R.string.machine_control_txt_extraccion_on));
+                //cambiar el color del boton del activity_ic6
+                btn_extraction.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                btn_extraction.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
             }
         }
         //btn clima on/off
@@ -203,9 +216,15 @@ public class IC6Activity extends AppCompatActivity {
             if(isClimaOn){
                 //texto quitar clima porque tiene uno encendido
                 txt_clima.setText(R.string.machine_control_txt_clima_of);
+                //cambiar el color del boton del activity_ic6
+                btn_clima.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
+                btn_clima.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+
             }else{
                 //texto por defecto activar clima
                 txt_clima.setText(R.string.machine_control_txt_clima_on);
+                btn_clima.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                btn_clima.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
             }
         }
     }
