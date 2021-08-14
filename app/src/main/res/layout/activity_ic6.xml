@@ -157,7 +157,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView23">
 
                 <TextView
-                    android:id="@+id/textView30"
+                    android:id="@+id/ic6_model_depos_general"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -185,7 +185,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView23">
 
                 <TextView
-                    android:id="@+id/textView28"
+                    android:id="@+id/ic6_model_hum_general"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -213,7 +213,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView23">
 
                 <TextView
-                    android:id="@+id/textView26"
+                    android:id="@+id/ic6_model_luz_general"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -240,7 +240,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView23">
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/ic6_model_temp_general"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -322,7 +322,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView33"
+                        android:id="@+id/ic6_model_temp_superior"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -343,12 +343,12 @@
                         android:text="@string/machine_control_txt_temp_cortado"
                         android:textColor="@android:color/darker_gray"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView33"
-                        app:layout_constraintStart_toStartOf="@+id/textView33"
-                        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+                        app:layout_constraintEnd_toEndOf="@+id/ic6_model_temp_superior"
+                        app:layout_constraintStart_toStartOf="@+id/ic6_model_temp_superior"
+                        app:layout_constraintTop_toBottomOf="@+id/ic6_model_temp_superior" />
 
                     <TextView
-                        android:id="@+id/textView35"
+                        android:id="@+id/ic6_model_luz_superior"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -366,9 +366,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/machine_control_txt_luz_cortado"
                         android:textColor="@android:color/darker_gray"
-                        app:layout_constraintEnd_toEndOf="@+id/textView35"
-                        app:layout_constraintStart_toStartOf="@+id/textView35"
-                        app:layout_constraintTop_toBottomOf="@+id/textView35" />
+                        app:layout_constraintEnd_toEndOf="@+id/ic6_model_luz_superior"
+                        app:layout_constraintStart_toStartOf="@+id/ic6_model_luz_superior"
+                        app:layout_constraintTop_toBottomOf="@+id/ic6_model_luz_superior" />
 
                     <TextView
                         android:id="@+id/textView38"
@@ -376,12 +376,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/machine_control_txt_hum_cortado"
                         android:textColor="@android:color/darker_gray"
-                        app:layout_constraintEnd_toEndOf="@+id/textView37"
-                        app:layout_constraintStart_toStartOf="@+id/textView37"
-                        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+                        app:layout_constraintEnd_toEndOf="@+id/ic6_model_hum_superior"
+                        app:layout_constraintStart_toStartOf="@+id/ic6_model_hum_superior"
+                        app:layout_constraintTop_toBottomOf="@+id/ic6_model_hum_superior" />
 
                     <TextView
-                        android:id="@+id/textView37"
+                        android:id="@+id/ic6_model_hum_superior"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -425,7 +425,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView332"
+                        android:id="@+id/ic6_model_temp_inferior"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -446,12 +446,12 @@
                         android:text="@string/machine_control_txt_temp_cortado"
                         android:textColor="@android:color/darker_gray"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView332"
-                        app:layout_constraintStart_toStartOf="@+id/textView332"
-                        app:layout_constraintTop_toBottomOf="@+id/textView332" />
+                        app:layout_constraintEnd_toEndOf="@+id/ic6_model_temp_inferior"
+                        app:layout_constraintStart_toStartOf="@+id/ic6_model_temp_inferior"
+                        app:layout_constraintTop_toBottomOf="@+id/ic6_model_temp_inferior" />
 
                     <TextView
-                        android:id="@+id/textView352"
+                        android:id="@+id/ic6_model_luz_inferior"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -469,9 +469,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/machine_control_txt_luz_cortado"
                         android:textColor="@android:color/darker_gray"
-                        app:layout_constraintEnd_toEndOf="@+id/textView352"
-                        app:layout_constraintStart_toStartOf="@+id/textView352"
-                        app:layout_constraintTop_toBottomOf="@+id/textView352" />
+                        app:layout_constraintEnd_toEndOf="@+id/ic6_model_luz_inferior"
+                        app:layout_constraintStart_toStartOf="@+id/ic6_model_luz_inferior"
+                        app:layout_constraintTop_toBottomOf="@+id/ic6_model_luz_inferior" />
 
                     <TextView
                         android:id="@+id/textView382"
@@ -479,12 +479,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/machine_control_txt_hum_cortado"
                         android:textColor="@android:color/darker_gray"
-                        app:layout_constraintEnd_toEndOf="@+id/textView372"
-                        app:layout_constraintStart_toStartOf="@+id/textView372"
-                        app:layout_constraintTop_toBottomOf="@+id/textView372" />
+                        app:layout_constraintEnd_toEndOf="@+id/ic6_model_hum_inferior"
+                        app:layout_constraintStart_toStartOf="@+id/ic6_model_hum_inferior"
+                        app:layout_constraintTop_toBottomOf="@+id/ic6_model_hum_inferior" />
 
                     <TextView
-                        android:id="@+id/textView372"
+                        android:id="@+id/ic6_model_hum_inferior"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -538,7 +538,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView333"
+                        android:id="@+id/ic6_model_riego"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -559,7 +559,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/machine_control_txt_riego"
                         android:textColor="@android:color/darker_gray"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView333"
+                        app:layout_constraintBottom_toBottomOf="@+id/ic6_model_riego"
                         app:layout_constraintStart_toStartOf="@+id/view53"
                         app:layout_constraintTop_toBottomOf="@+id/view53" />
 

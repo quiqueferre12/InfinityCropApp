@@ -1,5 +1,6 @@
 package com.example.infinitycropapp.ui.main.home.models;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -12,11 +13,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.infinitycropapp.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.Timestamp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 //clase principal del modelo IC6 donde estara lo principal del control de esta.
 public class IC6Activity extends AppCompatActivity {
@@ -38,7 +50,24 @@ public class IC6Activity extends AppCompatActivity {
     private boolean isMachineOn;
     private boolean isExtractionOn;
     private boolean isClimaOn;
-
+    //firebase
+    private DatabaseReference databaseReference;
+    //txt data of the machine
+    //general
+    private TextView general_temp;
+    private TextView general_luz;
+    private TextView general_hum;
+    private TextView general_depos;
+    //parte superior
+    private TextView superior_temp;
+    private TextView superior_luz;
+    private TextView superior_hum;
+    //parte inferior
+    private TextView inferior_temp;
+    private TextView inferior_luz;
+    private TextView inferior_hum;
+    //riego
+    private TextView riego_txt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +81,22 @@ public class IC6Activity extends AppCompatActivity {
         txt_action_machine=findViewById(R.id.ic6_model_txt_action_machine);
         txt_extraction=findViewById(R.id.ic6_model_txt_extraction);
         txt_clima=findViewById(R.id.ic6_model_txt_clima);
+        general_temp= findViewById(R.id.ic6_model_temp_general);
+        general_luz= findViewById(R.id.ic6_model_luz_general);
+        general_hum= findViewById(R.id.ic6_model_hum_general);
+        general_depos= findViewById(R.id.ic6_model_depos_general);
+        superior_temp= findViewById(R.id.ic6_model_temp_superior);
+        superior_hum= findViewById(R.id.ic6_model_hum_superior);
+        superior_luz= findViewById(R.id.ic6_model_luz_superior);
+        inferior_temp= findViewById(R.id.ic6_model_temp_inferior);
+        inferior_hum= findViewById(R.id.ic6_model_hum_inferior);
+        inferior_luz= findViewById(R.id.ic6_model_luz_inferior);
+        riego_txt=findViewById(R.id.ic6_model_riego);
         //get los pixeles del dispositivo actual
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
-
         //onclick methods
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +210,52 @@ public class IC6Activity extends AppCompatActivity {
                 extractionBottomSheet.show();
             }
         });
+
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+        //lectura real-time database
+        databaseReference.child("IC6 DUAL")
+                .child("Qm6hKrCVAxBm2zpikU50").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    int stateMachine= snapshot.child("state machine").getValue(int.class);
+                    int stateExtraction= snapshot.child("state extraction").getValue(int.class);
+                    if(stateMachine == 0){
+                        //cambiar el color del boton del activity_ic6
+                        txt_action_machine.setText(getString(R.string.machine_control_txt_engine_on));
+                        btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                        btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
+                        isMachineOn = false;
+                    }else{
+                        //cambiar el color del boton del activity_ic6
+                        txt_action_machine.setText(getString(R.string.machine_control_txt_engine_off));
+                        btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
+                        btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                        isMachineOn = true;
+                    }
+                    if(stateExtraction == 0){
+                        //cambiar el color del boton del activity_ic6
+                        txt_extraction.setText(getString(R.string.machine_control_txt_engine_on));
+                        btn_extraction.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                        btn_extraction.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
+                        isExtractionOn = false;
+                    }else{
+                        //cambiar el color del boton del activity_ic6
+                        txt_extraction.setText(getString(R.string.machine_control_txt_engine_off));
+                        btn_extraction.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
+                        btn_extraction.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                        isExtractionOn = true;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        //get data of the machine
+        getDataOfTheMachine();
+
     }
 
     //metodo que dependiendo del on/off de los botones , les cambia el aspecto y el texto
@@ -227,6 +312,64 @@ public class IC6Activity extends AppCompatActivity {
                 btn_clima.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
             }
         }
+    }
+
+    private void getDataOfTheMachine(){
+        //lectura real-time database
+        databaseReference.child("IC6 DUAL")
+                .child("Qm6hKrCVAxBm2zpikU50").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    //general
+                    String temperaturaGeneral= snapshot.child("datos generales").child("temperatura").getValue(int.class).toString();
+                    String humedadGeneral= snapshot.child("datos generales").child("humedad").getValue(int.class).toString();
+                    String luminosidadGeneral= snapshot.child("datos generales").child("luminosidad").getValue(int.class).toString();
+                    String depositoGeneral= snapshot.child("datos generales").child("deposito").getValue(int.class).toString();
+
+                    //parte superior
+                    String temperaturaSuperior= snapshot.child("parte superior").child("temperatura").getValue(int.class).toString();
+                    String humedadSuperior= snapshot.child("parte superior").child("humedad").getValue(int.class).toString();
+                    String luminosidadSuperior= snapshot.child("parte superior").child("luminosidad").getValue(int.class).toString();
+                    //parte inferior
+                    String temperaturaInferior= snapshot.child("parte inferior").child("temperatura").getValue(int.class).toString();
+                    String humedadInferior= snapshot.child("parte inferior").child("humedad").getValue(int.class).toString();
+                    String luminosidadInferior= snapshot.child("parte inferior").child("luminosidad").getValue(int.class).toString();
+                    //riego
+                    int riego= snapshot.child("state riego").getValue(int.class);
+                    //set data
+                    temperaturaGeneral=temperaturaGeneral+"°";
+                    general_temp.setText(temperaturaGeneral);
+                    humedadGeneral=humedadGeneral+"%";
+                    general_hum.setText(humedadGeneral);
+                    luminosidadGeneral=luminosidadGeneral+"%";
+                    general_luz.setText(luminosidadGeneral);
+                    depositoGeneral=depositoGeneral+"%";
+                    general_depos.setText(depositoGeneral);
+                    temperaturaSuperior=temperaturaSuperior+"°";
+                    superior_temp.setText(temperaturaSuperior);
+                    luminosidadSuperior=luminosidadSuperior+"%";
+                    superior_luz.setText(luminosidadSuperior);
+                    humedadSuperior=humedadSuperior+"%";
+                    superior_hum.setText(humedadSuperior);
+                    temperaturaInferior=temperaturaInferior+"°";
+                    inferior_temp.setText(temperaturaInferior);
+                    luminosidadInferior=luminosidadInferior+"%";
+                    inferior_luz.setText(luminosidadInferior);
+                    humedadInferior=humedadInferior+"%";
+                    inferior_hum.setText(humedadInferior);
+                    //riego
+                    if(riego == 1){
+                        riego_txt.setText(getString(R.string.machine_control_txt_riego_activo));
+                    }else{
+                        riego_txt.setText(getString(R.string.machine_control_txt_riego_inactivo));
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
 }
