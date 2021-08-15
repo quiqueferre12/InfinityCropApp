@@ -109,6 +109,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                 public void onClick(View v) {
                     //comprobar que modelo es y entrar en el activity adecuado
                     Intent intent = new Intent(context, IC6Activity.class);
+                    intent.putExtra("machineId", idDocument);
                     context.startActivity(intent);
                 }
             });

@@ -13,22 +13,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.infinitycropapp.Firebase.Database.Database;
 import com.example.infinitycropapp.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.Timestamp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 //clase principal del modelo IC6 donde estara lo principal del control de esta.
 public class IC6Activity extends AppCompatActivity {
@@ -52,6 +48,7 @@ public class IC6Activity extends AppCompatActivity {
     private boolean isClimaOn;
     //firebase
     private DatabaseReference databaseReference;
+    private Database database;
     //txt data of the machine
     //general
     private TextView general_temp;
@@ -68,10 +65,16 @@ public class IC6Activity extends AppCompatActivity {
     private TextView inferior_hum;
     //riego
     private TextView riego_txt;
+    //strings, int ...
+    private String machineId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ic6);
+
+        //firebase
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+        database = new Database();
 
         //findById
         btn_back=findViewById(R.id.btn_back_ic6_model);
@@ -97,6 +100,10 @@ public class IC6Activity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
+
+        //get the id of the machine
+        machineId= getIntent().getExtras().getString("machineId");
+
         //onclick methods
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +156,16 @@ public class IC6Activity extends AppCompatActivity {
                         //cuando se pulse el boton cambiar el bool correspondiente
                         //si es true -> false , si es false -> true
                         isMachineOn = !isMachineOn; //cambiar el valor del bool
+                        //si es true = 1 actualizar el child de la database como 1
+                        //sino al reves
+                        int stateMachine;
+                        if(isMachineOn){
+                            stateMachine= 1;
+                        }else{
+                            stateMachine= 0;
+                        }
+                        //update field in database
+                        database.UpdateStateMachine("IC6 DUAL", machineId , "state machine", stateMachine , machineId);
                         //call to method
                         setButtonMode();
                     }
@@ -202,6 +219,16 @@ public class IC6Activity extends AppCompatActivity {
                         //cuando se pulse el boton cambiar el bool correspondiente
                         //si es true -> false , si es false -> true
                         isExtractionOn = !isExtractionOn; //cambiar el valor del bool
+                        //si es true = 1 actualizar el child de la database como 1
+                        //sino al reves
+                        int stateMachine;
+                        if(isExtractionOn){
+                            stateMachine= 1;
+                        }else{
+                            stateMachine= 0;
+                        }
+                        //update field in database
+                        database.UpdateStateMachine("IC6 DUAL", machineId , "state extraction", stateMachine , machineId);
                         //call to method
                         setButtonMode();
                     }
@@ -211,10 +238,10 @@ public class IC6Activity extends AppCompatActivity {
             }
         });
 
-        databaseReference= FirebaseDatabase.getInstance().getReference();
+
         //lectura real-time database
         databaseReference.child("IC6 DUAL")
-                .child("Qm6hKrCVAxBm2zpikU50").addValueEventListener(new ValueEventListener() {
+                .child(machineId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
@@ -317,7 +344,7 @@ public class IC6Activity extends AppCompatActivity {
     private void getDataOfTheMachine(){
         //lectura real-time database
         databaseReference.child("IC6 DUAL")
-                .child("Qm6hKrCVAxBm2zpikU50").addValueEventListener(new ValueEventListener() {
+                .child(machineId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
