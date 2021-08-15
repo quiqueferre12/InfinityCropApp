@@ -237,49 +237,8 @@ public class IC6Activity extends AppCompatActivity {
                 extractionBottomSheet.show();
             }
         });
-
-
-        //lectura real-time database
-        databaseReference.child("IC6 DUAL")
-                .child(machineId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    int stateMachine= snapshot.child("state machine").getValue(int.class);
-                    int stateExtraction= snapshot.child("state extraction").getValue(int.class);
-                    if(stateMachine == 0){
-                        //cambiar el color del boton del activity_ic6
-                        txt_action_machine.setText(getString(R.string.machine_control_txt_engine_on));
-                        btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
-                        btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
-                        isMachineOn = false;
-                    }else{
-                        //cambiar el color del boton del activity_ic6
-                        txt_action_machine.setText(getString(R.string.machine_control_txt_engine_off));
-                        btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
-                        btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
-                        isMachineOn = true;
-                    }
-                    if(stateExtraction == 0){
-                        //cambiar el color del boton del activity_ic6
-                        txt_extraction.setText(getString(R.string.machine_control_txt_engine_on));
-                        btn_extraction.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
-                        btn_extraction.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
-                        isExtractionOn = false;
-                    }else{
-                        //cambiar el color del boton del activity_ic6
-                        txt_extraction.setText(getString(R.string.machine_control_txt_engine_off));
-                        btn_extraction.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
-                        btn_extraction.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
-                        isExtractionOn = true;
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
+        //get the state of the machine
+        getStateOfTheMachine();
         //get data of the machine
         getDataOfTheMachine();
 
@@ -339,6 +298,50 @@ public class IC6Activity extends AppCompatActivity {
                 btn_clima.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
             }
         }
+    }
+
+    //get los estados de la maquina , si esta encendida o apagada
+    private void getStateOfTheMachine(){
+        //lectura real-time database
+        databaseReference.child("IC6 DUAL")
+                .child(machineId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    int stateMachine= snapshot.child("state machine").getValue(int.class);
+                    int stateExtraction= snapshot.child("state extraction").getValue(int.class);
+                    if(stateMachine == 0){
+                        //cambiar el color del boton del activity_ic6
+                        txt_action_machine.setText(getString(R.string.machine_control_txt_engine_on));
+                        btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                        btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
+                        isMachineOn = false;
+                    }else{
+                        //cambiar el color del boton del activity_ic6
+                        txt_action_machine.setText(getString(R.string.machine_control_txt_engine_off));
+                        btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
+                        btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                        isMachineOn = true;
+                    }
+                    if(stateExtraction == 0){
+                        //cambiar el color del boton del activity_ic6
+                        txt_extraction.setText(getString(R.string.machine_control_txt_engine_on));
+                        btn_extraction.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                        btn_extraction.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
+                        isExtractionOn = false;
+                    }else{
+                        //cambiar el color del boton del activity_ic6
+                        txt_extraction.setText(getString(R.string.machine_control_txt_engine_off));
+                        btn_extraction.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
+                        btn_extraction.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
+                        isExtractionOn = true;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
     private void getDataOfTheMachine(){
