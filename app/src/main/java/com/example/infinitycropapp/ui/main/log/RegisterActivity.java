@@ -3,6 +3,7 @@ package com.example.infinitycropapp.ui.main.log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -57,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView banner;
     private TextInputEditText txtEmail, txtname, txtPasword, txtUsername;
     private TextInputLayout layEmail, layName, layPassword, layUsername;
-    private ImageView btnBack;
+    private ConstraintLayout btnBack;
 
 
     private FirebaseFirestore fStore;
@@ -90,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
         layPassword = (TextInputLayout) findViewById(R.id.registPassword);
 
         //boton atras
-        btnBack =(ImageView) findViewById(R.id.back_log);
+        btnBack =findViewById(R.id.back_log);
         banner = findViewById(R.id.banner);
         progressDialog =new ProgressDialog(this);
         banner.setOnClickListener(new View.OnClickListener() {

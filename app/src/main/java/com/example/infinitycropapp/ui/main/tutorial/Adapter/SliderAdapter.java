@@ -31,7 +31,7 @@ public class SliderAdapter extends PagerAdapter {
     }
 
     public int[] slide_images = {
-            R.drawable.logo_without_background,
+            R.drawable.infinity_logo_black,
             R.drawable.tutorial_qr,
             R.drawable.tutorial_control,
             R.drawable.tutorial_clima,

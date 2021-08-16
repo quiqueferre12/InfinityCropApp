@@ -104,7 +104,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
 
             //onclick methods
             //entrar en el panel de control de la maquina
-            holder.enter_machine.setOnClickListener(new View.OnClickListener() {
+            holder.item_machine.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //comprobar que modelo es y entrar en el activity adecuado
