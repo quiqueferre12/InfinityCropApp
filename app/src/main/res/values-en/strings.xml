@@ -34,15 +34,22 @@
     <string name="boton_skip_final">GET STARTED</string>
     <!-- Intro Log-->
     <string name="txtLogIntro">Sustainability at your fingertips</string>
-    <string name="txtLogEmail">Mail or user name</string>
+    <string name="txtLogEmail">Email address</string>
     <string name="txtPass">Password</string>
     <string name="btniniciosesion">LOG IN</string>
+    <string name="btn_login_google">Sign in with Google</string>
+    <string name="btn_register">Sign up</string>
+    <string name="text_login_cuenta">Already have an account?</string>
+    <string name="btn_txt_sign_in">Log in</string>
+    <string name="txt_register_in_IC">Sign up in Infinity Crop</string>
+    <string name="btn_create_account">Create Account</string>
+    <string name="btn_register_google">Sign up with Google</string>
 
     <!-- Intro registeremail-->
     <string name="txtregsection">New User</string>
     <string name="txtregbienvenida">Welcome to Infinity Crop</string>
     <string name="txtregbienvenida2">Fill in the following fields to continue</string>
-    <string name="txtregEmail">Mail</string>
+    <string name="txtregEmail">Email address</string>
     <string name="txtregUsername">User name</string>
     <string name="txtregName">Name and Surname</string>
     <string name="txtregPass">Password</string>
@@ -108,7 +115,7 @@
     <!--    XML LOGIN SEGUNDO-->
     <string name="email">Email</string>
     <string name="contrase_a">Password</string>
-    <string name="he_olvidado_mi_contrase_a">I forgot my password</string>
+    <string name="he_olvidado_mi_contrase_a">Have you forgotten your password?</string>
     <string name="tienes_una_cuenta">You have an account?</string>
     <string name="eres_nuevo_reg_strate_aqu">You are new? Sign up here</string>
     <string name="o">Or</string>

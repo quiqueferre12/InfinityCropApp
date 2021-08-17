@@ -33,9 +33,16 @@
     <!-- Intro Log-->
     <string name="txtLogIntro">Sostenibilidad a tu alcance</string>
     <string name="btniniciosesion">INICIAR SESIÓN</string>
+    <string name="btn_login_google">Iniciar sesión con Google</string>
+    <string name="btn_register">Regístrate</string>
+    <string name="text_login_cuenta">¿Ya tienes una cuenta?</string>
+    <string name="btn_txt_sign_in">Iniciar sesión</string>
+    <string name="btn_create_account">Crear cuenta</string>
+    <string name="btn_register_google">Regístrate con Google</string>
     <!-- Intro logemail-->
-    <string name="txtLogEmail">Correo o nombre de usuario</string>
+    <string name="txtLogEmail">Correo electrónico</string>
     <string name="txtPass">Contraseña</string>
+    <string name="txt_register_in_IC">Registrarse en Infinity Crop</string>
     <!-- Intro registeremail-->
     <string name="txtregsection">Nuevo usuario</string>
     <string name="txtregbienvenida">Te damos la bienvenida a Infinity Crop</string>
@@ -105,7 +112,7 @@
     <!--    XML LOGIN SEGUNDO-->
     <string name="email">Email</string>
     <string name="contrase_a">Contraseña</string>
-    <string name="he_olvidado_mi_contrase_a">He olvidado mi contraseña</string>
+    <string name="he_olvidado_mi_contrase_a">¿Has olvidado tu contraseña?</string>
     <string name="tienes_una_cuenta">¿Tienes una cuenta?</string>
     <string name="eres_nuevo_reg_strate_aqu">¿Eres nuevo? Regístrate aquí</string>
     <string name="o">O</string>
