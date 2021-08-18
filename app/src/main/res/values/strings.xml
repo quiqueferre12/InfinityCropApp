@@ -39,6 +39,7 @@
     <string name="btn_txt_sign_in">Iniciar sesión</string>
     <string name="btn_create_account">Crear cuenta</string>
     <string name="btn_register_google">Regístrate con Google</string>
+    <string name="text_tittle_register">Regístrate en Infinity Crop</string>
     <!-- Intro logemail-->
     <string name="txtLogEmail">Correo electrónico</string>
     <string name="txtPass">Contraseña</string>

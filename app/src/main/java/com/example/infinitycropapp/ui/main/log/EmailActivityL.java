@@ -49,8 +49,8 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
     private TextView btn_registerActivity;
     //google
     private GoogleSignInClient mGoogleSignInClient;
-    private GoogleApiClient googleApiClient;
     private final static int RC_SIGN_IN = 123;
+    private GoogleApiClient googleApiClient;
     private MaterialButton btn_google;
     //objeto firebase
     private FirebaseAuth firebaseAuth;
@@ -79,24 +79,21 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
         //google
         btn_google = findViewById(R.id.sign_in_button_register);
 
-        //google
+        // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        googleApiClient=new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
 
         //onclick
         //btn google
         btn_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                startActivityForResult(intent, RC_SIGN_IN);
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
         //btn back activity
@@ -276,11 +273,9 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-
             }
         }
     }

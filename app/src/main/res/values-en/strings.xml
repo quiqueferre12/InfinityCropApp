@@ -44,6 +44,7 @@
     <string name="txt_register_in_IC">Sign up in Infinity Crop</string>
     <string name="btn_create_account">Create Account</string>
     <string name="btn_register_google">Sign up with Google</string>
+    <string name="text_tittle_register">Sign up in Infinity Crop</string>
 
     <!-- Intro registeremail-->
     <string name="txtregsection">New User</string>
