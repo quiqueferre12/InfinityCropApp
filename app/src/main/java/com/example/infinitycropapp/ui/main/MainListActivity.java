@@ -72,7 +72,6 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
         //startActivity(intent);
         //register
         registerForNetworkChangeEvents(this);
-
         //definiciones
         chipNavigationBar=findViewById(R.id.list_menuActivity);
         viewPager = findViewById(R.id.viewPager_listActivity);
@@ -97,7 +96,6 @@ public class MainListActivity extends AppCompatActivity implements GoogleApiClie
         adapter.addFragment(fragment_4);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);//limite de fragments para que no boom
-
 
         //intent filter no internet
         IntentFilter intentFilter = new IntentFilter(NetworkStateChangeReceiver.NETWORK_AVAILABLE_ACTION);

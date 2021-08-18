@@ -12,15 +12,10 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.infinitycropapp.Firebase.Auth.User;
 import com.example.infinitycropapp.R;
-import com.example.infinitycropapp.ui.main.MainListActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,7 +32,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -46,67 +40,68 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    //palette
     private CircleImageView profileImageView;
     private Button btnRegistrar;
     private TextView banner;
-    private TextInputEditText txtEmail, txtname, txtPasword, txtUsername;
+    private TextInputEditText mailEditText, nameEditText, passwordEditText, usernameEditText;
     private TextInputLayout layEmail, layName, layPassword, layUsername;
     private ConstraintLayout btnBack;
-
-
+    //firebase
     private FirebaseFirestore fStore;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
-
-    private ProgressDialog progressDialog;
-
-    private Uri imageUri;
-    private String myUri = "";
     private StorageTask uploadTask;
     private StorageReference storageProfilePicsRef;
-    private FirebaseAuth.AuthStateListener authStateListener;
+
+    //atributos
+    private Uri imageUri;
+    private String myUri = "";
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-
+        //findById
         //edit texts
-        txtname = (TextInputEditText) findViewById(R.id.txtName);
-        txtEmail = (TextInputEditText) findViewById(R.id.mail);
-        txtPasword = (TextInputEditText) findViewById(R.id.password);
-        txtUsername =(TextInputEditText) findViewById(R.id.username);
+        nameEditText = (TextInputEditText) findViewById(R.id.txtName);
+        mailEditText = (TextInputEditText) findViewById(R.id.mail);
+        passwordEditText = (TextInputEditText) findViewById(R.id.password);
+        usernameEditText =(TextInputEditText) findViewById(R.id.username);
         //inputslayouts
         layName = (TextInputLayout) findViewById(R.id.reginame);
         layUsername = (TextInputLayout) findViewById(R.id.regiusername);
         layEmail = (TextInputLayout) findViewById(R.id.regimail);
         layPassword = (TextInputLayout) findViewById(R.id.registPassword);
-
         //boton atras
         btnBack =findViewById(R.id.back_log);
         banner = findViewById(R.id.banner);
+        btnRegistrar = findViewById(R.id.btnregist);
+        //otros
+        profileImageView = findViewById(R.id.imgPerfil);
+        //progress
         progressDialog =new ProgressDialog(this);
+
+        //firebase
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
+        storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("Profile pic");
+        fStore=FirebaseFirestore.getInstance();
+        //onlicks
+        //btn iniciar sesion
         banner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegisterActivity.this, EmailActivityL.class));
             }
         });
-
-        //foto
-        mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
-        storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("Profile pic");
-
-        profileImageView = findViewById(R.id.imgPerfil);
+        //btn back
         btnBack.setOnClickListener(new View.OnClickListener() { //btn volver atras
             @Override
             public void onClick(View v) {
@@ -114,40 +109,26 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
         //boton de registrar
-        fStore=FirebaseFirestore.getInstance();
-        btnRegistrar = findViewById(R.id.btnregist);
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 registerUser();
             }
         });
+        //image onclick
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //abrimos el plugin para set una foto
                 CropImage.activity().setAspectRatio(1,1).start(RegisterActivity.this);
-
             }
         });
-        /*getUserinfo();*/
-
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Intent i = new Intent(getApplication(), EmailActivityL.class);
-                    startActivity(i);
-                }
-            }
-        };
     }
 
     private void registerUser() {
-        String email = txtEmail.getText().toString().trim();
-        String password =txtPasword.getText().toString().trim();
-        String username =txtname.getText().toString().trim();
+        String email = mailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        String username = nameEditText.getText().toString().trim();
         if(username.isEmpty()){
             layName.setError("You need to enter a name and surname");
            return;
@@ -168,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         if(password.isEmpty()){
             layPassword.setError(getText(R.string.login_introduce_contra));
-            txtPasword.requestFocus();
+            passwordEditText.requestFocus();
             return;
         }else{
             layName.setError(null);
@@ -220,41 +201,16 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void getUserinfo() {
-         databaseReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-             @Override
-             public void onDataChange(DataSnapshot dataSnapshot) {
-                 if(dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0){
-                     if(dataSnapshot.hasChild("image")){
-                         String image = dataSnapshot.child("image").getValue().toString();
-                         Picasso.get().load(image).into(profileImageView);
-                     }
-                 }
-             }
-
-             @Override
-             public void onCancelled(@NonNull DatabaseError databaseerror) {
-
-             }
-         });
-     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        mAuth.addAuthStateListener(authStateListener);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null){
+            //recogemos el resultado
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            //guardamos el link en una variable
             imageUri=result.getUri();
-
+            //set in the Circular ImageView
             profileImageView.setImageURI(imageUri);
-
         }else{
             Toast.makeText(this, getText(R.string.login_error), Toast.LENGTH_SHORT).show();
         }
@@ -292,14 +248,6 @@ public class RegisterActivity extends AppCompatActivity {
         }else{
             progressDialog.dismiss();
             Toast.makeText(this, getText(R.string.login_error_imagen), Toast.LENGTH_SHORT).show();
-        }
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        if(mAuth!=null){
-            mAuth.removeAuthStateListener(authStateListener);
         }
     }
 }

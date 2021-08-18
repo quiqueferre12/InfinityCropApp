@@ -40,9 +40,6 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
     private GoogleApiClient googleApiClient;
     private  Button btnregist;
 
-    String TAG = "GoogleSignIn";
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -77,16 +74,6 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
         mAuth = FirebaseAuth.getInstance();
         MaterialButton signInButton = findViewById(R.id.sign_in_button);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        googleApiClient=new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
         TextView btnlogin = findViewById(R.id.loginact);
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,9 +106,6 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
 
     }
 
-
-
-
     private  void createRequest(){
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -129,11 +113,10 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
                 .requestProfile()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-    }
-
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        googleApiClient=new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     @Override
@@ -150,14 +133,8 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
         if(result.isSuccess()){
             firebaseAuthWithGoogle(result.getSignInAccount());
         }else{
-            Toast.makeText(this, "No se pudo iniciar sesión con google", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No se pudo iniciar sesión con google", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private  void goMain(){
-        Intent intent = new Intent(this, MainListActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
@@ -168,17 +145,21 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+
+                            //saber si el user es nuevo o no
+                            boolean newUser= task.getResult().getAdditionalUserInfo().isNewUser();
                             Firestore firestore = new Firestore();
-                            firestore.AddNewUser();
-
-                            Intent intent = new Intent(activity_log_start.this,TutorialActivity.class);
-                            startActivity(intent);
-
+                            if(newUser){ //si el usario es nuevo
+                                //add new user
+                                firestore.AddNewUser();
+                                Intent intent = new Intent(activity_log_start.this,TutorialActivity.class);
+                                startActivity(intent);
+                            }else{ //si ya esta registrado en nuestra base de datos
+                                Intent intent = new Intent(activity_log_start.this,MainListActivity.class);
+                                startActivity(intent);
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(activity_log_start.this, "Operación cancelada", Toast.LENGTH_SHORT).show();
-
-
                         }
                     }
                 });

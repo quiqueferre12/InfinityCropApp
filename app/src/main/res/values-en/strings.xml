@@ -95,12 +95,13 @@
     <string name = "login_introduce_contra_ok"> "The password must contain at least 6 characters" </string>
     <string name="login_introduce_correo_pass">"We need your email to recover your password"</string>
     <string name="login_verifica_correo">"Verify your email"</string>
-    <string name="login_iniciando_sesion">"Logging in"</string>
+    <string name="login_iniciando_sesion">"You are logged in as "</string>
     <string name="login_revisa_correo">"Check your email to change your password"</string>
+    <string name="login_mail_not_registered">"Mail not registered in Infinity Crop."</string>
     <string name="login_contenido_en_linea">"Getting content online …"</string>
-    <string name="login_usuario_ya_existente">"This user already exists"</string>
-    <string name="login_no_se_puede_registrar">"Cannot register this user"</string>
-    <string name="login_datos_incorrectos">"The entered data is not correct"</string>
+    <string name="login_usuario_ya_existente">"This user already exists."</string>
+    <string name="login_no_se_puede_registrar">"Cannot register this user."</string>
+    <string name="login_datos_incorrectos">"The entered data is not correct."</string>
     <string name="login_error_envio_correo">"Failure sending mail"</string>
     <string name="login_error">"Error, try again"</string>
     <string name = "login_error_select_profile">"Select your profile"</string>
