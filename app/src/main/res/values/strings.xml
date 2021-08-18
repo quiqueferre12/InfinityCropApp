@@ -40,6 +40,9 @@
     <string name="btn_create_account">Crear cuenta</string>
     <string name="btn_register_google">Regístrate con Google</string>
     <string name="text_tittle_register">Regístrate en Infinity Crop</string>
+    <string name="text_tittle_dialog_mail_verification">Verifica tu cuenta</string>
+    <string name="text_subtitle_dialog_mail_verification">El enlace de activación de la cuenta se ha enviado cuando te has registrado a la dirección de correo electrónico que proporcionó.</string>
+    <string name="btn_send_verification_dialog_mail_verification">¿No recibió el correo? Enviarlo de nuevo</string>
     <!-- Intro logemail-->
     <string name="txtLogEmail">Correo electrónico</string>
     <string name="txtPass">Contraseña</string>
@@ -94,9 +97,10 @@
     <string name="login_introduce_contra">"Introduce una contraseña valida"</string>
     <string name="login_introduce_contra_ok">"La contraseña debe contener al menos 6 carácteres"</string>
     <string name="login_introduce_correo_pass">"Debes introducir tu correo para cambiar la contraseña"</string>
-    <string name="login_revisa_correo">"Revisa tu correo para cambiar tu contraseña"</string>
+    <string name="login_revisa_correo">"Revisa tu correo para cambiar tu contraseña."</string>
     <string name="login_mail_not_registered">"Correo no registrado en Infinity Crop."</string>
-    <string name="login_verifica_correo">"Verifique su correo"</string>
+    <string name="login_verifica_correo">"Correo de verificación enviado, revisa tu correo de la cuenta."</string>
+    <string name="login_verifica_correo_error">"Error al enviar el correo de verificación, pruebe más tarde."</string>
     <string name="login_iniciando_sesion">"Has iniciado sesión como "</string>
     <string name="login_contenido_en_linea">"Obteniendo contenido en línea..."</string>
     <string name="login_usuario_ya_existente">"Este usuario ya existe."</string>

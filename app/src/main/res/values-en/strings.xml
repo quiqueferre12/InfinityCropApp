@@ -45,6 +45,9 @@
     <string name="btn_create_account">Create Account</string>
     <string name="btn_register_google">Sign up with Google</string>
     <string name="text_tittle_register">Sign up in Infinity Crop</string>
+    <string name="text_tittle_dialog_mail_verification">Verify your account</string>
+    <string name="text_subtitle_dialog_mail_verification">The account activation link was sent when you signed up to the email address you provided.</string>
+    <string name="btn_send_verification_dialog_mail_verification">"Didn't get the mail? Send it again"</string>
 
     <!-- Intro registeremail-->
     <string name="txtregsection">New User</string>
@@ -97,7 +100,8 @@
     <string name="login_introduce_contra">"Please, introduce your password"</string>
     <string name = "login_introduce_contra_ok"> "The password must contain at least 6 characters" </string>
     <string name="login_introduce_correo_pass">"We need your email to recover your password"</string>
-    <string name="login_verifica_correo">"Verify your email"</string>
+    <string name="login_verifica_correo">"Verification email sent, check your account email."</string>
+    <string name="login_verifica_correo_error">"Error sending verification mail, try later."</string>
     <string name="login_iniciando_sesion">"You are logged in as "</string>
     <string name="login_revisa_correo">"Check your email to change your password"</string>
     <string name="login_mail_not_registered">"Mail not registered in Infinity Crop."</string>

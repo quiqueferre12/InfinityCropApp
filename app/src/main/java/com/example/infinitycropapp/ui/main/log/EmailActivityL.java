@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -132,10 +136,7 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
                 user = firebaseAuth.getCurrentUser();
                 if(user!=null){
                     if (!user.isEmailVerified()) {
-                        Toast.makeText(EmailActivityL.this, getText(R.string.login_verifica_correo), Toast.LENGTH_LONG).show();
                     } else {
-                        //Toast.makeText(EmailActivityL.this, getText(R.string.login_iniciando_sesion), Toast.LENGTH_LONG).show();
-
                         Intent intencion = new Intent(getApplication(), MainListActivity.class);
                         intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intencion);
@@ -169,8 +170,6 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
 
         //si en los dos inputs hay data
         if(!email.isEmpty() && !password.isEmpty()) {
-            //progressDialog.setMessage("Obteniendo contenido en línea...");
-            //progressDialog.show();
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -178,10 +177,8 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
                     if (task.isSuccessful()) {
                         user = firebaseAuth.getCurrentUser();
                         if (!user.isEmailVerified()) { //sino esta verificado
-                            Toast.makeText(EmailActivityL.this, getText(R.string.login_verifica_correo), Toast.LENGTH_LONG).show();
                             //verificar correo
-                            //Dialog verification
-
+                            mailVerificationDialog();
                         } else { //si all gucci
                             Intent intencion = new Intent(getApplication(), MainListActivity.class);
                             intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -309,5 +306,46 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    private void mailVerificationDialog(){
+        Dialog dialogEditName= new Dialog(EmailActivityL.this);
+        dialogEditName.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogEditName.setCancelable(false); //al pulsar fuera del dialog se quita
+        dialogEditName.setContentView(R.layout.dialog_mail_verification);
+        //set the correct width
+        dialogEditName.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        //findById
+        ConstraintLayout btn_back = dialogEditName.findViewById(R.id.back_dialog_mail_verification);
+        TextView btn_send_verification = dialogEditName.findViewById(R.id.btn_send_mail_verification);
+        //onclicks
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseAuth.signOut();
+                dialogEditName.dismiss();
+            }
+        });
+        btn_send_verification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //enviar coorreo de confirmación
+                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            setSnackbar( (String) getText(R.string.login_verifica_correo));
+                        }else{
+                            setSnackbar( (String) getText(R.string.login_verifica_correo_error));
+                        }
+                    }
+                });
+                dialogEditName.cancel();
+                //salimos de la sesion porque por seguridad solo se puede verificar la cuenta si esta iniciada sesion
+                firebaseAuth.signOut();
+            }
+        });
+
+        dialogEditName.show();
     }
 }

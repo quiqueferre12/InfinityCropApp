@@ -219,7 +219,7 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
                                 QuerySnapshot document = task.getResult(); //get result
                                 int cont=0;
                                 for (QueryDocumentSnapshot doc : document) {
-                                    if(doc.getString("username").equals(username)){ //si ya existe esa username
+                                    if(doc.getString("lastname").equals(username)){ //si ya existe esa username
                                         cont++; // ++
                                     }
                                 }
