@@ -18,19 +18,31 @@ import android.widget.Toast;
 
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.ui.main.MainListActivity;
+import com.example.infinitycropapp.ui.main.tutorial.TutorialActivity;
 import com.example.infinitycropapp.ui.pojos.ItemUser;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,7 +61,7 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
     //palette
     private CircleImageView profileImageView;
@@ -58,13 +70,18 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText mailEditText, nameEditText, passwordEditText, usernameEditText;
     private TextInputLayout layEmail, layName, layPassword, layUsername;
     private ConstraintLayout btnBack;
+    private MaterialButton btn_google;
     //pojo firebase
     private Firestore db;
     //firebase
     private FirebaseAuth mAuth;
     private StorageTask uploadTask;
     private StorageReference storageProfilePicsRef;
-
+    //google
+    private GoogleSignInClient mGoogleSignInClient;
+    private final static int RC_SIGN_IN = 123;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private GoogleApiClient googleApiClient;
     //atributos
     private Uri imageUri;
     private String myUri = "";
@@ -88,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnBack =findViewById(R.id.back_log);
         banner = findViewById(R.id.banner);
         btnRegistrar = findViewById(R.id.btnregist);
+        btn_google= findViewById(R.id.sign_in_button_register);
         //otros
         profileImageView = findViewById(R.id.imgPerfil);
         //pojo firebase
@@ -96,6 +114,22 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("User");
         //onlicks
+        //btn google
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        //btn google
+        btn_google.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+        });
         //btn iniciar sesion
         banner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -266,8 +300,17 @@ public class RegisterActivity extends AppCompatActivity {
             imageUri=result.getUri();
             //set in the Circular ImageView
             profileImageView.setImageURI(imageUri);
-        }else{
-            //Toast.makeText(this, getText(R.string.login_error), Toast.LENGTH_SHORT).show();
+        }
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account.getIdToken());
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+            }
         }
     }
 
@@ -322,4 +365,37 @@ public class RegisterActivity extends AppCompatActivity {
         snackBar.show();
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            //saber si el user es nuevo o no
+                            boolean newUser= task.getResult().getAdditionalUserInfo().isNewUser();
+                            Firestore firestore = new Firestore();
+                            if(newUser){ //si el usario es nuevo
+                                //add new user
+                                firestore.AddNewGoogleUser();
+                                Intent intent = new Intent(RegisterActivity.this, TutorialActivity.class);
+                                startActivity(intent);
+                            }else{ //si ya esta registrado en nuestra base de datos
+                                Intent intent = new Intent(RegisterActivity.this, MainListActivity.class);
+                                startActivity(intent);
+                            }
+                        } else {
+                            // If sign in fails, display a message to the user.
+                        }
+                    }
+                });
+    }
 }
