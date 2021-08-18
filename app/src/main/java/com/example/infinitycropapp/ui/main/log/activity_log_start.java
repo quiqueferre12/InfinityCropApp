@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
@@ -21,7 +20,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -151,7 +149,7 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
                             Firestore firestore = new Firestore();
                             if(newUser){ //si el usario es nuevo
                                 //add new user
-                                firestore.AddNewUser();
+                                firestore.AddNewGoogleUser();
                                 Intent intent = new Intent(activity_log_start.this,TutorialActivity.class);
                                 startActivity(intent);
                             }else{ //si ya esta registrado en nuestra base de datos

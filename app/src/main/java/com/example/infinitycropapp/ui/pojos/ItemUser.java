@@ -5,7 +5,7 @@ public class ItemUser {
 
     private String id;
     private String name;
-    private String lastname;
+    private String username;
     private String mail;
     private String photo;
     private int communities;
@@ -19,9 +19,9 @@ public class ItemUser {
     public ItemUser() { } //CONSTRUCTOR VACIO OBLIGATORIO PONER
 
     //contructor para nuevos usarios o los que no sabemos el ID del documento.
-    public ItemUser(String name, String lastname, String mail, String photo, int communities, int posts, int likes, int machine, int sharedPost, int playlists, Boolean seeTutorial) {
+    public ItemUser(String name, String username, String mail, String photo, int communities, int posts, int likes, int machine, int sharedPost, int playlists, Boolean seeTutorial) {
         this.name = name;
-        this.lastname = lastname;
+        this.username = username;
         this.mail = mail;
         this.photo = photo;
         this.communities = communities;
@@ -34,10 +34,10 @@ public class ItemUser {
     }
 
     //contructor PARA almacenar los documentos del firebase o para users que conocemos el ID.
-    public ItemUser(String id, String name, String lastname, String mail, String photo, int communities, int posts, int likes, int machine, int sharedPost, int playlists, Boolean seeTutorial) {
+    public ItemUser(String id, String name, String username, String mail, String photo, int communities, int posts, int likes, int machine, int sharedPost, int playlists, Boolean seeTutorial) {
         this.id = id;
         this.name = name;
-        this.lastname = lastname;
+        this.username = username;
         this.mail = mail;
         this.photo = photo;
         this.communities = communities;
@@ -59,12 +59,12 @@ public class ItemUser {
         this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getMail() {

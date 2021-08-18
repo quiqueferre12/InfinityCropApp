@@ -3,13 +3,11 @@ package com.example.infinitycropapp.ui.main.log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,7 +16,6 @@ import android.widget.Toast;
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.MainListActivity;
-import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.example.infinitycropapp.ui.main.tutorial.TutorialActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -300,7 +297,7 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
                             Firestore firestore = new Firestore();
                             if(newUser){ //si el usario es nuevo
                                 //add new user
-                                firestore.AddNewUser();
+                                firestore.AddNewGoogleUser();
                                 Intent intent = new Intent(getApplicationContext(),TutorialActivity.class);
                                 startActivity(intent);
                             }else{ //si ya esta registrado en nuestra base de datos

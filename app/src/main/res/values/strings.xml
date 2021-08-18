@@ -85,7 +85,9 @@
 
     <!--    TOASTS LOGIN-->
 
-    <string name="login_introduce_nombre">"Introduce un nombre de usuario"</string>
+    <string name="login_introduce_nombre">"Introduce un nombre válido"</string>
+    <string name="login_introduce_username">"Introduce un nombre de usuario válido"</string>
+    <string name="login_introduce_username_exists">"El nombre de usuario ya existe"</string>
     <string name="login_introduce_correo">"Debes introducir tu correo"</string>
     <string name="login_introduce_correo_ok">"Introduce un correo valido"</string>
     <string name="login_introduce_contra">"Introduce una contraseña valida"</string>
@@ -96,7 +98,7 @@
     <string name="login_verifica_correo">"Verifique su correo"</string>
     <string name="login_iniciando_sesion">"Has iniciado sesión como "</string>
     <string name="login_contenido_en_linea">"Obteniendo contenido en línea..."</string>
-    <string name="login_usuario_ya_existente">"Este Usuario ya existe."</string>
+    <string name="login_usuario_ya_existente">"Este usuario ya existe."</string>
     <string name="login_no_se_puede_registrar">"No se puede registrar este usuario."</string>
     <string name="login_datos_incorrectos">"Los datos introducidos no son correctos."</string>
     <string name="login_error_envio_correo">"Error en el envío de correo"</string>

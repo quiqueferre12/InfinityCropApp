@@ -37,12 +37,19 @@ public class Firestore {
     }
 
 
-    public void AddNewUser(){
+    public void AddNewGoogleUser(){
         User user = new User(); //recuperamos los datos del user Auth.
         ItemUser newUser = user.getCurrentUserData();
         if(newUser != null){ //si existe
             //add to collection User un documento nombre : id del user -> sus datos en los campos del firebase
             db.collection("User").document(user.getId()).set(newUser);
+        }
+    }
+
+    public void AddNewUser(ItemUser newUser, String idUser){
+        if(newUser != null && idUser != null){ //si existe
+            //add User -> document id user -> fields data
+            db.collection("User").document(idUser).set(newUser);
         }
     }
 
