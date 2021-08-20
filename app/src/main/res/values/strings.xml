@@ -134,6 +134,10 @@
     <string name="registrarse">Registrarse</string>
     <string name="tienes_una_cuenta_inicia_sesi_n">¿Tienes una cuenta? Inicia sesión</string>
 
+    <!-- acceder con google -->
+    <string name="title_access_google">Acceder con google</string>
+    <string name="btn_txt_access_google">Continuar</string>
+
     <!--    activity new machine: textos-->
     <string name="tittle_newMachine">Nueva máquina</string>
     <string name="subtittle_newMachine">Pasos para añadir una nueva máquina</string>
