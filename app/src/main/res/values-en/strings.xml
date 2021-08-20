@@ -137,6 +137,10 @@
     <string name="registrarse">Sign in</string>
     <string name="tienes_una_cuenta_inicia_sesi_n">You have an account? Log in</string>
 
+    <!-- acceder con google -->
+    <string name="title_access_google">Access with google</string>
+    <string name="btn_txt_access_google">Continue</string>
+
     <!--    activity new machine: textos-->
     <string name="tittle_newMachine">New machine</string>
     <string name="subtittle_newMachine">Steps to add a new machine</string>

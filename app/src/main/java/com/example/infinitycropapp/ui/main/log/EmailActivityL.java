@@ -25,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -41,6 +42,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class EmailActivityL extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
     //objetos visibles
@@ -58,6 +62,7 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
     private MaterialButton btn_google;
     //objeto firebase
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser user;
     @Override
@@ -67,6 +72,7 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
         
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         //findById
         //botones
         btn_change_password = findViewById(R.id.forgotPassword);
@@ -135,11 +141,11 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 user = firebaseAuth.getCurrentUser();
                 if(user!=null){
-                    if (!user.isEmailVerified()) {
-                    } else {
+                    if (!user.isEmailVerified()) {} else {
                         Intent intencion = new Intent(getApplication(), MainListActivity.class);
                         intencion.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intencion);
+                        EmailActivityL.this.finish();
                     }
                 }
 
@@ -266,36 +272,62 @@ public class EmailActivityL extends AppCompatActivity implements GoogleApiClient
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-            }
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            //funcion que hace aparecer un popup de google con los usarios regidtrados del telefono
+            handleSignInResult(result);
         }
     }
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+    private void handleSignInResult(GoogleSignInResult result) {
+        if(result.isSuccess()){ //si pulsa sobre un usario de google
+            String mail = result.getSignInAccount().getEmail();
+            db.collection("User")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()) {
+                                int cont =0;
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if(document.getString("mail").equals(mail)){ //si esta registrado
+                                        if(document.getString("username") != null){ //si tiene username
+                                            if(!document.getString("username").isEmpty()){
+                                                cont++; //+1
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if(cont == 0){ //no existe el user o no tiene user name
+                                    //le paso al activity para que anyada el user name a su cuenta de google
+                                    Intent intent = new Intent(EmailActivityL.this, UsernameGoogleActivity.class);
+                                    intent.putExtra("googleUser", result.getSignInAccount());
+                                    startActivity(intent);
+                                    finish();
+
+                                }else if(cont == 1){ //existe el user y el username
+                                    //existe en nuestra base de datos y puede entrar
+                                    firebaseAuthWithGoogle(result.getSignInAccount());
+                                }
+                            }
+                        }
+                    });
+            //firebaseAuthWithGoogle(result.getSignInAccount());
+        }else{ //sino pulsa ningun usario
+            //Toast.makeText(this, "No se pudo iniciar sesión con google", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            //all gucci el user tiene permiso para entrar
                             // Sign in success, update UI with the signed-in user's information
-                            //saber si el user es nuevo o no
-                            boolean newUser= task.getResult().getAdditionalUserInfo().isNewUser();
-                            Firestore firestore = new Firestore();
-                            if(newUser){ //si el usario es nuevo
-                                //add new user
-                                firestore.AddNewGoogleUser();
-                                Intent intent = new Intent(getApplicationContext(),TutorialActivity.class);
-                                startActivity(intent);
-                            }else{ //si ya esta registrado en nuestra base de datos
-                                Intent intent = new Intent(getApplicationContext(),MainListActivity.class);
-                                startActivity(intent);
-                            }
+                            Intent intent = new Intent(EmailActivityL.this,MainListActivity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                         }

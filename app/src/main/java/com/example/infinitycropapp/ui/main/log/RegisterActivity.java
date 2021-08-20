@@ -21,10 +21,12 @@ import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.MainListActivity;
 import com.example.infinitycropapp.ui.main.tutorial.TutorialActivity;
 import com.example.infinitycropapp.ui.pojos.ItemUser;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -75,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
     private Firestore db;
     //firebase
     private FirebaseAuth mAuth;
+    private FirebaseFirestore firebaseFirestore;
     private StorageTask uploadTask;
     private StorageReference storageProfilePicsRef;
     //google
@@ -112,6 +115,7 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
         db=new Firestore();
         //firebase
         mAuth = FirebaseAuth.getInstance();
+        firebaseFirestore= FirebaseFirestore.getInstance();
         storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("User");
         //onlicks
         //btn google
@@ -303,15 +307,68 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
         }
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-            }
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            //funcion que hace aparecer un popup de google con los usarios regidtrados del telefono
+            handleSignInResult(result);
         }
+    }
+    private void handleSignInResult(GoogleSignInResult result) {
+        if(result.isSuccess()){ //si pulsa sobre un usario de google
+            String mail = result.getSignInAccount().getEmail();
+            firebaseFirestore.collection("User")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()) {
+                                int cont =0;
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if(document.getString("mail").equals(mail)){ //si esta registrado
+                                        if(document.getString("username") != null){ //si tiene username
+                                            if(!document.getString("username").isEmpty()){
+                                                cont++; //+1
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if(cont == 0){ //no existe el user o no tiene user name
+                                    //le paso al activity para que anyada el user name a su cuenta de google
+                                    Intent intent = new Intent(RegisterActivity.this, UsernameGoogleActivity.class);
+                                    intent.putExtra("googleUser", result.getSignInAccount());
+                                    startActivity(intent);
+                                    finish();
+
+                                }else if(cont == 1){ //existe el user y el username
+                                    //existe en nuestra base de datos y puede entrar
+                                    firebaseAuthWithGoogle(result.getSignInAccount());
+                                }
+                            }
+                        }
+                    });
+            //firebaseAuthWithGoogle(result.getSignInAccount());
+        }else{ //sino pulsa ningun usario
+            //Toast.makeText(this, "No se pudo iniciar sesión con google", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            //all gucci el user tiene permiso para entrar
+                            // Sign in success, update UI with the signed-in user's information
+                            Intent intent = new Intent(RegisterActivity.this,MainListActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                        }
+                    }
+                });
     }
 
     private void uploadProfileImage(ItemUser user,String idUser) {
@@ -368,34 +425,5 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    }
-
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-
-                            //saber si el user es nuevo o no
-                            boolean newUser= task.getResult().getAdditionalUserInfo().isNewUser();
-                            Firestore firestore = new Firestore();
-                            if(newUser){ //si el usario es nuevo
-                                //add new user
-                                firestore.AddNewGoogleUser();
-                                Intent intent = new Intent(RegisterActivity.this, TutorialActivity.class);
-                                startActivity(intent);
-                            }else{ //si ya esta registrado en nuestra base de datos
-                                Intent intent = new Intent(RegisterActivity.this, MainListActivity.class);
-                                startActivity(intent);
-                            }
-                        } else {
-                            // If sign in fails, display a message to the user.
-                        }
-                    }
-                });
     }
 }
