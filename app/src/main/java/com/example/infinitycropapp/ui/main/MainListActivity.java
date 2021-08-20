@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.ui.main.climas.ActivityClima;
 import com.example.infinitycropapp.ui.main.climas.ClimasFragment;
 import com.example.infinitycropapp.ui.main.guia.GuiaBotanicaFragment;
 import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;

@@ -1,6 +1,7 @@
 package com.example.infinitycropapp.ui.main.climas.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.ui.main.climas.ActivityClima;
 import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemMachine;
 import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemPlaylist;
+import com.example.infinitycropapp.ui.main.home.models.IC6Activity;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.example.infinitycropapp.ui.pojos.ItemMachine;
 import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
@@ -68,6 +71,17 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
             final ItemClimate pojoItem= itemClimates.get(position);
             holder.name_climate.setText(pojoItem.getName());
         }
+
+        //onclick methods
+        //entrar en el panel de control de la maquina
+        holder.img_climate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //comprobar que modelo es y entrar en el activity adecuado
+                Intent intent = new Intent(context, ActivityClima.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
