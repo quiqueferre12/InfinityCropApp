@@ -196,6 +196,12 @@
     <string name="climas_de_infinitycrop">InfinityCrop Climates</string>
     <string name="climas_de_la_comunidad">Our Community Climates</string>
     <string name="explorar_climas">Explore Climates</string>
+    <string name="nuevos">New</string>
+    <string name="guardado">Saved</string>
+    <string name="top">Top</string>
+    <string name="buscar">Search</string>
+
+
 
     <!-- item machine -> dialog add list -->
     <string name="add_list_dialog_tittle">Add to machine list</string>
@@ -237,4 +243,11 @@
     <string name="ic6_model_extraction_title">Extraction mode</string>
     <!-- ic6 model -->
     <string name="ic6_model_title">Your Model IC6</string>
+
+
+    <!--    Climate Activity-->
+    <string name="riego">Irrigation</string>
+    <string name="light">Light</string>
+    <string name="descripci_n">Description</string>
+    <string name="guardar">Save</string>
 </resources>

@@ -1,6 +1,6 @@
 package com.example.infinitycropapp.ui.main.climas;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,28 +8,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
+import android.widget.ImageView;
 
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
-import com.example.infinitycropapp.ui.main.MainListActivity;
 import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesUser;
-import com.example.infinitycropapp.ui.main.guia.GuiaBotanicaFragment;
-import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
-import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemMachine;
-import com.example.infinitycropapp.ui.main.profile.ProfileFragment;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
-import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabItem;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -92,6 +82,10 @@ public class ClimasFragment extends Fragment {
 
     //-----poner aca attributes etc... -----//
 
+    //imgs
+    private ImageView im_climasUser;//Mis climas
+
+
     //rvs
     private RecyclerView rv_climasUser; //Mis Climas
     private RecyclerView rv_climasInfinity; //Climas de InfinityCrop
@@ -124,6 +118,7 @@ public class ClimasFragment extends Fragment {
         rv_climasUser=view.findViewById(R.id.rvClimasUser); //rv Climas User
         rv_climasInfinity=view.findViewById(R.id.rvClimasInfinity); //rv Climas Infinity
         rv_climasCommunity=view.findViewById(R.id.rvClimasCommunity); //rv Climas Community
+        im_climasUser=view.findViewById(R.id.imageViewMisClimas); //img Climas User
 
 
         //config rv
@@ -133,6 +128,14 @@ public class ClimasFragment extends Fragment {
         setRvInfDatos();
         initRvCom();
         setRvInfCom();
+
+        //onclicks imgv
+        im_climasUser.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), ActivityMisClimas.class);
+                startActivity(i);
+            }
+        });
 
         //FINAL ------------- Inflate the layout for this fragment
         return view;

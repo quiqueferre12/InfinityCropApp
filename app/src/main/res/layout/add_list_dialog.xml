@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/icons_close" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/textViewTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toTopOf="@+id/rv_playlist_item_add_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
     <View
         android:id="@+id/view3"

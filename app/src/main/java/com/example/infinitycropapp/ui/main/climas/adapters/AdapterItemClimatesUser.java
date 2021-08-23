@@ -79,6 +79,7 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
             public void onClick(View v) {
                 //comprobar que modelo es y entrar en el activity adecuado
                 Intent intent = new Intent(context, ActivityClima.class);
+                intent.putExtra("idClimate",itemClimates.get(position).getName());
                 context.startActivity(intent);
             }
         });

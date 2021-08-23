@@ -10,9 +10,9 @@
         android:id="@+id/btn_back__access_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textView35"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewNuevo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView35">
+        app:layout_constraintTop_toTopOf="@+id/textViewNuevo">
 
         <ImageView
             android:id="@+id/imageView20"
@@ -30,7 +30,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView35"
+        android:id="@+id/textViewNuevo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -50,7 +50,7 @@
         android:src="@drawable/logoselefoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView35" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewNuevo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_username_access_google"

@@ -52,6 +52,9 @@
             android:name=".ui.main.climas.ActivityClima"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.main.climas.ActivityMisClimas"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />

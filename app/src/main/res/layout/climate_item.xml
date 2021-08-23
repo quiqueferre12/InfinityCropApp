@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="180sp"
-    android:layout_height="100sp">
+    android:layout_height="100sp"
+    android:background="@drawable/circle_white_heart"
+    android:backgroundTint="@color/color_primary">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_climate_item"
@@ -81,12 +83,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/item_rv_climate">
+                    android:background="@drawable/item_rv_climate"
+                    android:backgroundTint="@color/item_color">
 
                     <ImageView
                         android:id="@+id/imageViewClimate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -101,6 +104,7 @@
                         android:layout_height="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginEnd="4dp"
+                        android:background="@drawable/circle_white_heart"
                         app:layout_constraintEnd_toEndOf="@+id/imageViewClimate"
                         app:layout_constraintTop_toTopOf="@+id/imageViewClimate"
                         app:srcCompat="@drawable/ic_heart_verde" />

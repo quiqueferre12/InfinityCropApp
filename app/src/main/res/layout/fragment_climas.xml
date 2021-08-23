@@ -34,10 +34,10 @@
                         app:layout_constraintEnd_toStartOf="@+id/constraintLayout14"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView19">
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTitle">
 
                         <ImageView
-                            android:id="@+id/imageView22"
+                            android:id="@+id/imageViewNuevos"
                             android:layout_width="26dp"
                             android:layout_height="26dp"
                             android:layout_marginTop="16dp"
@@ -47,17 +47,17 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/textView35"
+                            android:id="@+id/textViewNuevo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Nuevos"
+                            android:text="@string/nuevos"
                             android:textColor="@color/black"
                             android:textSize="18sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.371"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView22" />
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewNuevos" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,7 +72,7 @@
                         app:layout_constraintTop_toTopOf="@+id/constraintLayout12">
 
                         <ImageView
-                            android:id="@+id/imageView24"
+                            android:id="@+id/imageViewBuscar"
                             android:layout_width="26dp"
                             android:layout_height="26dp"
                             android:layout_marginStart="16dp"
@@ -84,16 +84,16 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/textView45"
+                            android:id="@+id/textViewBuscar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Buscar"
+                            android:text="@string/buscar"
                             android:textColor="@color/black"
                             android:textSize="18sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView24" />
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewBuscar" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,19 +108,19 @@
                         app:layout_constraintTop_toTopOf="@+id/constraintLayout12">
 
                         <TextView
-                            android:id="@+id/textView43"
+                            android:id="@+id/textViewGuardado"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Guardado"
+                            android:text="@string/guardado"
                             android:textColor="@color/black"
                             android:textSize="18sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView25" />
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewGuardado" />
 
                         <ImageView
-                            android:id="@+id/imageView25"
+                            android:id="@+id/imageViewGuardado"
                             android:layout_width="26dp"
                             android:layout_height="26dp"
                             android:layout_marginStart="16dp"
@@ -144,19 +144,19 @@
                         app:layout_constraintTop_toTopOf="@+id/constraintLayout12">
 
                         <TextView
-                            android:id="@+id/textView44"
+                            android:id="@+id/textViewTop"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Top"
+                            android:text="@string/top"
                             android:textColor="@color/black"
                             android:textSize="18sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/imageView23" />
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewTop" />
 
                         <ImageView
-                            android:id="@+id/imageView23"
+                            android:id="@+id/imageViewTop"
                             android:layout_width="26dp"
                             android:layout_height="26dp"
                             android:layout_marginStart="16dp"
@@ -169,7 +169,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/textView19"
+                        android:id="@+id/textViewTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -188,10 +188,10 @@
                         android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                        app:layout_constraintTop_toBottomOf="@+id/textViewMisClimas" />
 
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/textViewMisClimas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -205,17 +205,17 @@
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout12" />
 
                     <ImageView
-                        android:id="@+id/imageView9"
+                        android:id="@+id/imageViewMisClimas"
                         android:layout_width="24dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="16dp"
                         android:src="@drawable/ic_climas_forward"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewMisClimas"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView12" />
+                        app:layout_constraintTop_toTopOf="@+id/textViewMisClimas" />
 
                     <TextView
-                        android:id="@+id/textView17"
+                        android:id="@+id/textViewIcClimas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -229,14 +229,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/rvClimasUser" />
 
                     <ImageView
-                        android:id="@+id/imageView10"
+                        android:id="@+id/imageViewIcClimas"
                         android:layout_width="24dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="16dp"
                         android:src="@drawable/ic_climas_forward"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView17"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewIcClimas"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView17" />
+                        app:layout_constraintTop_toTopOf="@+id/textViewIcClimas" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvClimasInfinity"
@@ -245,20 +245,20 @@
                         android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                        app:layout_constraintTop_toBottomOf="@+id/textViewIcClimas" />
 
                     <ImageView
-                        android:id="@+id/imageView11"
+                        android:id="@+id/imageViewComunity"
                         android:layout_width="24dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="16dp"
                         android:src="@drawable/ic_climas_forward"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView18"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewComunity"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView18" />
+                        app:layout_constraintTop_toTopOf="@+id/textViewComunity" />
 
                     <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/textViewComunity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -278,7 +278,7 @@
                         android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                        app:layout_constraintTop_toBottomOf="@+id/textViewComunity" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
