@@ -51,30 +51,11 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
     @Override
     public void onBindViewHolder(@NonNull ItemClimateHolder holder, int position) {
 
-        if(showShimmer){
-            holder.shimmerFrameLayout.startShimmer(); //start animation
-            holder.name_climate.setVisibility(View.INVISIBLE);
-            holder.img_climate.setVisibility(View.INVISIBLE);
-            holder.item_climate.setVisibility(View.INVISIBLE);
-            holder.item_climate2.setVisibility(View.INVISIBLE);
-        }else{
-            holder.shimmerFrameLayout.stopShimmer();
-            holder.shimmerFrameLayout.setShimmer(null);
-            holder.item_climate2.setBackgroundTintList(null);
-            holder.item_climate.setBackgroundTintList(null);
-
-            holder.name_climate.setVisibility(View.VISIBLE);
-            holder.img_climate.setVisibility(View.VISIBLE);
-            holder.item_climate.setVisibility(View.VISIBLE);
-            holder.item_climate2.setVisibility(View.VISIBLE);
-
-            final ItemClimate pojoItem= itemClimates.get(position);
-            holder.name_climate.setText(pojoItem.getName());
-        }
-
+        final ItemClimate pojoItem= itemClimates.get(position);
+        holder.name_climate.setText(pojoItem.getName());
         //onclick methods
         //entrar en el panel de control de la maquina
-        holder.img_climate.setOnClickListener(new View.OnClickListener() {
+        /*holder.img_climate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //comprobar que modelo es y entrar en el activity adecuado
@@ -82,17 +63,12 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
                 intent.putExtra("idClimate",itemClimates.get(position).getName());
                 context.startActivity(intent);
             }
-        });
+        });*/
     }
 
     @Override
     public int getItemCount() {
-        int itemLoading=6; //numero de items animacion de cargar
-        if(showShimmer){
-            return itemLoading;
-        }else{
-            return itemClimates.size();
-        }
+        return itemClimates.size();
     }
 
 
@@ -107,11 +83,6 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
             super(itemView);
             //defino aca los findById
             name_climate=itemView.findViewById(R.id.textViewNameClimate);
-            shimmerFrameLayout=itemView.findViewById(R.id.shimmer_climate_item);
-            item_climate=itemView.findViewById(R.id.climate_item);
-            item_climate2=itemView.findViewById(R.id.climate_item2);
-            img_climate=itemView.findViewById(R.id.imageViewClimate);
-
         }
     }
 }

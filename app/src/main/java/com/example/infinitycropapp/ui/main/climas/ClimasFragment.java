@@ -101,9 +101,6 @@ public class ClimasFragment extends Fragment {
     //firebase
     private FirebaseFirestore db;
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,27 +112,28 @@ public class ClimasFragment extends Fragment {
         db= FirebaseFirestore.getInstance();
 
         //findById elements
-        rv_climasUser=view.findViewById(R.id.rvClimasUser); //rv Climas User
+        //rv_climasUser=view.findViewById(R.id.rvClimasUser); //rv Climas User
         rv_climasInfinity=view.findViewById(R.id.rvClimasInfinity); //rv Climas Infinity
-        rv_climasCommunity=view.findViewById(R.id.rvClimasCommunity); //rv Climas Community
-        im_climasUser=view.findViewById(R.id.imageViewMisClimas); //img Climas User
+        //rv_climasCommunity=view.findViewById(R.id.rvClimasCommunity); //rv Climas Community
+        //im_climasUser=view.findViewById(R.id.imageViewMisClimas); //img Climas User
 
 
         //config rv
-        initRvUser();
-        setRvUserDatos();
+        //initRvUser();
+        //setRvUserDatos();
         initRvInf();
-        setRvInfDatos();
-        initRvCom();
-        setRvInfCom();
+        getItemInf();
+        //setRvInfDatos();
+        //initRvCom();
+        //setRvInfCom();
 
         //onclicks imgv
-        im_climasUser.setOnClickListener(new View.OnClickListener() {
+        /*im_climasUser.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), ActivityMisClimas.class);
                 startActivity(i);
             }
-        });
+        });*/
 
         //FINAL ------------- Inflate the layout for this fragment
         return view;
@@ -153,7 +151,7 @@ public class ClimasFragment extends Fragment {
         //defino que el rv no tenga fixed size
         rv_climasInfinity.setHasFixedSize(false);
         //manejador para declarar la direccion de los items del rv
-        rv_climasInfinity.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        rv_climasInfinity.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
     }
     private void initRvCom(){
         //defino que el rv no tenga fixed size
@@ -172,6 +170,13 @@ public class ClimasFragment extends Fragment {
 
     private void getItemInf(){
         itemClimatesInfinity.clear(); //clear la list para que no se duplique
+
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Marihuana"));
+        itemClimatesInfinity.add(new ItemClimate("Marihuana"));
+        itemClimatesInfinity.add(new ItemClimate("Marihuana"));
+        itemClimatesInfinity.add(new ItemClimate("Marihuana"));
         //creo un adaptador pasandole los elementos al contructor
         adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity ,getContext());
         //declaro que cual es el adaptador el rv

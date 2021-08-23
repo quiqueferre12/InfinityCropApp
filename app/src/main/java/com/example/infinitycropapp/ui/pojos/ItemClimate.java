@@ -32,6 +32,10 @@ public class ItemClimate {
     public ItemClimate() {
     }
 
+    public ItemClimate(String name) {
+        Name = name;
+    }
+
     public String getId() {
         return id;
     }
