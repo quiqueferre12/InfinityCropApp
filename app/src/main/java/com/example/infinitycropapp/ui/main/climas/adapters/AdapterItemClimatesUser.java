@@ -54,16 +54,15 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
         final ItemClimate pojoItem= itemClimates.get(position);
         holder.name_climate.setText(pojoItem.getName());
         //onclick methods
-        //entrar en el panel de control de la maquina
-        /*holder.img_climate.setOnClickListener(new View.OnClickListener() {
+        //entrar en la activity del clima
+        holder.item_climate2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //comprobar que modelo es y entrar en el activity adecuado
                 Intent intent = new Intent(context, ActivityClima.class);
                 intent.putExtra("idClimate",itemClimates.get(position).getName());
                 context.startActivity(intent);
             }
-        });*/
+        });
     }
 
     @Override
@@ -83,6 +82,7 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
             super(itemView);
             //defino aca los findById
             name_climate=itemView.findViewById(R.id.textViewNameClimate);
+            item_climate2=itemView.findViewById(R.id.materialCardView4);
         }
     }
 }
