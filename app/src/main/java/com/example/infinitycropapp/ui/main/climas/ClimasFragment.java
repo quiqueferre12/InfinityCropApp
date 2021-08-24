@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -81,23 +82,14 @@ public class ClimasFragment extends Fragment {
     /*---FIN -> datos necesarios para el fragment -> no cambiar ni rellenar ---*/
 
     //-----poner aca attributes etc... -----//
-
-    //imgs
-    private ImageView im_climasUser;//Mis climas
-
-
+    //palette
+    private ConstraintLayout empty_recyclerView;
     //rvs
-    private RecyclerView rv_climasUser; //Mis Climas
     private RecyclerView rv_climasInfinity; //Climas de InfinityCrop
-    private RecyclerView rv_climasCommunity; //Climas de la comunidad
     //lists
-    private List<ItemClimate> itemClimatesUser=new ArrayList<>(); //user
     private List<ItemClimate> itemClimatesInfinity=new ArrayList<>(); //infinity
-    private List<ItemClimate> itemClimatesCommunity=new ArrayList<>(); //community
     //adapters
-    private AdapterItemClimatesUser adapterItemClimatesUser;
     private AdapterItemClimatesUser adapterItemClimatesInfinity;
-    private AdapterItemClimatesUser adapterItemClimatesCommunity;
     //firebase
     private FirebaseFirestore db;
 
@@ -113,6 +105,7 @@ public class ClimasFragment extends Fragment {
 
         //findById elements
         rv_climasInfinity=view.findViewById(R.id.rvClimasInfinity); //rv Climas Infinity
+        empty_recyclerView= view.findViewById(R.id.empty_infinity_crop_climates_rv); //container empty rv
 
 
         //config rv
@@ -163,6 +156,15 @@ public class ClimasFragment extends Fragment {
         //dismiss loader
         adapterItemClimatesInfinity.showShimmer= false;
         adapterItemClimatesInfinity.notifyDataSetChanged();
+        //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
+        //si el recyclerView esta vacio
+        if(adapterItemClimatesInfinity.getItemCount() == 0 ){
+            rv_climasInfinity.setVisibility(View.GONE); //ocultar rv
+            empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
+        }else{ //sino
+            rv_climasInfinity.setVisibility(View.VISIBLE); //mostras rv con sus items
+            empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
+        }
         /*db.collection("Climate")
                 .whereEqualTo("InfinityCropClimate", true)
                 .limit(5)

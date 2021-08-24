@@ -202,6 +202,9 @@
     <string name="buscar">Search</string>
     <string name="categorias">Categories</string>
     <string name="txt_mas">MORE</string>
+    <string name="title_empty_climate_recycler">No weather found</string>
+    <string name="subtitle_empty_climate_infinity_recycler">Solutions: Refresh the page by swiping up, check your internet connection or restart the application.</string>
+
 
     <!-- item machine -> dialog add list -->
     <string name="add_list_dialog_tittle">Add to machine list</string>
