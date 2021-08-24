@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -16,6 +19,10 @@ import android.widget.TextView;
 
 import com.example.infinitycropapp.Firebase.Database.Database;
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesMachine;
+import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesUser;
+import com.example.infinitycropapp.ui.main.home.newMachine.NewMachineActivity;
+import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
@@ -24,6 +31,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 //clase principal del modelo IC6 donde estara lo principal del control de esta.
@@ -67,6 +78,15 @@ public class IC6Activity extends AppCompatActivity {
     private TextView riego_txt;
     //strings, int ...
     private String machineId;
+    //rvs
+    private RecyclerView recyclerViewClimas;
+    //lists
+    private List<ItemClimate> itemClimatesMachine=new ArrayList<>();
+    //adapters
+    private AdapterItemClimatesMachine adapterItemClimatesMachine;
+    //firebase
+    private FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,6 +194,15 @@ public class IC6Activity extends AppCompatActivity {
 
             }
         });
+
+        //btn clima on
+        btn_clima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initClimatesBottomSheet();
+            }
+        });
+
 
         //btn extraction mode
         btn_extraction.setOnClickListener(new View.OnClickListener() {
@@ -400,6 +429,67 @@ public class IC6Activity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    private void initClimatesBottomSheet(){
+        //set the bottom sheet
+        BottomSheetDialog optionsBottomSheet = new BottomSheetDialog(IC6Activity.this);
+        //set the layout of the bottom sheet
+        optionsBottomSheet.setContentView(R.layout.activity_machine_climate_bottom_sheet);
+        //findbyid del bottom sheet
+        CoordinatorLayout layout= optionsBottomSheet.findViewById(R.id.coord_layout_bottom_sheet_climates);
+        //actions
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        layout.setMinimumHeight(height);
+        //inflating layout
+        View view = View.inflate(this, R.layout.activity_machine_climate_bottom_sheet, null);
+        optionsBottomSheet.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                BottomSheetDialog d = (BottomSheetDialog) dialog;
+                FrameLayout bottomSheet = (FrameLayout) d.findViewById(R.id.design_bottom_sheet);
+                BottomSheetBehavior.from(bottomSheet)
+                        .setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
+
+
+        //onclick methods
+
+        //recyclerView
+        //firestore
+        db= FirebaseFirestore.getInstance();
+
+        //findById elements
+        recyclerViewClimas=optionsBottomSheet.findViewById(R.id.rv_climas_machine); //rv Climas
+        initRvClima();
+        getItemClima();
+
+        optionsBottomSheet.show();
+    }
+
+    private void initRvClima() {
+        //defino que el rv no tenga fixed size
+        recyclerViewClimas.setHasFixedSize(false);
+        //manejador para declarar la direccion de los items del rv
+        recyclerViewClimas.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void getItemClima(){
+        itemClimatesMachine.clear(); //clear la list para que no se duplique
+
+        itemClimatesMachine.add(new ItemClimate("Tomates"));
+        itemClimatesMachine.add(new ItemClimate("Tomates"));
+        itemClimatesMachine.add(new ItemClimate("Marihuana"));
+        itemClimatesMachine.add(new ItemClimate("Marihuana"));
+        itemClimatesMachine.add(new ItemClimate("Marihuana"));
+        itemClimatesMachine.add(new ItemClimate("Marihuana"));
+        //creo un adaptador pasandole los elementos al contructor
+        adapterItemClimatesMachine=new AdapterItemClimatesMachine(itemClimatesMachine ,this);
+        //declaro que cual es el adaptador el rv
+        recyclerViewClimas.setAdapter(adapterItemClimatesMachine);
     }
 
 }

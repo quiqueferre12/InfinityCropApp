@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coord_layout_bottom_sheet_climates"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -46,6 +46,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
                         app:cardCornerRadius="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -57,15 +59,16 @@
 
                             <ImageView
                                 android:id="@+id/imageView9"
-                                android:layout_width="120sp"
-                                android:layout_height="80sp"
+                                android:layout_width="100sp"
+                                android:layout_height="60sp"
+                                android:contentDescription="TODO"
                                 android:scaleType="centerCrop"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintVertical_bias="0.0"
-                                tools:srcCompat="@drawable/family" />
+                                app:srcCompat="@drawable/example_image_climate" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -75,9 +78,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
                         android:text="TextView"
                         android:textColor="@color/black"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/cardView"
                         app:layout_constraintTop_toTopOf="@+id/cardView" />
 
@@ -85,9 +89,9 @@
                         android:id="@+id/textView17"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:text="By: "
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/textView12"
                         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -96,19 +100,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView17"
                         app:layout_constraintStart_toEndOf="@+id/textView17"
                         app:layout_constraintTop_toTopOf="@+id/textView17" />
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/bt_off_climate"
+                        style="@style/Widget.AppCompat.Button.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:text="OFF"
                         android:textAlignment="center"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
+                        app:backgroundTint="@color/button_color"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -118,49 +124,47 @@
                     android:id="@+id/view14"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/button_secondary"
                     android:backgroundTint="@color/darker_gray"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout9"
-                    tools:layout_editor_absoluteX="4dp" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />
 
-                <SearchView
-                    android:id="@+id/searchView2"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_climas_machine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toStartOf="@+id/button2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view14">
+                    android:background="@drawable/search_input_style"
 
-                </SearchView>
-
-                <Button
-                    android:id="@+id/button2"
-                    style="@android:style/Widget.DeviceDefault.Light.Button.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    app:icon="@drawable/icons_cloud"
-                    app:iconGravity="end"
-                    app:iconPadding="0dp"
-                    app:iconSize="40dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/searchView2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/searchView2" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:drawableLeft="?android:attr/actionModeWebSearchDrawable"
+                    android:drawableRight="@drawable/icons_explore_climate"
+                    android:drawablePadding="8dp"
+                    android:ems="10"
+                    android:hint="@string/buscar"
+                    android:inputType="textPersonName"
+                    android:paddingEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/searchView2" />
+                    app:layout_constraintTop_toBottomOf="@+id/view14" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
