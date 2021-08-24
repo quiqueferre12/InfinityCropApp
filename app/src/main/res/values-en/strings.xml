@@ -200,14 +200,14 @@
     <string name="guardado">Saved</string>
     <string name="top">Top</string>
     <string name="buscar">Search</string>
-
-
+    <string name="categorias">Categories</string>
+    <string name="txt_mas">MORE</string>
 
     <!-- item machine -> dialog add list -->
     <string name="add_list_dialog_tittle">Add to machine list</string>
     <string name="add_list_dialog_subtittle">All machine lists</string>
     <string name="add_list_dialog_btn_text">New list</string>
-    <string name="add_list_dialog_empty_playlist">Empty</string>
+    <string name="add_list_dialog_empty_playlist">EMPTY</string>
     <string name="add_list_dialog_more_playlist">machines</string>
     <string name="add_list_dialog_one_playlist">machine</string>
     <!-- item machine -> dialog new list -->

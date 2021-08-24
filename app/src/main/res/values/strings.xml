@@ -198,6 +198,8 @@
     <string name="guardado">Guardado</string>
     <string name="top">Top</string>
     <string name="buscar">Buscar</string>
+    <string name="categorias">Categorías</string>
+    <string name="txt_mas">MÁS</string>
 
 
 
@@ -205,7 +207,7 @@
     <string name="add_list_dialog_tittle">Añadir a lista de máquinas</string>
     <string name="add_list_dialog_subtittle">Todas las listas de máquinas</string>
     <string name="add_list_dialog_btn_text">Nueva lista</string>
-    <string name="add_list_dialog_empty_playlist">Vacío</string>
+    <string name="add_list_dialog_empty_playlist">VACÍO</string>
     <string name="add_list_dialog_more_playlist">máquinas</string>
     <string name="add_list_dialog_one_playlist">máquina</string>
     <!-- item machine -> dialog new list -->

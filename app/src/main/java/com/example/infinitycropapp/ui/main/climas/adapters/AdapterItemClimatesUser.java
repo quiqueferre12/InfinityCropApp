@@ -9,22 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.ActivityClima;
-import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemMachine;
-import com.example.infinitycropapp.ui.main.home.adapters.AdapterItemPlaylist;
-import com.example.infinitycropapp.ui.main.home.models.IC6Activity;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
-import com.example.infinitycropapp.ui.pojos.ItemMachine;
-import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemClimatesUser.ItemClimateHolder> {
@@ -51,23 +45,45 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
     @Override
     public void onBindViewHolder(@NonNull ItemClimateHolder holder, int position) {
 
-        final ItemClimate pojoItem= itemClimates.get(position);
-        holder.name_climate.setText(pojoItem.getName());
-        //onclick methods
-        //entrar en la activity del clima
-        holder.item_climate2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ActivityClima.class);
-                intent.putExtra("idClimate",itemClimates.get(position).getName());
-                context.startActivity(intent);
-            }
-        });
+        if(showShimmer){ //if la animacion tiene que cargar
+            holder.shimmerFrameLayout.startShimmer(); //start animation
+            holder.name_climate.setVisibility(View.INVISIBLE);
+            holder.img_climate.setVisibility(View.INVISIBLE);
+            holder.container_save.setVisibility(View.INVISIBLE);
+        }else{
+            holder.shimmerFrameLayout.stopShimmer(); //stop animation
+            holder.shimmerFrameLayout.setShimmer(null); //remove shimmer
+
+            holder.name_climate.setVisibility(View.VISIBLE);
+            holder.img_climate.setVisibility(View.VISIBLE);
+            holder.container_save.setVisibility(View.VISIBLE);
+            holder.card_climate.setBackgroundTintList(null); //quitar el tinte (color) gris del loader
+            holder.container_txt_name.setBackground(null); //quitar el tinte (color) gris del loader
+
+            //get the item
+            final ItemClimate pojoItem= itemClimates.get(position);
+            holder.name_climate.setText(pojoItem.getName());
+            //onclick methods
+            //entrar en la activity del clima
+            holder.card_climate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ActivityClima.class);
+                    intent.putExtra("idClimate",itemClimates.get(position).getName());
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return itemClimates.size();
+        int itemLoading=6; //numero de items animacion de cargar
+        if(showShimmer){
+            return itemLoading;
+        }else {
+            return itemClimates.size();
+        }
     }
 
 
@@ -75,14 +91,21 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
 
         protected TextView name_climate;
         protected ShimmerFrameLayout shimmerFrameLayout;
-        protected MaterialCardView item_climate;
-        protected MaterialCardView item_climate2;
+        protected MaterialCardView card_climate;
         protected ImageView img_climate;
+        protected ConstraintLayout container_txt_name;
+        protected ConstraintLayout container_save;
+        protected ImageView save_climate;
         public ItemClimateHolder(@NonNull View itemView) {
             super(itemView);
             //defino aca los findById
             name_climate=itemView.findViewById(R.id.textViewNameClimate);
-            item_climate2=itemView.findViewById(R.id.materialCardView4);
+            card_climate =itemView.findViewById(R.id.climate_item_card);
+            img_climate = itemView.findViewById(R.id.climate_item_image);
+            container_txt_name = itemView.findViewById(R.id.climate_item_container_name);
+            container_save = itemView.findViewById(R.id.climate_item_circle_save);
+            save_climate = itemView.findViewById(R.id.climate_item_save_img);
+            shimmerFrameLayout = itemView.findViewById(R.id.shimmer_climate_item);
         }
     }
 }

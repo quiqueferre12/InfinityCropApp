@@ -36,16 +36,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout16"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout13"
-                app:layout_constraintTop_toBottomOf="@+id/textView12">
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/climas_categories_icon"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/icons_categories"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -55,12 +58,15 @@
                     android:id="@+id/climas_categories_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
-                    android:text="Categorias"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/categorias"
                     android:textColor="@color/darker_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/climas_categories_icon"
-                    app:layout_constraintStart_toStartOf="@+id/climas_categories_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/climas_categories_icon"
                     app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -70,16 +76,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout15"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout14"
-                app:layout_constraintTop_toBottomOf="@+id/textView12">
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/climas_podium_icon"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_top_podium"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -89,12 +98,15 @@
                     android:id="@+id/climas_podium_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/top"
                     android:textColor="@color/darker_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/climas_podium_icon"
-                    app:layout_constraintStart_toStartOf="@+id/climas_podium_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/climas_podium_icon"
                     app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,16 +116,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout13"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout12"
-                app:layout_constraintTop_toBottomOf="@+id/textView12">
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/climas_leaf_icon"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/icons_leaf"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -123,12 +138,15 @@
                     android:id="@+id/climas_leaf_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
-                    android:text="New"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/nuevos"
                     android:textColor="@color/darker_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/climas_leaf_icon"
-                    app:layout_constraintStart_toStartOf="@+id/climas_leaf_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/climas_leaf_icon"
                     app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -138,16 +156,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout15"
-                app:layout_constraintTop_toBottomOf="@+id/textView12">
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/climas_search_icon"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_search"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -157,12 +179,15 @@
                     android:id="@+id/climas_search_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
-                    android:text="Find"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/buscar"
                     android:textColor="@color/darker_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/climas_search_icon"
-                    app:layout_constraintStart_toStartOf="@+id/climas_search_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/climas_search_icon"
                     app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -171,18 +196,22 @@
                 android:id="@+id/constraintLayout12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout14"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12">
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/climas_heart_icon"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:src="@drawable/ic_heart_empty"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -192,12 +221,15 @@
                     android:id="@+id/climas_heart_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/guardado"
                     android:textColor="@color/darker_gray"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/climas_heart_icon"
-                    app:layout_constraintStart_toStartOf="@+id/climas_heart_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/climas_heart_icon"
                     app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -207,7 +239,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/button_secondary"
                 android:backgroundTint="@android:color/darker_gray"
@@ -233,16 +265,18 @@
                 android:id="@+id/constraintLayout17"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view7">
+                app:layout_constraintTop_toBottomOf="@+id/view7"
+                android:focusable="true">
 
                 <TextView
                     android:id="@+id/textView18"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
@@ -258,6 +292,7 @@
                     android:id="@+id/imageView10"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:layout_marginEnd="16dp"
                     android:src="@drawable/ic_climas_forward"
                     app:layout_constraintBottom_toBottomOf="@+id/textView18"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -269,7 +304,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="4"
+                    android:text="@string/add_list_dialog_empty_playlist"
                     android:textColor="@color/darker_gray"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView10"
                     app:layout_constraintEnd_toStartOf="@+id/imageView10"
@@ -280,17 +315,19 @@
                 android:id="@+id/constraintLayout9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view13">
+                app:layout_constraintTop_toBottomOf="@+id/view13"
+                android:focusable="true">
 
                 <TextView
                     android:id="@+id/textView35"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
@@ -298,7 +335,7 @@
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                    app:layout_constraintEnd_toStartOf="@+id/textView44"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -306,17 +343,33 @@
                     android:id="@+id/imageView9"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:layout_marginEnd="16dp"
                     android:src="@drawable/ic_climas_forward"
                     app:layout_constraintBottom_toBottomOf="@+id/textView35"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView35"
                     app:tint="@color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/textView44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/txt_mas"
+                    android:textColor="@color/darker_gray"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                    app:layout_constraintTop_toTopOf="@+id/imageView9" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvClimasInfinity"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="60dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

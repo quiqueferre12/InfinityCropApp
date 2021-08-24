@@ -112,20 +112,13 @@ public class ClimasFragment extends Fragment {
         db= FirebaseFirestore.getInstance();
 
         //findById elements
-        //rv_climasUser=view.findViewById(R.id.rvClimasUser); //rv Climas User
         rv_climasInfinity=view.findViewById(R.id.rvClimasInfinity); //rv Climas Infinity
-        //rv_climasCommunity=view.findViewById(R.id.rvClimasCommunity); //rv Climas Community
-        //im_climasUser=view.findViewById(R.id.imageViewMisClimas); //img Climas User
 
 
         //config rv
-        //initRvUser();
-        //setRvUserDatos();
         initRvInf();
         getItemInf();
-        //setRvInfDatos();
-        //initRvCom();
-        //setRvInfCom();
+        setRvInfDatos();
 
         //onclicks imgv
         /*im_climasUser.setOnClickListener(new View.OnClickListener() {
@@ -141,91 +134,36 @@ public class ClimasFragment extends Fragment {
     }
 
     // init Rvs
-    private void initRvUser(){
-        //defino que el rv no tenga fixed size
-        rv_climasUser.setHasFixedSize(false);
-        //manejador para declarar la direccion de los items del rv
-        rv_climasUser.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-    }
     private void initRvInf() {
+        //manejador para declarar la direccion de los items del rv
+        rv_climasInfinity.setLayoutManager(new GridLayoutManager(getContext(), 2));
         //defino que el rv no tenga fixed size
         rv_climasInfinity.setHasFixedSize(false);
-        //manejador para declarar la direccion de los items del rv
-        rv_climasInfinity.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
+        rv_climasInfinity.setNestedScrollingEnabled(false);
     }
-    private void initRvCom(){
-        //defino que el rv no tenga fixed size
-        rv_climasCommunity.setHasFixedSize(false);
-        //manejador para declarar la direccion de los items del rv
-        rv_climasCommunity.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-    }
-
-    private void getItemUser(){
-        itemClimatesCommunity.clear(); //clear la list para que no se duplique
-        //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesUser=new AdapterItemClimatesUser(itemClimatesUser ,getContext());
-        //declaro que cual es el adaptador el rv
-        rv_climasUser.setAdapter(adapterItemClimatesUser);
-    }
-
     private void getItemInf(){
         itemClimatesInfinity.clear(); //clear la list para que no se duplique
-
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Marihuana"));
-        itemClimatesInfinity.add(new ItemClimate("Marihuana"));
-        itemClimatesInfinity.add(new ItemClimate("Marihuana"));
-        itemClimatesInfinity.add(new ItemClimate("Marihuana"));
         //creo un adaptador pasandole los elementos al contructor
         adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity ,getContext());
         //declaro que cual es el adaptador el rv
         rv_climasInfinity.setAdapter(adapterItemClimatesInfinity);
     }
-
-
-    private void getItemCom(){
-        itemClimatesCommunity.clear(); //clear la list para que no se duplique
-        //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesCommunity=new AdapterItemClimatesUser(itemClimatesCommunity ,getContext());
-        //declaro que cual es el adaptador el rv
-        rv_climasCommunity.setAdapter(adapterItemClimatesCommunity);
-    }
-
-
-    private void setRvUserDatos(){
-        getItemUser();
-        adapterItemClimatesUser.showShimmer=true;
-        Firestore firestore=new Firestore();
-        String id=firestore.GetIdUser();
-        db.collection("Climate")
-                .whereEqualTo("Creator Id", id)
-                .limit(5)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                ItemClimate itemClimateUser=document.toObject(ItemClimate.class);
-                                itemClimatesUser.add(itemClimateUser);
-                            }
-
-                            //dismiss loader
-                            adapterItemClimatesUser.showShimmer= false;
-                            adapterItemClimatesUser.notifyDataSetChanged();
-                        } else {
-
-                        }
-                    }
-                });
-
-    }
-
     private void setRvInfDatos(){
-        getItemInf();
         adapterItemClimatesInfinity.showShimmer=true;
-        db.collection("Climate")
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        //dismiss loader
+        adapterItemClimatesInfinity.showShimmer= false;
+        adapterItemClimatesInfinity.notifyDataSetChanged();
+        /*db.collection("Climate")
                 .whereEqualTo("InfinityCropClimate", true)
                 .limit(5)
                 .get()
@@ -245,36 +183,8 @@ public class ClimasFragment extends Fragment {
 
                         }
                     }
-                });
+                });*/
 
     }
-
-    private void setRvInfCom(){
-        getItemCom();
-        adapterItemClimatesCommunity.showShimmer=true;
-        db.collection("Climate")
-                .orderBy("numberShared", Query.Direction.DESCENDING)
-                .limit(5)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                ItemClimate itemClimateCom=document.toObject(ItemClimate.class);
-                                itemClimatesCommunity.add(itemClimateCom);
-                            }
-
-                            //dismiss loader
-                            adapterItemClimatesCommunity.showShimmer= false;
-                            adapterItemClimatesCommunity.notifyDataSetChanged();
-                        } else {
-
-                        }
-                    }
-                });
-
-    }
-
     // FIN -> init Rvs
 }
