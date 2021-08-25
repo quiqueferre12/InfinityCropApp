@@ -203,7 +203,7 @@
     <string name="categorias">Categories</string>
     <string name="txt_mas">MORE</string>
     <string name="title_empty_climate_recycler">No weather found</string>
-    <string name="subtitle_empty_climate_infinity_recycler">Solutions: Refresh the page by swiping up, check your internet connection or restart the application.</string>
+    <string name="subtitle_empty_climate_infinity_recycler">Solutions: Refresh the page by swiping down, check your internet connection or restart the application.</string>
 
 
     <!-- item machine -> dialog add list -->

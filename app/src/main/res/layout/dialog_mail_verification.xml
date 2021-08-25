@@ -9,6 +9,9 @@
         android:id="@+id/back_dialog_mail_verification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="@+id/textView37"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView37">

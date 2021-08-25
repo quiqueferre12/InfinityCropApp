@@ -22,8 +22,11 @@
             android:id="@+id/btn_back_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foreground="?android:selectableItemBackground"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true">
 
             <ImageView
                 android:id="@+id/imageView19"

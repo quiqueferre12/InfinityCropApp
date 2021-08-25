@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,6 +85,8 @@ public class ClimasFragment extends Fragment {
     //-----poner aca attributes etc... -----//
     //palette
     private ConstraintLayout empty_recyclerView;
+    //swipe to refresh
+    private SwipeRefreshLayout refreshLayout;
     //rvs
     private RecyclerView rv_climasInfinity; //Climas de InfinityCrop
     //lists
@@ -92,6 +95,8 @@ public class ClimasFragment extends Fragment {
     private AdapterItemClimatesUser adapterItemClimatesInfinity;
     //firebase
     private FirebaseFirestore db;
+    //btn
+    private ConstraintLayout btn_my_climates;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,20 +111,26 @@ public class ClimasFragment extends Fragment {
         //findById elements
         rv_climasInfinity=view.findViewById(R.id.rvClimasInfinity); //rv Climas Infinity
         empty_recyclerView= view.findViewById(R.id.empty_infinity_crop_climates_rv); //container empty rv
+        refreshLayout = view.findViewById(R.id.refresh_fragment_climas);//refresh layout
+        btn_my_climates= view.findViewById(R.id.btn_mis_climas_fragment);//mis climas
 
 
         //config rv
         initRvInf();
         getItemInf();
         setRvInfDatos();
+        //config swipe to refresh
+        swipeToRefresh();
 
-        //onclicks imgv
-        /*im_climasUser.setOnClickListener(new View.OnClickListener() {
+        //onclicks
+
+        //btn my climates
+        btn_my_climates.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), ActivityMisClimas.class);
                 startActivity(i);
             }
-        });*/
+        });
 
         //FINAL ------------- Inflate the layout for this fragment
         return view;
@@ -156,6 +167,8 @@ public class ClimasFragment extends Fragment {
         //dismiss loader
         adapterItemClimatesInfinity.showShimmer= false;
         adapterItemClimatesInfinity.notifyDataSetChanged();
+        //quitar la animacion de recarga
+        refreshLayout.setRefreshing(false);
         //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
         //si el recyclerView esta vacio
         if(adapterItemClimatesInfinity.getItemCount() == 0 ){
@@ -189,4 +202,15 @@ public class ClimasFragment extends Fragment {
 
     }
     // FIN -> init Rvs
+    //refresh methods
+    private void swipeToRefresh(){
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getItemInf();
+                setRvInfDatos();
+            }
+        });
+    }
+    //FIN -> refresh methods
 }

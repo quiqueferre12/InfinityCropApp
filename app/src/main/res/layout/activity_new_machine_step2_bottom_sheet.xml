@@ -20,9 +20,12 @@
         android:id="@+id/confirm_step2_bottom_sheet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView9">
+        app:layout_constraintTop_toTopOf="@+id/textView9"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="28dp"
@@ -57,9 +60,12 @@
         android:id="@+id/quit_step2_bottom_sheet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView9">
+        app:layout_constraintTop_toTopOf="@+id/textView9"
+        android:focusable="true">
 
         <ImageView
             android:layout_width="28dp"

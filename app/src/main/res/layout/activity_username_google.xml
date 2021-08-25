@@ -10,6 +10,9 @@
         android:id="@+id/btn_back__access_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="@+id/textViewNuevo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewNuevo">

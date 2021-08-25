@@ -1,41 +1,49 @@
 package com.example.infinitycropapp.ui.pojos;
 
 public class ItemClimate {
-    private String id;
-    private String creatorId;
+    private String id; //id of the document
+    private String creatorId; //id of creator
+    //info climate
+    private String name;
+    private String image;
+    private String description;
+    // data climate
     private String maxHumidity;
     private String minHumidity;
-    private String image;
-    private boolean InfinityCropClimate;
     private String maxLuminosity;
     private String minLuminosity;
-    private String Name;
     private String maxtemperature;
     private String minTemperature;
+    //is our o no
+    private boolean infinityCropClimate;
+    //num of user that shared the climate
     private int numberShared;
 
-    public ItemClimate(String id, String creatorId, String maxHumidity, String minHumidity, String image, boolean infinityCropClimate, String maxLuminosity, String minLuminosity, String name, String maxtemperature, String minTemperature, int numberShared) {
-        this.id=id;
+
+
+    public ItemClimate() {}
+
+    public ItemClimate(String name) {
+        this.name = name;
+    }
+
+    public ItemClimate(String id, String creatorId, String name, String image, String description, String maxHumidity, String minHumidity, String maxLuminosity, String minLuminosity, String maxtemperature, String minTemperature, boolean infinityCropClimate, int numberShared) {
+        this.id = id;
         this.creatorId = creatorId;
+        this.name = name;
+        this.image = image;
+        this.description = description;
         this.maxHumidity = maxHumidity;
         this.minHumidity = minHumidity;
-        this.image = image;
-        InfinityCropClimate = infinityCropClimate;
         this.maxLuminosity = maxLuminosity;
         this.minLuminosity = minLuminosity;
-        Name = name;
         this.maxtemperature = maxtemperature;
         this.minTemperature = minTemperature;
+        this.infinityCropClimate = infinityCropClimate;
         this.numberShared = numberShared;
     }
 
-    public ItemClimate() {
-    }
-
-    public ItemClimate(String name) {
-        Name = name;
-    }
-
+    //getters & setters
     public String getId() {
         return id;
     }
@@ -77,11 +85,11 @@ public class ItemClimate {
     }
 
     public boolean isInfinityCropClimate() {
-        return InfinityCropClimate;
+        return infinityCropClimate;
     }
 
     public void setInfinityCropClimate(boolean infinityCropClimate) {
-        InfinityCropClimate = infinityCropClimate;
+        this.infinityCropClimate = infinityCropClimate;
     }
 
     public String getMaxLuminosity() {
@@ -101,11 +109,11 @@ public class ItemClimate {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getMaxtemperature() {
@@ -130,5 +138,13 @@ public class ItemClimate {
 
     public void setNumberShared(int numberShared) {
         this.numberShared = numberShared;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

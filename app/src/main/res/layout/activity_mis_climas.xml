@@ -9,8 +9,11 @@
         android:id="@+id/back_lay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/back_icon"
@@ -54,8 +57,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/back_lay"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/back_lay" />
+        app:layout_constraintTop_toTopOf="@+id/back_lay"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
