@@ -98,7 +98,6 @@
                 android:layout_marginBottom="60dp"
                 android:backgroundTint="#62c050"
                 android:src="@drawable/icons_add_machine"
-                app:backgroundTint="#62c050"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:maxImageSize="20dp" />

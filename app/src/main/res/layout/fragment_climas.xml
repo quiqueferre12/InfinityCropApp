@@ -10,8 +10,7 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh_fragment_climas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/fragment_climas_scrollview_layout"

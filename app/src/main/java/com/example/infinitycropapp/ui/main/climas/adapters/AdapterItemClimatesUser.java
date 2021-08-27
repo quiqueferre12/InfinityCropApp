@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.ActivityClima;
+import com.example.infinitycropapp.ui.main.climas.ActivityMisClimas;
 import com.example.infinitycropapp.ui.main.climas.ClimasFragment;
 import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
@@ -32,10 +33,16 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
     private List<Boolean> itemClimatesSaved;
     //constructor
 
-
+    //para fragment
     public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved , Context context, Fragment fragment) {
         this.context = context;
         this.fragment = fragment;
+        this.itemClimates = itemClimates;
+        this.itemClimatesSaved = itemClimatesSaved;
+    }
+    //para activity
+    public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved, Context context) {
+        this.context = context;
         this.itemClimates = itemClimates;
         this.itemClimatesSaved = itemClimatesSaved;
     }
@@ -102,11 +109,14 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
                     if(changed){
                         //llamar a la funcion que hace el snackbar
                         message= context.getString(R.string.snack_clima_favorite) ;
-                        ((ClimasFragment) fragment).setSnackbar(message);
                     }else{
                         //llamar a la funcion que hace el snackbar
-                        message= context.getString(R.string.snack_clima_quit_favorite) ;
+                        message= context.getString(R.string.snack_clima_quit_favorite);
+                    }
+                    if(fragment != null){ //si es adapter en un fragment
                         ((ClimasFragment) fragment).setSnackbar(message);
+                    }else{ //si esta en un activiyu
+                        ((ActivityMisClimas) context).setSnackbar(message);
                     }
                 }
             });
