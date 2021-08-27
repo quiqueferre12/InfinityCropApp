@@ -25,4 +25,7 @@
     <color name="material_item_hover">#1f000000</color>
     <!-- PRIMART DARKER GRAY -->
     <color name="darker_gray">#aaa</color>
+    <!-- saved red primary color -->
+    <color name="red">#ffff4444</color>
+
 </resources>

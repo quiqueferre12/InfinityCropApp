@@ -10,11 +10,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.ActivityClima;
+import com.example.infinitycropapp.ui.main.climas.ClimasFragment;
+import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.card.MaterialCardView;
@@ -26,10 +29,15 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
     public boolean showShimmer=true; //mostrar o no loader
     private Fragment fragment;
     private List<ItemClimate> itemClimates;
+    private List<Boolean> itemClimatesSaved;
     //constructor
-    public AdapterItemClimatesUser (List<ItemClimate> itemClimates, Context context){
-        this.context=context;
-        this.itemClimates=itemClimates;
+
+
+    public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved , Context context, Fragment fragment) {
+        this.context = context;
+        this.fragment = fragment;
+        this.itemClimates = itemClimates;
+        this.itemClimatesSaved = itemClimatesSaved;
     }
 
     @NonNull
@@ -62,7 +70,15 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
 
             //get the item
             final ItemClimate pojoItem= itemClimates.get(position);
+            Boolean savedItem= itemClimatesSaved.get(position);
             holder.name_climate.setText(pojoItem.getName());
+            if(savedItem){
+                holder.save_climate.setImageResource(R.drawable.ic_heart_full);
+                holder.save_climate.setColorFilter(ContextCompat.getColor(context, R.color.red));
+            }else{
+                holder.save_climate.setImageResource(R.drawable.ic_heart_empty);
+                holder.save_climate.setColorFilter(ContextCompat.getColor(context, R.color.white));
+            }
             //onclick methods
             //entrar en la activity del clima
             holder.card_climate.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +87,27 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
                     Intent intent = new Intent(context, ActivityClima.class);
                     intent.putExtra("idClimate",itemClimates.get(position).getName());
                     context.startActivity(intent);
+                }
+            });
+            //guardar clima
+            holder.container_save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Boolean changed = itemClimatesSaved.get(position);
+                    changed= !changed;
+                    itemClimatesSaved.set(position, changed);
+                    notifyItemChanged(position);
+                    //snackbar se ha puesto o no a favoritos
+                    String message="";
+                    if(changed){
+                        //llamar a la funcion que hace el snackbar
+                        message= context.getString(R.string.snack_clima_favorite) ;
+                        ((ClimasFragment) fragment).setSnackbar(message);
+                    }else{
+                        //llamar a la funcion que hace el snackbar
+                        message= context.getString(R.string.snack_clima_quit_favorite) ;
+                        ((ClimasFragment) fragment).setSnackbar(message);
+                    }
                 }
             });
         }

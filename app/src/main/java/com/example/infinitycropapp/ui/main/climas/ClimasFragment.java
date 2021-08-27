@@ -1,6 +1,7 @@
 package com.example.infinitycropapp.ui.main.climas;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesUs
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -91,6 +93,7 @@ public class ClimasFragment extends Fragment {
     private RecyclerView rv_climasInfinity; //Climas de InfinityCrop
     //lists
     private List<ItemClimate> itemClimatesInfinity=new ArrayList<>(); //infinity
+    private List<Boolean> itemClimatesInfinitySaved=new ArrayList<>(); //infinity
     //adapters
     private AdapterItemClimatesUser adapterItemClimatesInfinity;
     //firebase
@@ -147,8 +150,9 @@ public class ClimasFragment extends Fragment {
     }
     private void getItemInf(){
         itemClimatesInfinity.clear(); //clear la list para que no se duplique
+        itemClimatesInfinitySaved.clear(); //clear la list
         //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity ,getContext());
+        adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesInfinitySaved ,getContext(), this);
         //declaro que cual es el adaptador el rv
         rv_climasInfinity.setAdapter(adapterItemClimatesInfinity);
     }
@@ -164,6 +168,17 @@ public class ClimasFragment extends Fragment {
         itemClimatesInfinity.add(new ItemClimate("Tomates"));
         itemClimatesInfinity.add(new ItemClimate("Tomates"));
         itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        //saved list
+        itemClimatesInfinitySaved.add(true);
+        itemClimatesInfinitySaved.add(false);
+        itemClimatesInfinitySaved.add(false);
+        itemClimatesInfinitySaved.add(true);
+        itemClimatesInfinitySaved.add(true);
+        itemClimatesInfinitySaved.add(false);
+        itemClimatesInfinitySaved.add(true);
+        itemClimatesInfinitySaved.add(false);
+        itemClimatesInfinitySaved.add(true);
+        itemClimatesInfinitySaved.add(false);
         //dismiss loader
         adapterItemClimatesInfinity.showShimmer= false;
         adapterItemClimatesInfinity.notifyDataSetChanged();
@@ -213,4 +228,19 @@ public class ClimasFragment extends Fragment {
         });
     }
     //FIN -> refresh methods
+    //snackbar methods
+    //set snackbar method
+    public void setSnackbar(String snackBarText){
+        Snackbar snackBar = Snackbar.make( getActivity().findViewById(R.id.general_layout_fragment_climas), snackBarText,Snackbar.LENGTH_LONG);
+        snackBar.setActionTextColor(Color.CYAN);
+        snackBar.setAnchorView(R.id.list_menuActivity);
+        snackBar.setAction(getText(R.string.snack_close), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackBar.dismiss();
+            }
+        });
+        snackBar.show();
+    }
+    //FIN -> snackbar methods
 }

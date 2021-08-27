@@ -177,6 +177,8 @@
     <!--    SNACKBAR item actions (delete,add,favorite....)-->
     <string name="snack_machine_favorite">Machine saved to your favorites.</string>
     <string name="snack_machine_quit_favorite">Machine removed from your favorites.</string>
+    <string name="snack_clima_favorite">Climate saved to your favorites.</string>
+    <string name="snack_clima_quit_favorite">Climate removed from your favorites.</string>
     <string name="snack_machine_delete">The machine has been deleted.</string>
     <string name="snack_playlist_add">Saved machine in the list</string>
     <string name="snack_playlist_already_favorite">This machine is already in favorites.</string>
