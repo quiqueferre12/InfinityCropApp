@@ -27,6 +27,8 @@ public class ActivityMisClimas extends AppCompatActivity {
     private ConstraintLayout btn_back;
     //rv
     private RecyclerView rv_climates;
+    //empty recyclerView contenedor
+    private ConstraintLayout empty_rv;
     //swipe refresh
     private SwipeRefreshLayout refreshLayout;
     //lists
@@ -45,6 +47,7 @@ public class ActivityMisClimas extends AppCompatActivity {
         btn_back=findViewById(R.id.back_lay);
         rv_climates= findViewById(R.id.rv_my_climates);
         refreshLayout= findViewById(R.id.refresh_my_climates_layout);
+        empty_rv= findViewById(R.id.empty_my_climates_rv);
 
         //config rv
         initRvInf();
@@ -120,13 +123,13 @@ public class ActivityMisClimas extends AppCompatActivity {
         refreshLayout.setRefreshing(false);
         //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
         //si el recyclerView esta vacio
-        /*if(adapterItemClimatesInfinity.getItemCount() == 0 ){
-            rv_climasInfinity.setVisibility(View.GONE); //ocultar rv
-            empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
+        if(adapterItemClimatesInfinity.getItemCount() == 0 ){
+            rv_climates.setVisibility(View.GONE); //ocultar rv
+            empty_rv.setVisibility(View.VISIBLE); //mostrar elementos
         }else{ //sino
-            rv_climasInfinity.setVisibility(View.VISIBLE); //mostras rv con sus items
-            empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
-        }*/
+            rv_climates.setVisibility(View.VISIBLE); //mostras rv con sus items
+            empty_rv.setVisibility(View.GONE); //ocultar container con info
+        }
     }
     // FIN -> init Rvs
     //refresh methods
