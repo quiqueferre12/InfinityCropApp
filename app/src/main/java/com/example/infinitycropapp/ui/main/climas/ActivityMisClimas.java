@@ -2,7 +2,10 @@ package com.example.infinitycropapp.ui.main.climas;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +39,8 @@ public class ActivityMisClimas extends AppCompatActivity {
     private List<Boolean> itemClimatesInfinitySaved=new ArrayList<>(); //infinity
     //adapters
     private AdapterItemClimatesUser adapterItemClimatesInfinity;
+    //search input
+    private EditText search_input;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +53,7 @@ public class ActivityMisClimas extends AppCompatActivity {
         rv_climates= findViewById(R.id.rv_my_climates);
         refreshLayout= findViewById(R.id.refresh_my_climates_layout);
         empty_rv= findViewById(R.id.empty_my_climates_rv);
+        search_input= findViewById(R.id.search_input_my_climates);
 
         //config rv
         initRvInf();
@@ -55,6 +61,8 @@ public class ActivityMisClimas extends AppCompatActivity {
         setRvInfDatos();
         //config swipe to refresh
         swipeToRefresh();
+        //search logic
+        searchMethod();
 
         //onclicks
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -82,22 +90,22 @@ public class ActivityMisClimas extends AppCompatActivity {
     private void setRvInfDatos(){
         adapterItemClimatesInfinity.showShimmer=true;
         itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Pepe"));
+        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Maria"));
         itemClimatesInfinity.add(new ItemClimate("Tomates"));
         itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Pablo"));
         itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Pepe"));
         itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Pepe"));
         itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Pablo"));
+        itemClimatesInfinity.add(new ItemClimate("Pablo"));
         itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
+        itemClimatesInfinity.add(new ItemClimate("Maria"));
+        itemClimatesInfinity.add(new ItemClimate("Maria"));
         //saved list
         itemClimatesInfinitySaved.add(true);
         itemClimatesInfinitySaved.add(false);
@@ -139,6 +147,7 @@ public class ActivityMisClimas extends AppCompatActivity {
             public void onRefresh() {
                 getItemInf();
                 setRvInfDatos();
+                searchMethod();
             }
         });
     }
@@ -158,4 +167,26 @@ public class ActivityMisClimas extends AppCompatActivity {
         snackBar.show();
     }
     //FIN -> snackbar methods
+
+    // search method
+    private void searchMethod(){
+        search_input.setText("");
+        search_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapterItemClimatesInfinity.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+    // FIN -> search method
 }

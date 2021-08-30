@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,14 +25,18 @@ import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.card.MaterialCardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemClimatesUser.ItemClimateHolder> {
+public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemClimatesUser.ItemClimateHolder> implements Filterable {
     private Context context; //contexto
     public boolean showShimmer=true; //mostrar o no loader
     private Fragment fragment;
     private List<ItemClimate> itemClimates;
     private List<Boolean> itemClimatesSaved;
+    //filter data
+    private List<ItemClimate> itemClimatesFiltered;
+    private List<Boolean> itemClimatesSavedFiltered;
     //constructor
 
     //para fragment
@@ -39,12 +45,16 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
         this.fragment = fragment;
         this.itemClimates = itemClimates;
         this.itemClimatesSaved = itemClimatesSaved;
+        this.itemClimatesFiltered = itemClimates;
+        this.itemClimatesSavedFiltered = itemClimatesSaved;
     }
     //para activity
     public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved, Context context) {
         this.context = context;
         this.itemClimates = itemClimates;
         this.itemClimatesSaved = itemClimatesSaved;
+        this.itemClimatesFiltered = itemClimates;
+        this.itemClimatesSavedFiltered = itemClimatesSaved;
     }
 
     @NonNull
@@ -76,8 +86,8 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
             holder.container_txt_name.setBackground(null); //quitar el tinte (color) gris del loader
 
             //get the item
-            final ItemClimate pojoItem= itemClimates.get(position);
-            Boolean savedItem= itemClimatesSaved.get(position);
+            final ItemClimate pojoItem= itemClimatesFiltered.get(position);
+            Boolean savedItem= itemClimatesSavedFiltered.get(position);
             holder.name_climate.setText(pojoItem.getName());
             if(savedItem){
                 holder.save_climate.setImageResource(R.drawable.ic_heart_full);
@@ -92,7 +102,7 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ActivityClima.class);
-                    intent.putExtra("idClimate",itemClimates.get(position).getName());
+                    intent.putExtra("idClimate",itemClimatesFiltered.get(position).getName());
                     context.startActivity(intent);
                 }
             });
@@ -129,8 +139,45 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
         if(showShimmer){
             return itemLoading;
         }else {
-            return itemClimates.size();
+            return itemClimatesFiltered.size();
         }
+    }
+
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+
+                String key= constraint.toString(); //get the char of the search
+                if(key.isEmpty()){ //si esta vacio rellenar con all
+                    itemClimatesFiltered = itemClimates;
+                }else{ //sino
+                    List<ItemClimate> itemsFiltered = new ArrayList<>();
+                    for(ItemClimate row: itemClimates){
+                        //all minusculas y comprobamos si existe cada secuencia de chars
+                        if(row.getName().toLowerCase().contains(key.toLowerCase())){
+                            itemsFiltered.add(row); //add los climas que se filtran
+                        }
+
+                    }
+                    //set final array
+                    itemClimatesFiltered = itemsFiltered;
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = itemClimatesFiltered;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                itemClimatesFiltered = (List<ItemClimate>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+
     }
 
 

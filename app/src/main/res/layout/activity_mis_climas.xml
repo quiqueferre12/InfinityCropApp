@@ -30,7 +30,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView63">
+                    app:layout_constraintTop_toBottomOf="@+id/search_input_my_climates">
 
                     <ImageView
                         android:id="@+id/imageView11"
@@ -122,17 +122,17 @@
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+                    app:layout_constraintTop_toBottomOf="@+id/search_input_my_climates" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName2"
+                    android:id="@+id/search_input_my_climates"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/search_input_style"
-                    android:drawableLeft="?android:attr/actionModeWebSearchDrawable"
+                    android:drawableStart="?android:attr/actionModeWebSearchDrawable"
                     android:drawablePadding="8dp"
                     android:elevation="5dp"
                     android:ems="10"
