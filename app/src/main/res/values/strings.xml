@@ -206,7 +206,6 @@
     <string name="subtitle_empty_climate_infinity_recycler">Soluciones: Refresca la pagina deslizando hacia abajo, comprueba tu conexión a internet o reinicia la aplicación.</string>
 
 
-
     <!-- item machine -> dialog add list -->
     <string name="add_list_dialog_tittle">Añadir a lista de máquinas</string>
     <string name="add_list_dialog_subtittle">Todas las listas de máquinas</string>
@@ -256,5 +255,20 @@
     <string name="guardar">Guardar</string>
     <string name="por">Por:</string>
     <string name="climas_guardados">Climas Guardados</string>
+
+    <!-- New climate activity -->
+    <!-- textos -->
+    <string name="tittle_newClimate">Clima nuevo</string>
+    <string name="subtittle_newClimate">Pasos para añadir un nuevo clima</string>
+    <string name="body_newClimate">Necesitamos la información del clima.</string>
+    <string name="body2_newClimate">Por favor siga los pasos de abajo.</string>
+    <string name="step1_newClimate">Paso 1</string>
+    <string name="step2_newClimate">Paso 2</string>
+    <string name="step3_newClimate">Paso 3</string>
+    <string name="step4_newClimate">Paso 4</string>
+    <string name="step1Text_newClimate">Añadir umbrales</string>
+    <string name="step2Text_newClimate">Añadir información</string>
+    <string name="step3Text_newClimate">Horario del riego</string>
+    <string name="step4Text_newClimate">Comprobar datos</string>
 
 </resources>

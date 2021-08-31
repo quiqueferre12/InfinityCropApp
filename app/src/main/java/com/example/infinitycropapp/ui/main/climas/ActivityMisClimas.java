@@ -1,5 +1,6 @@
 package com.example.infinitycropapp.ui.main.climas;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,7 +17,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesUser;
+import com.example.infinitycropapp.ui.main.climas.newClimate.NewClimateActivity;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -28,6 +31,8 @@ public class ActivityMisClimas extends AppCompatActivity {
     //-----poner aca attributes etc... -----//
     //btn back
     private ConstraintLayout btn_back;
+    //btn new climate
+    private FloatingActionButton btn_new_climate;
     //rv
     private RecyclerView rv_climates;
     //empty recyclerView contenedor
@@ -54,6 +59,7 @@ public class ActivityMisClimas extends AppCompatActivity {
         refreshLayout= findViewById(R.id.refresh_my_climates_layout);
         empty_rv= findViewById(R.id.empty_my_climates_rv);
         search_input= findViewById(R.id.search_input_my_climates);
+        btn_new_climate = findViewById(R.id.button_add_climate);
 
         //config rv
         initRvInf();
@@ -68,6 +74,15 @@ public class ActivityMisClimas extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        //new climate
+        btn_new_climate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), NewClimateActivity.class);
+                startActivity(intent);
             }
         });
     }
