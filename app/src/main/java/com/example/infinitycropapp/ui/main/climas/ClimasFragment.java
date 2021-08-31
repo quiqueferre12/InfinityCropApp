@@ -100,6 +100,8 @@ public class ClimasFragment extends Fragment {
     private FirebaseFirestore db;
     //btn
     private ConstraintLayout btn_my_climates;
+    private ConstraintLayout btn_climates_Ic;
+    private ConstraintLayout btn_climas_guardados;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,7 +118,8 @@ public class ClimasFragment extends Fragment {
         empty_recyclerView= view.findViewById(R.id.empty_infinity_crop_climates_rv); //container empty rv
         refreshLayout = view.findViewById(R.id.refresh_fragment_climas);//refresh layout
         btn_my_climates= view.findViewById(R.id.btn_mis_climas_fragment);//mis climas
-
+        btn_climas_guardados= view.findViewById(R.id.constraintLayout12);//climas guardados
+        btn_climates_Ic= view.findViewById(R.id.constraintLayout9);//climas InfinityCrop
 
         //config rv
         initRvInf();
@@ -131,6 +134,23 @@ public class ClimasFragment extends Fragment {
         btn_my_climates.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), ActivityMisClimas.class);
+                startActivity(i);
+            }
+        });
+
+        //btn climas guardados
+        btn_climas_guardados.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), ActivityClimasGuardados.class);
+                startActivity(i);
+            }
+        });
+
+
+        //btn climas infinityCrop
+        btn_climates_Ic.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), ActivityClimasInfinityCrop.class);
                 startActivity(i);
             }
         });

@@ -253,6 +253,8 @@
     <string name="light">Luz</string>
     <string name="descripci_n">Descripción</string>
     <string name="guardar">Guardar</string>
+    <string name="por">Por:</string>
+    <string name="climas_guardados">Climas Guardados</string>
 
     <!-- New climate activity -->
     <!-- textos -->
