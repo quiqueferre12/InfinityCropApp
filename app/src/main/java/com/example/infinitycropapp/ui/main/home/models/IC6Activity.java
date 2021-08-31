@@ -5,23 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.infinitycropapp.Firebase.Database.Database;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesMachine;
-import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesUser;
-import com.example.infinitycropapp.ui.main.home.newMachine.NewMachineActivity;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -78,12 +78,15 @@ public class IC6Activity extends AppCompatActivity {
     private TextView riego_txt;
     //strings, int ...
     private String machineId;
+    private String ClimateId;
     //rvs
-    private RecyclerView recyclerViewClimas;
+    private RecyclerView recyclerViewClimasCreados;
+    private RecyclerView recyclerViewClimasGuardados;
     //lists
     private List<ItemClimate> itemClimatesMachine=new ArrayList<>();
     //adapters
-    private AdapterItemClimatesMachine adapterItemClimatesMachine;
+    private AdapterItemClimatesMachine adapterItemClimatesCreadosMachine;
+    private AdapterItemClimatesMachine adapterItemClimatesGuardadosMachine;
     //firebase
     private FirebaseFirestore db;
 
@@ -380,6 +383,8 @@ public class IC6Activity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
+                    //clima
+
                     //general
                     String temperaturaGeneral= snapshot.child("datos generales").child("temperatura").getValue(int.class).toString();
                     String humedadGeneral= snapshot.child("datos generales").child("humedad").getValue(int.class).toString();
@@ -438,6 +443,14 @@ public class IC6Activity extends AppCompatActivity {
         optionsBottomSheet.setContentView(R.layout.activity_machine_climate_bottom_sheet);
         //findbyid del bottom sheet
         CoordinatorLayout layout= optionsBottomSheet.findViewById(R.id.coord_layout_bottom_sheet_climates);
+        ImageView bt_ocultar_mis_climas=optionsBottomSheet.findViewById(R.id.bt_OcultarMisClimas);
+        ImageView bt_ocultar_climas_guardados=optionsBottomSheet.findViewById(R.id.bt_OcultarGuardados);
+        recyclerViewClimasCreados =optionsBottomSheet.findViewById(R.id.rv_climas_machine); //rv Climas
+        recyclerViewClimasGuardados =optionsBottomSheet.findViewById(R.id.rv_climas_guardados); //rv Climas
+        View viewMisClimasGuardados2 = optionsBottomSheet.findViewById(R.id.viewMisClimasGuardados2);
+
+        ConstraintLayout constraintLayout17 = optionsBottomSheet.findViewById(R.id.constraintLayout17);
+
         //actions
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -457,27 +470,71 @@ public class IC6Activity extends AppCompatActivity {
 
 
         //onclick methods
+        bt_ocultar_mis_climas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(recyclerViewClimasCreados.getVisibility() == View.VISIBLE){ //si es Visible lo pones Gone
+                    bt_ocultar_mis_climas.setImageResource(R.drawable.icons_arrow_down);
+                    recyclerViewClimasCreados.setVisibility(View.GONE);
+                    viewMisClimasGuardados2.setVisibility(View.GONE);
+/*                    recyclerViewClimasCreados.setVisibility(View.INVISIBLE);
+                    recyclerViewClimasCreados.animate()
+                            .translationY(-recyclerViewClimasCreados.getHeight())
+                            .alpha(0.0f)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    recyclerViewClimasCreados.setVisibility(View.GONE);
+                                    viewMisClimasGuardados2.setVisibility(View.GONE);
+                                }
+                            });*/
+                }else{ // si no es Visible, lo pones
+                    viewMisClimasGuardados2.setVisibility(View.VISIBLE);
+                    recyclerViewClimasCreados.setVisibility(View.VISIBLE);
+                    bt_ocultar_mis_climas.setImageResource(R.drawable.ic_climas_forward);/*
+                    recyclerViewClimasCreados.animate()
+                            .translationY(0)
+                            .alpha(1.0f)
+                            .setListener(null);*/
+                }
+            }
+        });
 
+        bt_ocultar_climas_guardados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(recyclerViewClimasGuardados.getVisibility() == View.VISIBLE){ //si es Visible lo pones Gone
+                    bt_ocultar_climas_guardados.setImageResource(R.drawable.icons_arrow_down);
+                    recyclerViewClimasGuardados.setVisibility(View.GONE);
+                }else{ // si no es Visible, lo pones
+                    recyclerViewClimasGuardados.setVisibility(View.VISIBLE);
+                    bt_ocultar_climas_guardados.setImageResource(R.drawable.ic_climas_forward);
+                }
+            }
+        });
         //recyclerView
         //firestore
         db= FirebaseFirestore.getInstance();
 
         //findById elements
-        recyclerViewClimas=optionsBottomSheet.findViewById(R.id.rv_climas_machine); //rv Climas
-        initRvClima();
-        getItemClima();
+        initRvClimasCreados();
+        getItemClimasCreados();
+
+        initRvClimasGuardados();
+        getItemClimasGuardados();
 
         optionsBottomSheet.show();
     }
 
-    private void initRvClima() {
+    private void initRvClimasCreados() {
         //defino que el rv no tenga fixed size
-        recyclerViewClimas.setHasFixedSize(false);
+        recyclerViewClimasCreados.setHasFixedSize(false);
         //manejador para declarar la direccion de los items del rv
-        recyclerViewClimas.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewClimasCreados.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void getItemClima(){
+    private void getItemClimasCreados(){
         itemClimatesMachine.clear(); //clear la list para que no se duplique
 
         itemClimatesMachine.add(new ItemClimate("Tomates"));
@@ -487,9 +544,31 @@ public class IC6Activity extends AppCompatActivity {
         itemClimatesMachine.add(new ItemClimate("Marihuana"));
         itemClimatesMachine.add(new ItemClimate("Marihuana"));
         //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesMachine=new AdapterItemClimatesMachine(itemClimatesMachine ,this);
+        adapterItemClimatesCreadosMachine =new AdapterItemClimatesMachine(itemClimatesMachine ,this);
         //declaro que cual es el adaptador el rv
-        recyclerViewClimas.setAdapter(adapterItemClimatesMachine);
+        recyclerViewClimasCreados.setAdapter(adapterItemClimatesCreadosMachine);
+    }
+
+    private void initRvClimasGuardados() {
+        //defino que el rv no tenga fixed size
+        recyclerViewClimasGuardados.setHasFixedSize(false);
+        //manejador para declarar la direccion de los items del rv
+        recyclerViewClimasGuardados.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void getItemClimasGuardados(){
+        itemClimatesMachine.clear(); //clear la list para que no se duplique
+
+        itemClimatesMachine.add(new ItemClimate("Tomates"));
+        itemClimatesMachine.add(new ItemClimate("Tomates"));
+        itemClimatesMachine.add(new ItemClimate("Marihuana"));
+        itemClimatesMachine.add(new ItemClimate("Marihuana"));
+        itemClimatesMachine.add(new ItemClimate("Marihuana"));
+        itemClimatesMachine.add(new ItemClimate("Marihuana"));
+        //creo un adaptador pasandole los elementos al contructor
+        adapterItemClimatesGuardadosMachine =new AdapterItemClimatesMachine(itemClimatesMachine ,this);
+        //declaro que cual es el adaptador el rv
+        recyclerViewClimasGuardados.setAdapter(adapterItemClimatesCreadosMachine);
     }
 
 }

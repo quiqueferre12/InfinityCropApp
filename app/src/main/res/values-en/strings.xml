@@ -255,4 +255,6 @@
     <string name="light">Light</string>
     <string name="descripci_n">Description</string>
     <string name="guardar">Save</string>
+    <string name="por">By:</string>
+    <string name="climas_guardados">Saved Climates</string>
 </resources>
