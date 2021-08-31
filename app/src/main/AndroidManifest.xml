@@ -17,7 +17,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.InfinityCrop">
-        <activity android:name=".ui.main.log.UsernameGoogleActivity"></activity>
+        <activity android:name=".ui.main.climas.newClimate.NewClimateActivity"></activity>
+        <activity android:name=".ui.main.log.UsernameGoogleActivity" />
         <activity android:name=".ui.main.home.models.IC6Activity" />
         <activity android:name=".ui.main.home.newMachine.NewMachineActivity" />
         <activity
@@ -47,7 +48,6 @@
         <activity
             android:name=".ui.main.log.EmailActivityL"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.main.climas.ActivityClima"
             android:screenOrientation="portrait" />

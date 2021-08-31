@@ -255,4 +255,19 @@
     <string name="light">Light</string>
     <string name="descripci_n">Description</string>
     <string name="guardar">Save</string>
+
+    <!-- New climate activity -->
+    <!-- textos -->
+    <string name="tittle_newClimate">New climate</string>
+    <string name="subtittle_newClimate">Steps to add a new climate</string>
+    <string name="body_newClimate">We need the weather information.</string>
+    <string name="body2_newClimate">Please follow the steps below.</string>
+    <string name="step1_newClimate">Step 1</string>
+    <string name="step2_newClimate">Step 2</string>
+    <string name="step3_newClimate">Step 3</string>
+    <string name="step4_newClimate">Step 4</string>
+    <string name="step1Text_newClimate">Add thresholds</string>
+    <string name="step2Text_newClimate">Add information</string>
+    <string name="step3Text_newClimate">Irrigation schedule</string>
+    <string name="step4Text_newClimate">Verify data</string>
 </resources>
