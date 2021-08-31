@@ -100,6 +100,7 @@ public class ClimasFragment extends Fragment {
     private FirebaseFirestore db;
     //btn
     private ConstraintLayout btn_my_climates;
+    private ConstraintLayout btn_climates_Ic;
     private ConstraintLayout btn_climas_guardados;
 
     @Override
@@ -118,7 +119,7 @@ public class ClimasFragment extends Fragment {
         refreshLayout = view.findViewById(R.id.refresh_fragment_climas);//refresh layout
         btn_my_climates= view.findViewById(R.id.btn_mis_climas_fragment);//mis climas
         btn_climas_guardados= view.findViewById(R.id.constraintLayout12);//climas guardados
-
+        btn_climates_Ic= view.findViewById(R.id.constraintLayout9);//climas InfinityCrop
 
         //config rv
         initRvInf();
@@ -141,6 +142,15 @@ public class ClimasFragment extends Fragment {
         btn_climas_guardados.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), ActivityClimasGuardados.class);
+                startActivity(i);
+            }
+        });
+
+
+        //btn climas infinityCrop
+        btn_climates_Ic.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), ActivityClimasInfinityCrop.class);
                 startActivity(i);
             }
         });
