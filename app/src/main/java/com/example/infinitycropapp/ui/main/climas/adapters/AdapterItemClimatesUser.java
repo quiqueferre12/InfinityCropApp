@@ -103,6 +103,7 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ActivityClima.class);
                     intent.putExtra("idClimate",itemClimatesFiltered.get(position).getName());
+                    intent.putExtra("id", "Rnw2WvyzpSsT6GO35eX1");
                     context.startActivity(intent);
                 }
             });
