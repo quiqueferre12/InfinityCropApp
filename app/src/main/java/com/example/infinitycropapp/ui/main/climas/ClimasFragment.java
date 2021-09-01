@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,7 +173,7 @@ public class ClimasFragment extends Fragment {
         itemClimatesInfinity.clear(); //clear la list para que no se duplique
         itemClimatesInfinitySaved.clear(); //clear la list
         //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesInfinitySaved ,getContext(), this);
+        adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesInfinitySaved ,getContext(), this, this.getView());
         //declaro que cual es el adaptador el rv
         rv_climasInfinity.setAdapter(adapterItemClimatesInfinity);
     }

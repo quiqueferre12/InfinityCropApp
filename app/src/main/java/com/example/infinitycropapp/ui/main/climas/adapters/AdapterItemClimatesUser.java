@@ -24,6 +24,7 @@ import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,24 +38,28 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
     //filter data
     private List<ItemClimate> itemClimatesFiltered;
     private List<Boolean> itemClimatesSavedFiltered;
+    View view;
     //constructor
 
+
     //para fragment
-    public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved , Context context, Fragment fragment) {
+    public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved , Context context, Fragment fragment, View view) {
         this.context = context;
         this.fragment = fragment;
         this.itemClimates = itemClimates;
         this.itemClimatesSaved = itemClimatesSaved;
         this.itemClimatesFiltered = itemClimates;
         this.itemClimatesSavedFiltered = itemClimatesSaved;
+        this.view = view;
     }
     //para activity
-    public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved, Context context) {
+    public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved, Context context, View view) {
         this.context = context;
         this.itemClimates = itemClimates;
         this.itemClimatesSaved = itemClimatesSaved;
         this.itemClimatesFiltered = itemClimates;
         this.itemClimatesSavedFiltered = itemClimatesSaved;
+        this.view = view;
     }
 
     @NonNull
@@ -102,7 +107,7 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ActivityClima.class);
-                    intent.putExtra("idClimate",itemClimatesFiltered.get(position).getName());
+                    //AQUI IRA EL ID DEL CLIMA
                     intent.putExtra("id", "Rnw2WvyzpSsT6GO35eX1");
                     context.startActivity(intent);
                 }
@@ -127,7 +132,7 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
                     if(fragment != null){ //si es adapter en un fragment
                         ((ClimasFragment) fragment).setSnackbar(message);
                     }else{ //si esta en un activiyu
-                        ((ActivityMisClimas) context).setSnackbar(message);
+                        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
                     }
                 }
             });

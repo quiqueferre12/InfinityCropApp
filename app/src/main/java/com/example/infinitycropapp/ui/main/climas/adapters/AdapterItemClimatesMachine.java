@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,7 +52,15 @@ public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItem
         final ItemClimate pojoItem= itemClimatesFiltered.get(position);
         holder.name_climate.setText(pojoItem.getName());
         //onclick methods
-
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ActivityClima.class);
+                //AQUI IRA EL ID DEL CLIMA
+                intent.putExtra("id", "Rnw2WvyzpSsT6GO35eX1");
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -62,6 +71,7 @@ public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItem
     }
 
     public static class ItemClimateMachineHolder extends RecyclerView.ViewHolder{
+        protected ConstraintLayout constraintLayout;
         protected TextView name_climate;
         protected TextView name_creator;
         protected ImageView img_climate;
@@ -71,6 +81,7 @@ public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItem
             name_climate=itemView.findViewById(R.id.textView19);
             name_creator=itemView.findViewById(R.id.textView43);
             img_climate=itemView.findViewById(R.id.imageView10);
+            constraintLayout=itemView.findViewById(R.id.constraintItemMachine);
         }
     }
 

@@ -98,7 +98,7 @@ public class ActivityMisClimas extends AppCompatActivity {
         itemClimatesInfinity.clear(); //clear la list para que no se duplique
         itemClimatesInfinitySaved.clear(); //clear la list
         //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesInfinitySaved ,this);
+        adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesInfinitySaved ,this,findViewById(R.id.general_layout_fragment_mis_climas));
         //declaro que cual es el adaptador el rv
         rv_climates.setAdapter(adapterItemClimatesInfinity);
     }

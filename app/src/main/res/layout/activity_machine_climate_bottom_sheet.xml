@@ -29,7 +29,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view13">
+                    app:layout_constraintTop_toBottomOf="@+id/view13"
+                    android:clickable="true"
+                    android:foreground="?android:selectableItemBackground">
+
+                    <View
+                        android:id="@+id/view15"
+                        android:layout_width="35dp"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/button_secondary"
+                        android:backgroundTint="@android:color/darker_gray"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView"
@@ -41,7 +54,7 @@
                         app:cardCornerRadius="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toBottomOf="@+id/view15">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="wrap_content"
@@ -108,7 +121,7 @@
                         app:backgroundTint="@color/item_color"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/view15" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
@@ -140,7 +153,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/search_input_style"
                     android:drawableLeft="?android:attr/actionModeWebSearchDrawable"
@@ -152,7 +164,7 @@
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view14" />
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout10" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_climas_guardados"
@@ -169,12 +181,50 @@
                     android:id="@+id/constraintLayout10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:clickable="true"
                     android:foreground="?android:selectableItemBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName">
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout9">
+
+                    <TextView
+                        android:id="@+id/textViewExploreItemTitle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/explorar_climas"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/imageView12"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <ImageView
+                        android:id="@+id/imageView12"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icons_explore_climates" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+                    android:clickable="true"
+                    android:foreground="?android:selectableItemBackground">
 
                     <View
                         android:id="@+id/viewExplCimas2"
@@ -185,55 +235,9 @@
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/button_secondary"
                         android:backgroundTint="@color/darker_gray"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textViewExploreItemTitle1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/explorar_climas"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/cardView3"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/cardView3" />
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:background="@drawable/button_primary"
-                        android:backgroundTint="@color/button_color"
-                        app:cardCornerRadius="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:clickable="true"
-                        android:foreground="?android:selectableItemBackground">
-
-                        <ImageView
-                            android:id="@+id/imageView22"
-                            android:layout_width="28sp"
-                            android:layout_height="28sp"
-                            android:layout_margin="8dp"
-                            app:srcCompat="@drawable/icons_explore_climates" />
-                    </androidx.cardview.widget.CardView>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout11"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView49"
@@ -264,15 +268,24 @@
 
                     <ImageView
                         android:id="@+id/bt_OcultarMisClimas"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginEnd="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_climas_forward"
-                        android:clickable="true"
-                        android:foreground="?android:selectableItemBackground"/>
+                        app:srcCompat="@drawable/ic_climas_forward" />
+
+                    <TextView
+                        android:id="@+id/numClimasCreados"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="0"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/bt_OcultarMisClimas"
+                        app:layout_constraintEnd_toStartOf="@+id/bt_OcultarMisClimas"
+                        app:layout_constraintTop_toTopOf="@+id/bt_OcultarMisClimas" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -282,7 +295,9 @@
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_climas_machine">
+                    app:layout_constraintTop_toBottomOf="@+id/rv_climas_machine"
+                    android:clickable="true"
+                    android:foreground="?android:selectableItemBackground">
 
                     <View
                         android:id="@+id/viewMisClimasGuardados"
@@ -325,17 +340,26 @@
 
                     <ImageView
                         android:id="@+id/bt_OcultarGuardados"
-                        android:layout_width="28sp"
-                        android:layout_height="28sp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
-                        android:clickable="true"
-                        android:foreground="?android:selectableItemBackground"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_climas_forward" />
+                        app:srcCompat="@drawable/ic_climas_forward"/>
+
+                    <TextView
+                        android:id="@+id/numClimasGuardados"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="0"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/bt_OcultarGuardados"
+                        app:layout_constraintEnd_toStartOf="@+id/bt_OcultarGuardados"
+                        app:layout_constraintTop_toTopOf="@+id/bt_OcultarGuardados" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
