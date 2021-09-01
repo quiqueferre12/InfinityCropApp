@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.ActivityClima;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItemClimatesMachine.ItemClimateMachineHolder> {
@@ -23,11 +25,15 @@ public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItem
     public boolean showShimmer=true; //mostrar o no loader
     private Fragment fragment;
     private List<ItemClimate> itemClimates;
+    //filter data
+    private List<ItemClimate> itemClimatesFiltered;
 
     //constructor
     public AdapterItemClimatesMachine (List<ItemClimate> itemClimates, Context context){
         this.context=context;
         this.itemClimates=itemClimates;
+        this.itemClimatesFiltered = itemClimates;
+
     }
 
     @NonNull
@@ -42,7 +48,7 @@ public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItem
 
     @Override
     public void onBindViewHolder(@NonNull ItemClimateMachineHolder holder, int position) {
-        final ItemClimate pojoItem= itemClimates.get(position);
+        final ItemClimate pojoItem= itemClimatesFiltered.get(position);
         holder.name_climate.setText(pojoItem.getName());
         //onclick methods
 
@@ -52,7 +58,7 @@ public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItem
 
     @Override
     public int getItemCount() {
-        return itemClimates.size();
+        return itemClimatesFiltered.size();
     }
 
     public static class ItemClimateMachineHolder extends RecyclerView.ViewHolder{
@@ -66,5 +72,41 @@ public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItem
             name_creator=itemView.findViewById(R.id.textView43);
             img_climate=itemView.findViewById(R.id.imageView10);
         }
+    }
+
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+
+                String key= constraint.toString(); //get the char of the search
+                if(key.isEmpty()){ //si esta vacio rellenar con all
+                    itemClimatesFiltered = itemClimates;
+                }else{ //sino
+                    List<ItemClimate> itemsFiltered = new ArrayList<>();
+                    for(ItemClimate row: itemClimates){
+                        //all minusculas y comprobamos si existe cada secuencia de chars
+                        if(row.getName().toLowerCase().contains(key.toLowerCase())){
+                            itemsFiltered.add(row); //add los climas que se filtran
+                        }
+
+                    }
+                    //set final array
+                    itemClimatesFiltered = itemsFiltered;
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = itemClimatesFiltered;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                itemClimatesFiltered = (List<ItemClimate>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+
     }
 }

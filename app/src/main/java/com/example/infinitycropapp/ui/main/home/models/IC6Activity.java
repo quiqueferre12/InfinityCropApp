@@ -12,9 +12,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -74,6 +77,8 @@ public class IC6Activity extends AppCompatActivity {
     private TextView inferior_temp;
     private TextView inferior_luz;
     private TextView inferior_hum;
+    //edit texts
+    private EditText search_input;
     //riego
     private TextView riego_txt;
     //strings, int ...
@@ -436,6 +441,13 @@ public class IC6Activity extends AppCompatActivity {
         });
     }
 
+
+    /***************************************************++
+     * BOTTOM SHEET
+     */
+
+
+
     private void initClimatesBottomSheet(){
         //set the bottom sheet
         BottomSheetDialog optionsBottomSheet = new BottomSheetDialog(IC6Activity.this);
@@ -448,6 +460,7 @@ public class IC6Activity extends AppCompatActivity {
         recyclerViewClimasCreados =optionsBottomSheet.findViewById(R.id.rv_climas_machine); //rv Climas
         recyclerViewClimasGuardados =optionsBottomSheet.findViewById(R.id.rv_climas_guardados); //rv Climas
         View viewMisClimasGuardados2 = optionsBottomSheet.findViewById(R.id.viewMisClimasGuardados2);
+        search_input=optionsBottomSheet.findViewById(R.id.editTextTextPersonName);//Buscador
 
         ConstraintLayout constraintLayout17 = optionsBottomSheet.findViewById(R.id.constraintLayout17);
 
@@ -517,12 +530,14 @@ public class IC6Activity extends AppCompatActivity {
         //firestore
         db= FirebaseFirestore.getInstance();
 
-        //findById elements
+        //recyclerviews
         initRvClimasCreados();
         getItemClimasCreados();
 
         initRvClimasGuardados();
         getItemClimasGuardados();
+
+        searchMethod();
 
         optionsBottomSheet.show();
     }
@@ -567,8 +582,37 @@ public class IC6Activity extends AppCompatActivity {
         itemClimatesMachine.add(new ItemClimate("Marihuana"));
         //creo un adaptador pasandole los elementos al contructor
         adapterItemClimatesGuardadosMachine =new AdapterItemClimatesMachine(itemClimatesMachine ,this);
+        adapterItemClimatesGuardadosMachine.notifyDataSetChanged();
         //declaro que cual es el adaptador el rv
         recyclerViewClimasGuardados.setAdapter(adapterItemClimatesCreadosMachine);
     }
+
+    // search method
+    private void searchMethod(){
+        search_input.setText("");
+        search_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapterItemClimatesCreadosMachine.getFilter().filter(s);
+                adapterItemClimatesGuardadosMachine.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+    // FIN -> search method
+
+
+    /***************************************
+     * FIN BOTTOM SHEET
+     */
 
 }
