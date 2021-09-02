@@ -83,7 +83,7 @@ public class ActivityClimasGuardados extends AppCompatActivity {
         itemClimatesInfinity.clear(); //clear la list para que no se duplique
         itemClimatesInfinitySaved.clear(); //clear la list
         //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesGuardados =new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesInfinitySaved ,this, findViewById(R.id.general_layout_climas_guardados));
+        adapterItemClimatesGuardados =new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesInfinitySaved ,this, findViewById(R.id.general_layout_climas_guardados), false);
         //declaro que cual es el adaptador el rv
         rv_climates.setAdapter(adapterItemClimatesGuardados);
     }

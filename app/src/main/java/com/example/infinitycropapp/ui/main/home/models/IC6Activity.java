@@ -557,11 +557,13 @@ public class IC6Activity extends AppCompatActivity {
         initRvClimasGuardados();
         getItemClimasGuardados();
 
-        searchMethod();
 
         //num climas
         numClimasGuardados.setText(getNumClimasGuardados());
         numClimasCreados.setText(getNumClimasCreados());
+
+        searchMethod();
+
 
         optionsBottomSheet.show();
 
@@ -576,16 +578,17 @@ public class IC6Activity extends AppCompatActivity {
     }
 
     private void getItemClimasCreados(){
-        itemClimatesGuardados.clear(); //clear la list para que no se duplique
+        itemClimatesCreados.clear(); //clear la list para que no se duplique
 
-        itemClimatesGuardados.add(new ItemClimate("Tomates"));
-        itemClimatesGuardados.add(new ItemClimate("Tomates"));
-        itemClimatesGuardados.add(new ItemClimate("Marihuana"));
-        itemClimatesGuardados.add(new ItemClimate("Marihuana"));
-        itemClimatesGuardados.add(new ItemClimate("Marihuana"));
-        itemClimatesGuardados.add(new ItemClimate("Marihuana"));
+        itemClimatesCreados.add(new ItemClimate("Tomates"));
+        itemClimatesCreados.add(new ItemClimate("Tomates"));
+        itemClimatesCreados.add(new ItemClimate("Marihuana"));
+        itemClimatesCreados.add(new ItemClimate("Marihuana"));
+        itemClimatesCreados.add(new ItemClimate("Marihuana"));
+        itemClimatesCreados.add(new ItemClimate("Marihuana"));
         //creo un adaptador pasandole los elementos al contructor
         adapterItemClimatesCreadosMachine =new AdapterItemClimatesMachine(itemClimatesCreados,this);
+        adapterItemClimatesCreadosMachine.notifyDataSetChanged();
         //declaro que cual es el adaptador el rv
         recyclerViewClimasCreados.setAdapter(adapterItemClimatesCreadosMachine);
     }
@@ -597,8 +600,8 @@ public class IC6Activity extends AppCompatActivity {
 
 
     private String getNumClimasGuardados(){
-        int res = adapterItemClimatesGuardadosMachine.getItemCount();
-        return String.valueOf(res);
+        int resz2 = adapterItemClimatesGuardadosMachine.getItemCount();
+        return String.valueOf(resz2);
     }
 
     private void initRvClimasGuardados() {
@@ -609,19 +612,21 @@ public class IC6Activity extends AppCompatActivity {
     }
 
     private void getItemClimasGuardados(){
-        itemClimatesCreados.clear(); //clear la list para que no se duplique
 
-        itemClimatesCreados.add(new ItemClimate("Tomates"));
-        itemClimatesCreados.add(new ItemClimate("Tomates"));
-        itemClimatesCreados.add(new ItemClimate("Marihuana"));
-        itemClimatesCreados.add(new ItemClimate("Marihuana"));
-        itemClimatesCreados.add(new ItemClimate("Marihuana"));
-        itemClimatesCreados.add(new ItemClimate("Marihuana"));
+        itemClimatesGuardados.clear(); //clear la list para que no se duplique
+
+        itemClimatesGuardados.add(new ItemClimate("Tomates"));
+        itemClimatesGuardados.add(new ItemClimate("Tomates"));
+        itemClimatesGuardados.add(new ItemClimate("Marihuana"));
+        itemClimatesGuardados.add(new ItemClimate("Marihuana"));
+        itemClimatesGuardados.add(new ItemClimate("Marihuana"));
+        itemClimatesGuardados.add(new ItemClimate("Marihuana"));
+
         //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesGuardadosMachine =new AdapterItemClimatesMachine(itemClimatesCreados,this);
+        adapterItemClimatesGuardadosMachine =new AdapterItemClimatesMachine(itemClimatesGuardados,this);
         adapterItemClimatesGuardadosMachine.notifyDataSetChanged();
         //declaro que cual es el adaptador el rv
-        recyclerViewClimasGuardados.setAdapter(adapterItemClimatesCreadosMachine);
+        recyclerViewClimasGuardados.setAdapter(adapterItemClimatesGuardadosMachine);
     }
 
     // search method
@@ -636,14 +641,18 @@ public class IC6Activity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapterItemClimatesCreadosMachine.getFilter().filter(s);
+                numClimasCreados.setText(getNumClimasCreados());
                 adapterItemClimatesGuardadosMachine.getFilter().filter(s);
                 numClimasGuardados.setText(getNumClimasGuardados());
-                numClimasCreados.setText(getNumClimasCreados());
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                adapterItemClimatesCreadosMachine.getFilter().filter(s);
+                numClimasCreados.setText(getNumClimasCreados());
+                adapterItemClimatesGuardadosMachine.getFilter().filter(s);
+                numClimasGuardados.setText(getNumClimasGuardados());
             }
         });
     }

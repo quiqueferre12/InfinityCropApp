@@ -39,8 +39,10 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
     private List<ItemClimate> itemClimatesFiltered;
     private List<Boolean> itemClimatesSavedFiltered;
     View view;
-    //constructor
+    private boolean boton;
 
+
+    //constructor
 
     //para fragment
     public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved , Context context, Fragment fragment, View view) {
@@ -53,13 +55,14 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
         this.view = view;
     }
     //para activity
-    public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved, Context context, View view) {
+    public AdapterItemClimatesUser(List<ItemClimate> itemClimates, List<Boolean> itemClimatesSaved, Context context, View view, boolean boton) {
         this.context = context;
         this.itemClimates = itemClimates;
         this.itemClimatesSaved = itemClimatesSaved;
         this.itemClimatesFiltered = itemClimates;
         this.itemClimatesSavedFiltered = itemClimatesSaved;
         this.view = view;
+        this.boton=boton;
     }
 
     @NonNull
@@ -129,10 +132,14 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
                         //llamar a la funcion que hace el snackbar
                         message= context.getString(R.string.snack_clima_quit_favorite);
                     }
-                    if(fragment != null){ //si es adapter en un fragment
-                        ((ClimasFragment) fragment).setSnackbar(message);
-                    }else{ //si esta en un activiyu
-                        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+                    if(boton){
+                        ((ActivityMisClimas)context).setSnackbar(message);
+                    }else{
+                        if(fragment != null){ //si es adapter en un fragment
+                            ((ClimasFragment) fragment).setSnackbar(message);
+                        }else{ //si esta en un activiyu
+                            Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+                        }
                     }
                 }
             });
