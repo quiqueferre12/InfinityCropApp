@@ -3,6 +3,7 @@ package com.example.infinitycropapp.ui.main.home.models;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -90,6 +91,14 @@ public class IC6Activity extends AppCompatActivity {
     //rvs
     private RecyclerView recyclerViewClimasCreados;
     private RecyclerView recyclerViewClimasGuardados;
+    //empty rvs
+    private ConstraintLayout empty_rv_mis_climas;
+    private ConstraintLayout empty_rv_climas_guardados;
+    //Layouts bottomsheet
+    private CoordinatorLayout layout;
+    private ConstraintLayout constraintLayout2;
+    private ConstraintLayout constraintLayout_ocultar_mis_climas;
+    private ConstraintLayout constraintLayout_ocultar_climas_guardados;
     //lists
     private List<ItemClimate> itemClimatesCreados =new ArrayList<>();
     private List<ItemClimate> itemClimatesGuardados =new ArrayList<>();
@@ -98,6 +107,7 @@ public class IC6Activity extends AppCompatActivity {
     private AdapterItemClimatesMachine adapterItemClimatesGuardadosMachine;
     //firebase
     private FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -458,10 +468,11 @@ public class IC6Activity extends AppCompatActivity {
         //set the layout of the bottom sheet
         optionsBottomSheet.setContentView(R.layout.activity_machine_climate_bottom_sheet);
         //findbyid del bottom sheet
-        CoordinatorLayout layout= optionsBottomSheet.findViewById(R.id.coord_layout_bottom_sheet_climates);
+        layout= optionsBottomSheet.findViewById(R.id.coord_layout_bottom_sheet_climates);
         ImageView bt_ocultar_mis_climas=optionsBottomSheet.findViewById(R.id.bt_OcultarMisClimas);
-        ConstraintLayout constraintLayout_ocultar_mis_climas=optionsBottomSheet.findViewById(R.id.constraintLayout11);
-        ConstraintLayout constraintLayout_ocultar_climas_guardados=optionsBottomSheet.findViewById(R.id.constraintLayout17);
+        constraintLayout2=optionsBottomSheet.findViewById(R.id.constraintLayout2);
+        constraintLayout_ocultar_mis_climas = optionsBottomSheet.findViewById(R.id.constraintLayout11);
+        constraintLayout_ocultar_climas_guardados=optionsBottomSheet.findViewById(R.id.constraintLayout17);
         ImageView bt_ocultar_climas_guardados=optionsBottomSheet.findViewById(R.id.bt_OcultarGuardados);
         recyclerViewClimasCreados =optionsBottomSheet.findViewById(R.id.rv_climas_machine); //rv Climas
         recyclerViewClimasGuardados =optionsBottomSheet.findViewById(R.id.rv_climas_guardados); //rv Climas
@@ -470,6 +481,8 @@ public class IC6Activity extends AppCompatActivity {
         numClimasGuardados=optionsBottomSheet.findViewById(R.id.numClimasGuardados);
         numClimasCreados=optionsBottomSheet.findViewById(R.id.numClimasCreados);
         ConstraintLayout constraintLayout9=optionsBottomSheet.findViewById(R.id.constraintLayout9);
+        empty_rv_mis_climas=optionsBottomSheet.findViewById(R.id.empty_rv_mis_climas);//Layout vacío rv
+        empty_rv_climas_guardados=optionsBottomSheet.findViewById(R.id.empty_rv_climas_guardados);//Layout vacío rv
 
         ConstraintLayout constraintLayout17 = optionsBottomSheet.findViewById(R.id.constraintLayout17);
 
@@ -579,18 +592,34 @@ public class IC6Activity extends AppCompatActivity {
 
     private void getItemClimasCreados(){
         itemClimatesCreados.clear(); //clear la list para que no se duplique
-
+/*
         itemClimatesCreados.add(new ItemClimate("Tomates"));
         itemClimatesCreados.add(new ItemClimate("Tomates"));
         itemClimatesCreados.add(new ItemClimate("Marihuana"));
         itemClimatesCreados.add(new ItemClimate("Marihuana"));
         itemClimatesCreados.add(new ItemClimate("Marihuana"));
-        itemClimatesCreados.add(new ItemClimate("Marihuana"));
+        itemClimatesCreados.add(new ItemClimate("Marihuana"));*/
         //creo un adaptador pasandole los elementos al contructor
         adapterItemClimatesCreadosMachine =new AdapterItemClimatesMachine(itemClimatesCreados,this);
         adapterItemClimatesCreadosMachine.notifyDataSetChanged();
         //declaro que cual es el adaptador el rv
         recyclerViewClimasCreados.setAdapter(adapterItemClimatesCreadosMachine);
+        //si el recyclerView esta vacio
+        if(adapterItemClimatesCreadosMachine.getItemCount() == 0 ){
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(constraintLayout2);
+            constraintSet.connect(R.id.constraintLayout17,ConstraintSet.TOP,R.id.empty_rv_mis_climas,ConstraintSet.BOTTOM,0);
+            constraintSet.applyTo(constraintLayout2);
+            recyclerViewClimasCreados.setVisibility(View.GONE); //ocultar rv
+            empty_rv_mis_climas.setVisibility(View.VISIBLE); //mostrar elementos
+        }else{ //sino
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(constraintLayout2);
+            constraintSet.connect(R.id.constraintLayout17,ConstraintSet.TOP,R.id.rv_climas_machine,ConstraintSet.BOTTOM,0);
+            constraintSet.applyTo(constraintLayout2);
+            recyclerViewClimasCreados.setVisibility(View.VISIBLE); //mostras rv con sus items
+            empty_rv_mis_climas.setVisibility(View.GONE); //ocultar container con info
+        }
     }
 
     private String getNumClimasCreados(){
@@ -615,18 +644,26 @@ public class IC6Activity extends AppCompatActivity {
 
         itemClimatesGuardados.clear(); //clear la list para que no se duplique
 
+        /*itemClimatesGuardados.add(new ItemClimate("Tomates"));
         itemClimatesGuardados.add(new ItemClimate("Tomates"));
-        itemClimatesGuardados.add(new ItemClimate("Tomates"));
         itemClimatesGuardados.add(new ItemClimate("Marihuana"));
         itemClimatesGuardados.add(new ItemClimate("Marihuana"));
         itemClimatesGuardados.add(new ItemClimate("Marihuana"));
-        itemClimatesGuardados.add(new ItemClimate("Marihuana"));
+        itemClimatesGuardados.add(new ItemClimate("Marihuana"));*/
 
         //creo un adaptador pasandole los elementos al contructor
         adapterItemClimatesGuardadosMachine =new AdapterItemClimatesMachine(itemClimatesGuardados,this);
         adapterItemClimatesGuardadosMachine.notifyDataSetChanged();
         //declaro que cual es el adaptador el rv
         recyclerViewClimasGuardados.setAdapter(adapterItemClimatesGuardadosMachine);
+
+        if(adapterItemClimatesGuardadosMachine.getItemCount() == 0 ){
+            recyclerViewClimasGuardados.setVisibility(View.GONE); //ocultar rv
+            empty_rv_climas_guardados.setVisibility(View.VISIBLE); //mostrar elementos
+        }else{ //sino
+            recyclerViewClimasGuardados.setVisibility(View.VISIBLE); //mostras rv con sus items
+            empty_rv_climas_guardados.setVisibility(View.GONE); //ocultar container con info
+        }
     }
 
     // search method

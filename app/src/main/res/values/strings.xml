@@ -192,7 +192,7 @@
 
     <!--    XML CLIMAS-->
 
-    <string name="mis_climas">Mis Climas</string>
+    <string name="mis_climas">Mis climas</string>
     <string name="climas_de_infinitycrop">Climas de InfinityCrop</string>
     <string name="climas_de_la_comunidad">Climas de la comunidad</string>
     <string name="explorar_climas">Explorar Climas</string>
@@ -270,5 +270,11 @@
     <string name="step2Text_newClimate">Añadir información</string>
     <string name="step3Text_newClimate">Horario del riego</string>
     <string name="step4Text_newClimate">Comprobar datos</string>
+
+    <!--Bottomsheet-->
+    <string name="crea_uno_ahora">Crea uno ahora</string>
+    <string name="no_has_creado_ning_n_clima">No has creado ningún clima</string>
+    <string name="elige_uno_apropiado_para_ti">Elige uno apropiado para ti</string>
+    <string name="no_has_guardado_ning_n_clima">No has guardado ningún clima</string>
 
 </resources>

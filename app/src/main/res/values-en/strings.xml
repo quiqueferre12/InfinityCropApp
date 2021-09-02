@@ -194,7 +194,7 @@
 
     <!--    XML CLIMAS-->
 
-    <string name="mis_climas">My Climates</string>
+    <string name="mis_climas">My climates</string>
     <string name="climas_de_infinitycrop">InfinityCrop Climates</string>
     <string name="climas_de_la_comunidad">Our Community Climates</string>
     <string name="explorar_climas">Explore Climates</string>
@@ -256,7 +256,7 @@
     <string name="descripci_n">Description</string>
     <string name="guardar">Save</string>
     <string name="por">By:</string>
-    <string name="climas_guardados">Saved Climates</string>
+    <string name="climas_guardados">Saved climates</string>
 
     <!-- New climate activity -->
     <!-- textos -->
@@ -272,4 +272,11 @@
     <string name="step2Text_newClimate">Add information</string>
     <string name="step3Text_newClimate">Irrigation schedule</string>
     <string name="step4Text_newClimate">Verify data</string>
+
+    <!--Bottomsheet-->
+    <string name="crea_uno_ahora">Create a new climate now</string>
+    <string name="no_has_creado_ning_n_clima">You have not created any climate</string>
+    <string name="elige_uno_apropiado_para_ti">Choose an appropriate one for you</string>
+    <string name="no_has_guardado_ning_n_clima">You have not saved any climate</string>
+
 </resources>
