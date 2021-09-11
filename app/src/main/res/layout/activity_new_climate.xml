@@ -16,7 +16,7 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/back_newMachine"
+                android:id="@+id/back_newClima"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -46,21 +46,22 @@
                 android:text="@string/tittle_newClimate"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/back_newMachine"
-                app:layout_constraintEnd_toStartOf="@+id/confirm_create_machine"
-                app:layout_constraintStart_toEndOf="@+id/back_newMachine"
-                app:layout_constraintTop_toTopOf="@+id/back_newMachine" />
+                app:layout_constraintBottom_toBottomOf="@+id/back_newClima"
+                app:layout_constraintEnd_toStartOf="@+id/confirm_create_clima"
+                app:layout_constraintStart_toEndOf="@+id/back_newClima"
+                app:layout_constraintTop_toTopOf="@+id/back_newClima" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/confirm_create_machine"
+                android:id="@+id/confirm_create_clima"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:focusable="true"
                 android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView5"
-                app:layout_constraintTop_toTopOf="parent"
-                android:focusable="true">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:layout_width="28dp"
@@ -77,7 +78,6 @@
                     app:tint="@color/button_color" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <TextView
                 android:id="@+id/textView6"
