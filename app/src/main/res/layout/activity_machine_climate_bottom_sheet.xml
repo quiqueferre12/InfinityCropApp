@@ -366,14 +366,14 @@
                     android:id="@+id/empty_rv_climas_guardados"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout17">
 
                     <ImageView
                         android:id="@+id/imageView23"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintBottom_toTopOf="@+id/textView54"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -389,7 +389,7 @@
                         android:layout_marginTop="16dp"
                         android:text="@string/no_has_guardado_ning_n_clima"
                         android:textColor="@color/black"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView55"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -401,29 +401,50 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
                         android:text="@string/elige_uno_apropiado_para_ti"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toTopOf="@+id/button2"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView54" />
 
-                    <Button
-                        android:id="@+id/button2"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout22"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
+                        android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:text="@string/explorar_climas"
-                        android:textColor="@color/black"
-                        app:background="@drawable/button_secondary"
-                        app:backgroundTint="@color/item_color"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/imageView23"
-                        app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/imageView23"
-                        app:layout_constraintTop_toBottomOf="@+id/textView55" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView55">
+
+                        <Button
+                            android:id="@+id/button2"
+                            style="@style/Widget.MaterialComponents.Button.IconOnly"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:icon="@drawable/icons_cloud"
+                            android:clickable="true"
+                            android:foreground="?android:selectableItemBackground"
+                            app:iconSize="40dp"
+                            app:iconTint="@android:color/darker_gray"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:id="@+id/textView53"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/explorar_climas"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/button2" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -431,7 +452,7 @@
                     android:id="@+id/empty_rv_mis_climas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout11"
                     app:layout_constraintVertical_bias="0.0"
@@ -444,7 +465,7 @@
                         android:layout_marginTop="16dp"
                         android:text="@string/no_has_creado_ning_n_clima"
                         android:textColor="@color/black"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView51"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -457,8 +478,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/crea_uno_ahora"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toTopOf="@+id/cardView3"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/textView48"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="@+id/textView48"
@@ -466,8 +486,8 @@
 
                     <ImageView
                         android:id="@+id/imageView22"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintBottom_toTopOf="@+id/textView48"
                         app:layout_constraintEnd_toEndOf="@+id/textView48"
@@ -476,29 +496,42 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/clima_sad" />
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView3"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:backgroundTint="@color/item_color"
-                        android:clickable="true"
-                        android:foreground="?android:selectableItemBackground"
-                        app:cardCornerRadius="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView48"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="@+id/textView48"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView51">
 
-                        <ImageView
-                            android:id="@+id/imageView24"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:layout_margin="8dp"
-                            app:srcCompat="@drawable/icons_explore_climates" />
-                    </androidx.cardview.widget.CardView>
+                        <Button
+                            android:id="@+id/button"
+                            style="@style/Widget.MaterialComponents.Button.IconOnly"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:foreground="?android:selectableItemBackground"
+                            app:icon="@drawable/icons_explore_climates"
+                            app:iconSize="40dp"
+                            app:iconTint="@android:color/darker_gray"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:id="@+id/textView59"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Crear climas"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/button" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
