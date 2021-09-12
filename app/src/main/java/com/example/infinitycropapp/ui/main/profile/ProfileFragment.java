@@ -95,24 +95,22 @@ public class ProfileFragment extends Fragment {
 
         //TextViews
         TextView userNametx=null;
-        TextView emailUserTx=null;
 
         userNametx = (TextView) view.findViewById(R.id.UserNameTx);
-        emailUserTx = (TextView) view.findViewById(R.id.emailUserTx);
 
 
 
         //Firebase Firestore
         db= FirebaseFirestore.getInstance();
 
-        setUserData(userNametx, emailUserTx);//Llamamos a setUserData para rellenar los tx con datos del usuario
+        setUserData(userNametx);//Llamamos a setUserData para rellenar los tx con datos del usuario
 
 
         // Inflate the layout for this fragment
         return view;
     }
 
-    private void setUserData(TextView userNametx, TextView userEmailtx){
+    private void setUserData(TextView userNametx){
         //Declaramos variables
         Firestore firestore=new Firestore();
         final ItemUser[] itemUser = {new ItemUser()};
@@ -127,7 +125,6 @@ public class ProfileFragment extends Fragment {
 
                     //Rellenamos los tx
                     userNametx.setText(itemUser[0].getName());
-                    userEmailtx.setText(itemUser[0].getMail());
                     return;
                 }
 
