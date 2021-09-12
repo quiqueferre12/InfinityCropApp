@@ -258,7 +258,7 @@ public class NewMachineActivity extends AppCompatActivity {
         confirm_step2_bottom_sheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String textInput=name_machineInput.getText().toString(); //get the texto of the input
+                String textInput=name_machineInput.getText().toString().trim(); //get the texto of the input
                 if(textInput.equals("")){ //si no hay nombre en el editext
                     layout_name_machineInput.setErrorEnabled(true); //activar error
                     layout_name_machineInput.setError(getString(R.string.error_empty_editext)); //set texto error

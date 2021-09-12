@@ -266,10 +266,13 @@
     <string name="step2_newClimate">Paso 2</string>
     <string name="step3_newClimate">Paso 3</string>
     <string name="step4_newClimate">Paso 4</string>
-    <string name="step1Text_newClimate">Añadir umbrales</string>
+    <string name="step5_newClimate">Paso 5</string>
+    <string name="step1Text_newClimate">Añadir imagen</string>
     <string name="step2Text_newClimate">Añadir información</string>
-    <string name="step3Text_newClimate">Horario del riego</string>
-    <string name="step4Text_newClimate">Comprobar datos</string>
+    <string name="step3Text_newClimate">Añadir umbrales</string>
+    <string name="step4Text_newClimate">Horario del riego</string>
+    <string name="step5Text_newClimate">Comprobar datos</string>
+    <string name="desc_optional">Descripción (opcional)</string>
 
     <!--Bottomsheet-->
     <string name="crea_uno_ahora">Crea uno ahora</string>

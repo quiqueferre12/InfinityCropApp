@@ -3,15 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_ic6.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_machine_climate_bottom_sheet.xml" value="0.264" />
-        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_machine_climate_bottom_sheet.xml" value="0.4" />
-        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate.xml" value="0.2" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate.xml" value="0.264" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step1_bottom_sheet.xml" value="0.14617486338797814" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step2_bottom_sheet.xml" value="0.264" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step3_bottom_sheet.xml" value="0.264" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step4_bottom_sheet.xml" value="0.14617486338797814" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step5_bottom_sheet.xml" value="0.14617486338797814" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_machine.xml" value="0.14617486338797814" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_machine_step2_bottom_sheet.xml" value="0.4" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_register.xml" value="0.275" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/add_list_dialog.xml" value="0.275" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/create_list_dialog.xml" value="0.14617486338797814" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/umbral_climate_dialog.xml" value="0.4" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
