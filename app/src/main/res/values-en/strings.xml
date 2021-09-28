@@ -282,4 +282,10 @@
     <string name="elige_uno_apropiado_para_ti">Choose an appropriate one for you</string>
     <string name="no_has_guardado_ning_n_clima">You have not saved any climate</string>
 
+    <!-- step 4 bottom sheet new climate -->
+    <string name="step4_tittle_new_climate_1_lumin_max">Maximum luminosity</string>
+    <string name="step4_tittle_new_climate_2_lumin_min">Minimum luminosity</string>
+    <string name="step4_tittle_new_climate_3_temp_max">Maximum temperature</string>
+    <string name="step4_tittle_new_climate_4_temp_min">Minimum temperature</string>
+
 </resources>

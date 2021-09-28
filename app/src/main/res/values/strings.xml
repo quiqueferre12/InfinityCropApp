@@ -280,4 +280,11 @@
     <string name="elige_uno_apropiado_para_ti">Elige uno apropiado para ti</string>
     <string name="no_has_guardado_ning_n_clima">No has guardado ningún clima</string>
 
+    <!-- step 4 bottom sheet new climate -->
+    <string name="step4_tittle_new_climate_1_lumin_max">Luminosidad mínima</string>
+    <string name="step4_tittle_new_climate_2_lumin_min">Luminosidad máxima</string>
+    <string name="step4_tittle_new_climate_3_temp_max">Temperatura máxima</string>
+    <string name="step4_tittle_new_climate_4_temp_min">Temperatura mínima</string>
+
+
 </resources>

@@ -146,7 +146,7 @@ public class NewClimateActivity extends AppCompatActivity {
         step4_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                initSteo4BottomSheet();
             }
         });
         //step5card onclick ->
@@ -420,41 +420,15 @@ public class NewClimateActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        //btn check DIALOG
-        btn_check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                step3BottomSheet.show();
-                value = numberPicker.getValue();
 
-                if(title_dialog.getText().equals("Luminosidad minima")){
-                    lumin_min=value;
-                    String res= String.valueOf(lumin_min);
-                    editext_min_lumin.setText(res);
-
-                }else if(title_dialog.getText().equals("Luminosidad maxima")){
-                    lumin_max=value;
-                    String res= String.valueOf(lumin_max);
-                    editext_max_lumin.setText(res);
-                }else if(title_dialog.getText().equals("Tempetatura minima")){
-                    temp_min=value;
-                    String res= String.valueOf(temp_min);
-                    editext_min_temp.setText(res);
-                }else if(title_dialog.getText().equals("Tempetatura maxima")){
-                    temp_max=value;
-                    String res= String.valueOf(temp_max);
-                    editext_max_temp.setText(res);
-                }
-
-                dialog.dismiss();
-
-            }
-        });
         //onclick
+
+        //cada vez que se pulsa un umbral se le pasa el nombre de ese umbral y su valor max y min dependiendo
+        // de si ya ha establecido esos valores max y min
         min_temp_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                title_dialog.setText("Tempetatura minima");
+                title_dialog.setText(getText(R.string.step4_tittle_new_climate_4_temp_min));
                 numberPicker.setValue(temp_min);
                 numberPicker.setMinValue(10);
                 numberPicker.setMaxValue(temp_max);
@@ -464,7 +438,7 @@ public class NewClimateActivity extends AppCompatActivity {
         max_temp_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                title_dialog.setText("Tempetatura maxima");
+                title_dialog.setText(getText(R.string.step4_tittle_new_climate_3_temp_max));
                 numberPicker.setValue(temp_max);
                 numberPicker.setMinValue(temp_min);
                 numberPicker.setMaxValue(40);
@@ -475,7 +449,7 @@ public class NewClimateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //set el titulo del dialog
-                title_dialog.setText("Luminosidad maxima");
+                title_dialog.setText(getText(R.string.step4_tittle_new_climate_1_lumin_max));
                 //le establecemos el valor actual que tiene elegido el user para la luz maxima
                 numberPicker.setValue(lumin_max);
                 //valor minimo que tiene puesto
@@ -489,7 +463,7 @@ public class NewClimateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //set el titulo del dialog
-                title_dialog.setText("Luminosidad minima");
+                title_dialog.setText(getText(R.string.step4_tittle_new_climate_2_lumin_min));
                 //le establecemos el valor actual que tiene elegido el user para la luz minima
                 numberPicker.setValue(lumin_min);
                 //como elige un vamos minimo le establecemos el valor mas pequenyo que pueda elegir
@@ -499,9 +473,53 @@ public class NewClimateActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        //btn check DIALOG
+        // se comprueba en cada dialog del number picker, que umbral es y se configura los max y min de los valores recogidos
+        btn_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                step3BottomSheet.show();
+                value = numberPicker.getValue();
+
+                if(title_dialog.getText().equals(getText(R.string.step4_tittle_new_climate_2_lumin_min))){
+                    lumin_min=value;
+                    String res= String.valueOf(lumin_min);
+                    editext_min_lumin.setText(res);
+
+                }else if(title_dialog.getText().equals(getText(R.string.step4_tittle_new_climate_1_lumin_max))){
+                    lumin_max=value;
+                    String res= String.valueOf(lumin_max);
+                    editext_max_lumin.setText(res);
+                }else if(title_dialog.getText().equals(getText(R.string.step4_tittle_new_climate_4_temp_min))){
+                    temp_min=value;
+                    String res= String.valueOf(temp_min);
+                    editext_min_temp.setText(res);
+                }else if(title_dialog.getText().equals(getText(R.string.step4_tittle_new_climate_3_temp_max))){
+                    temp_max=value;
+                    String res= String.valueOf(temp_max);
+                    editext_max_temp.setText(res);
+                }
+
+                dialog.dismiss();
+
+            }
+        });
         // FIN -> dialog donde se elige el umbral min y max
 
         step3BottomSheet.show();
+    }
+
+    //step 4
+    private void initSteo4BottomSheet(){
+        BottomSheetDialog step4BottomSheet = new BottomSheetDialog(NewClimateActivity.this);
+        //set the layout of the bottom sheet
+        step4BottomSheet.setContentView(R.layout.add_list_dialog);
+        //findbyid del bottom sheet
+
+
+        //show bottomSheet
+        step4BottomSheet.show();
     }
     // FIN -> steps bottom sheets
 

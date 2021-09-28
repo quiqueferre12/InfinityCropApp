@@ -34,7 +34,7 @@
         android:id="@+id/title_umbral_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Umbral minimo"
+        android:text="@string/step4_tittle_new_climate_4_temp_min"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_back_umbral_dialog"
