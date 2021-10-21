@@ -3,21 +3,30 @@ package com.example.infinitycropapp.ui.main.climas.newClimate;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemDiaRiego;
+import com.example.infinitycropapp.ui.pojos.ItemDiaRiego;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,6 +34,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewClimateActivity extends AppCompatActivity {
 
@@ -65,6 +77,7 @@ public class NewClimateActivity extends AppCompatActivity {
     private String final_temp_min=""; private String final_temp_max="";
     private String final_lumin_min=""; private String final_lumin_max="";
     //step 4 data
+    private List<ItemDiaRiego> itemDiaRiegos= new ArrayList<>();
     //step 5 data
 
     //step 2 Attributes
@@ -88,11 +101,21 @@ public class NewClimateActivity extends AppCompatActivity {
     private TextInputEditText editext_min_lumin;
     private TextInputEditText editext_max_lumin;
 
+    //dimensiones dispositivo actual
+    private int height;
+    private int width;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_climate);
+
+        //get los pixeles del dispositivo actual
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height = displayMetrics.heightPixels;
+        width = displayMetrics.widthPixels;
 
         //findById
         btn_back=findViewById(R.id.back_newClima);
@@ -258,6 +281,12 @@ public class NewClimateActivity extends AppCompatActivity {
         name ="";
         description ="";
         //data step 3
+        temp_min=0; temp_max=40;
+        lumin_min=0; lumin_max=100;
+        value=0;
+
+        final_temp_min=""; final_temp_max="";
+        final_lumin_min=""; final_lumin_max="";
         //data step 4
         //data step 5
         //clear todos los iconos a incompleto
@@ -514,8 +543,80 @@ public class NewClimateActivity extends AppCompatActivity {
     private void initSteo4BottomSheet(){
         BottomSheetDialog step4BottomSheet = new BottomSheetDialog(NewClimateActivity.this);
         //set the layout of the bottom sheet
-        step4BottomSheet.setContentView(R.layout.add_list_dialog);
+        step4BottomSheet.setContentView(R.layout.activity_new_climate_step4_bottom_sheet);
         //findbyid del bottom sheet
+        ConstraintLayout btn_back = step4BottomSheet.findViewById(R.id.quit_step4_bottom_sheet_new_climate);
+        ConstraintLayout btn_check = step4BottomSheet.findViewById(R.id.confirm_step4_bottom_sheet_new_climate);
+        RecyclerView rv_dias = step4BottomSheet.findViewById(R.id.rv_riego_dias);
+        ConstraintLayout layout=step4BottomSheet.findViewById(R.id.step_4_riego_semana_layout);
+        //hacer que cuando se muestre ocupe toda la pantalla
+        layout.setMinimumHeight(height);
+        step4BottomSheet.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                BottomSheetDialog d = (BottomSheetDialog) dialog;
+                FrameLayout bottomSheet = (FrameLayout) d.findViewById(R.id.design_bottom_sheet);
+                BottomSheetBehavior.from(bottomSheet)
+                        .setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
+
+        //rv methods
+        Context context=NewClimateActivity.this; //contexto
+        //defino que el rv no tenga fixed size
+
+        //manejador para declarar la direccion de los items del rv
+        rv_dias.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+        AdapterItemDiaRiego adapterItemDiaRiego=new AdapterItemDiaRiego(itemDiaRiegos,context);
+        //get data for rv
+        itemDiaRiegos.clear();
+        itemDiaRiegos.add(new ItemDiaRiego("Lunes", getDrawable(R.drawable.icons_lunes) , "5 riegos"));
+        itemDiaRiegos.add(new ItemDiaRiego("Martes", getDrawable(R.drawable.icons_martes) , "1 riegos"));
+        itemDiaRiegos.add(new ItemDiaRiego("Miercoles", getDrawable(R.drawable.icons_miercoles) , "3 riegos"));
+        itemDiaRiegos.add(new ItemDiaRiego("Jueves", getDrawable(R.drawable.icons_jueves) , "2 riegos"));
+        itemDiaRiegos.add(new ItemDiaRiego("Viernes", getDrawable(R.drawable.icons_viernes) , "0 riegos"));
+        itemDiaRiegos.add(new ItemDiaRiego("Sabado", getDrawable(R.drawable.icons_sabado) , "0 riegos"));
+        itemDiaRiegos.add(new ItemDiaRiego("Domingo", getDrawable(R.drawable.icons_domingo) , "1 riegos"));
+        //declaro que cual es el adaptador el rv
+        rv_dias.setAdapter(adapterItemDiaRiego);
+
+
+
+        //FIN ->methods
+
+
+        //onclick
+        // dismiss bottomhshett
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                step4BottomSheet.dismiss();
+            }
+        });
+        //btn check
+        btn_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                step4StateActive();
+                step4BottomSheet.dismiss();
+            }
+        });
+
+
+        /*
+        //dialog al pulsar un dia
+        Dialog dialog= new Dialog(NewClimateActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true); //al pulsar fuera del dialog se quita
+        dialog.setContentView(R.layout.add_list_dialog);
+        //set the correct width
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        //findById
+
+
+        //show bottomSheet
+        dialog.show();
+         */
 
 
         //show bottomSheet
