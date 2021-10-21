@@ -1,9 +1,12 @@
 package com.example.infinitycropapp.ui.main.climas.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,7 +51,34 @@ public class AdapterItemDiaRiego extends RecyclerView.Adapter<AdapterItemDiaRieg
         holder.item_dia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Dialog dialog= new Dialog(context);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(true); //al pulsar fuera del dialog se quita
+                dialog.setContentView(R.layout.dialog_riego_dia_list);
+                //set the correct width
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                //findById
+                ImageView back=dialog.findViewById(R.id.back_add_list_dialog);
+                Button btn_create= dialog.findViewById(R.id.create_add_list_dialog);
+                RecyclerView rv_playlist=dialog.findViewById(R.id.rv_playlist_item_add_list);
+                //rv methods
 
+
+                //onclick
+                back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                btn_create.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+
+                dialog.show();
             }
         });
     }
