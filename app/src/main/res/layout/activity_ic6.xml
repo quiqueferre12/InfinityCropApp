@@ -2,11 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_ic6_model"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.home.models.IC6Activity">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll_ic6"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
@@ -59,11 +61,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:focusable="true"
                 android:foreground="?android:selectableItemBackground"
                 app:layout_constraintBottom_toTopOf="@+id/view7"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:focusable="true">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -662,6 +664,7 @@
                 style="@style/Widget.MaterialComponents.Button.IconOnly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="true"
                 app:icon="@drawable/icons_extraction"
                 app:iconSize="40dp"
                 app:iconTint="@android:color/darker_gray"

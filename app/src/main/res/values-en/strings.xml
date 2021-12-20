@@ -241,6 +241,13 @@
     <string name="machine_control_txt_extraccion_off">Switch off</string>
     <string name="machine_control_txt_engine_on">Start engine</string>
     <string name="machine_control_txt_engine_off">Switch off</string>
+
+    <string name="machine_control_txt_riego_on">Start watering riego</string>
+    <string name="machine_control_txt_riego_off">Switch off watering</string>
+
+    <string name="snackbar_coming_soon">Feature coming soon…</string>
+
+
     <string name="machine_control_txt_clima_on">Climate on</string>
     <string name="machine_control_txt_clima_of">Climate off</string>
     <string name="machine_control_subtittle_on_machine">Switched on</string>

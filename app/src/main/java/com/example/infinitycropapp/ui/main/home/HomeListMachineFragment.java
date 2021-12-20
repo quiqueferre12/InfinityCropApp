@@ -103,8 +103,8 @@ public class HomeListMachineFragment extends Fragment {
         btn_addMachine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), NewMachineActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(getContext(), NewMachineActivity.class);
+                    startActivity(intent);
             }
         });
 

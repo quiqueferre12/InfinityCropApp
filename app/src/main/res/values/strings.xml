@@ -239,6 +239,14 @@
     <string name="machine_control_txt_extraccion_off">Apagar extracción</string>
     <string name="machine_control_txt_engine_on">Iniciar máquina</string>
     <string name="machine_control_txt_engine_off">Apagar máquina</string>
+
+    <string name="machine_control_txt_riego_on">Encender riego</string>
+    <string name="machine_control_txt_riego_off">Apagar riego</string>
+
+    <string name="snackbar_coming_soon">Función próximamente disponible.</string>
+
+
+
     <string name="machine_control_txt_clima_on">Clima on</string>
     <string name="machine_control_txt_clima_of">Clima off</string>
     <string name="machine_control_subtittle_on_machine">Encendido</string>

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,6 +31,7 @@ import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -181,9 +183,9 @@ public class IC6Activity extends AppCompatActivity {
                 //actions
                 //actions
                 if(isMachineOn){
-                    btn_machine_action.setText(getString(R.string.machine_control_txt_engine_off));
+                    btn_machine_action.setText(getString(R.string.machine_control_txt_riego_off));
                 }else{
-                    btn_machine_action.setText(getString(R.string.machine_control_txt_engine_on));
+                    btn_machine_action.setText(getString(R.string.machine_control_txt_riego_on));
                 }
                 //onclick
                 btn_back.setOnClickListener(new View.OnClickListener() {
@@ -230,7 +232,11 @@ public class IC6Activity extends AppCompatActivity {
         btn_extraction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //set the bottom sheet
+
+
+                setSnackbar((String) getText(R.string.snackbar_coming_soon));
+
+                /*//set the bottom sheet
                 BottomSheetDialog extractionBottomSheet = new BottomSheetDialog(IC6Activity.this);
                 //set the layout of the bottom sheet
                 extractionBottomSheet.setContentView(R.layout.machine_extraction_bottom_sheet);
@@ -285,7 +291,7 @@ public class IC6Activity extends AppCompatActivity {
                     }
                 });
 
-                extractionBottomSheet.show();
+                extractionBottomSheet.show();*/
             }
         });
         //get the state of the machine
@@ -301,15 +307,15 @@ public class IC6Activity extends AppCompatActivity {
         if(btn_machine_action != null){
             if(isMachineOn){
                 //texto que apagar maquina (porque si es true esta encendida)
-                txt_action_machine.setText(getString(R.string.machine_control_txt_engine_off));
-                btn_machine_action.setText(getString(R.string.machine_control_txt_engine_off));
+                txt_action_machine.setText(getString(R.string.machine_control_txt_riego_off));
+                btn_machine_action.setText(getString(R.string.machine_control_txt_riego_off));
                 //cambiar el color del boton del activity_ic6
                 btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
                 btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
             }else{
                 //texto por defecto encender maquina
-                txt_action_machine.setText(getString(R.string.machine_control_txt_engine_on));
-                btn_machine_action.setText(getString(R.string.machine_control_txt_engine_on));
+                txt_action_machine.setText(getString(R.string.machine_control_txt_riego_on));
+                btn_machine_action.setText(getString(R.string.machine_control_txt_riego_on));
                 //cambiar el color del boton del activity_ic6
                 btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
                 btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
@@ -363,13 +369,13 @@ public class IC6Activity extends AppCompatActivity {
                     int stateExtraction= snapshot.child("state extraction").getValue(int.class);
                     if(stateMachine == 0){
                         //cambiar el color del boton del activity_ic6
-                        txt_action_machine.setText(getString(R.string.machine_control_txt_engine_on));
+                        txt_action_machine.setText(getString(R.string.machine_control_txt_riego_on));
                         btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
                         btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.darker_gray));
                         isMachineOn = false;
                     }else{
                         //cambiar el color del boton del activity_ic6
-                        txt_action_machine.setText(getString(R.string.machine_control_txt_engine_off));
+                        txt_action_machine.setText(getString(R.string.machine_control_txt_riego_off));
                         btn_action_machine.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(),R.color.button_color));
                         btn_action_machine.setIconTint(ContextCompat.getColorStateList(getApplicationContext(),R.color.white));
                         isMachineOn = true;
@@ -698,6 +704,26 @@ public class IC6Activity extends AppCompatActivity {
 
     /***************************************
      * FIN BOTTOM SHEET
+     */
+
+    /***************************************
+     * Snackbar method
+     */
+    //set snackbar method
+    public void setSnackbar(String snackBarText){
+        Snackbar snackBar = Snackbar.make( findViewById(R.id.nestedScroll_ic6), snackBarText,Snackbar.LENGTH_LONG);
+        snackBar.setActionTextColor(Color.CYAN);
+        snackBar.setAction(getText(R.string.snack_close), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackBar.dismiss();
+            }
+        });
+        snackBar.show();
+    }
+
+    /***************************************
+     * Snackbar method
      */
 
 }
