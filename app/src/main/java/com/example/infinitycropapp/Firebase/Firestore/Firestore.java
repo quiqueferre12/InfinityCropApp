@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.infinitycropapp.Firebase.Auth.User;
+import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.example.infinitycropapp.ui.pojos.ItemMachine;
 import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.example.infinitycropapp.ui.pojos.ItemUser;
@@ -139,4 +140,35 @@ public class Firestore {
                 .collection("Machines").document(idMachine).set(machine);
     }
     // FIN -> playlist method
+
+    // add climate to cloud firestore
+    public void AddClimate(String collection, ItemClimate climate, boolean getCreatorID , boolean isFavorite){
+        if(collection != null && climate != null){ //si todos los datos existen
+
+            if(getCreatorID){ //si se necesita obtener el id del usuario logueado
+                String id= GetIdUser();
+                if(id != null){
+                    climate.setCreatorId(id); //set the id to the itemMachine object
+                }
+            }
+            db.collection(collection).add(climate)
+            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+
+                    if(isFavorite){ // si lo quiere guardar en favoritos
+                        String id = GetIdUser();
+                        String idNewClimate = documentReference.getId();
+                        //Guardar el id de la maquina en una collection dentro del user
+                        Map<String, Object> saved = new HashMap<>();
+                        saved.put("Climate", idNewClimate);
+                        db.collection("User").document(id)
+                                .collection("Saved Climas")
+                                .document(idNewClimate).set(saved);
+                    }
+                }
+            });
+
+        }
+    }
 }

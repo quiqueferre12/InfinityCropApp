@@ -1,5 +1,6 @@
 package com.example.infinitycropapp.ui.main.climas.newClimate;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,9 +24,17 @@ import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.example.infinitycropapp.Firebase.Auth.User;
+import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemDiaRiego;
+import com.example.infinitycropapp.ui.main.log.EmailActivityL;
+import com.example.infinitycropapp.ui.main.log.RegisterActivity;
+import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.example.infinitycropapp.ui.pojos.ItemDiaRiego;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
@@ -33,10 +42,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.Timestamp;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class NewClimateActivity extends AppCompatActivity {
 
@@ -61,21 +76,31 @@ public class NewClimateActivity extends AppCompatActivity {
     private boolean isStep4Done = false;
     private boolean isStep5Done = false;
 
+    //storage
+    private StorageReference storageProfilePicsRef;
+    //auth
+    private User user;
+    //task
+    private StorageTask uploadTask;
+    //firestore
+    private Firestore firestore;
+
     //climate data
     //step 1 data
     private Uri photo;
     //step 2 data
     private String name;
     private String description;
+    private String photoUrl;
     private boolean isFavorite;
     //step 3 data
     //umbrales var
     private int temp_min=0; private int temp_max=40;
-    private int lumin_min=0; private int lumin_max=100;
+    /*private int lumin_min=0; private int lumin_max=100;*/
     private int value=0;
 
     private String final_temp_min=""; private String final_temp_max="";
-    private String final_lumin_min=""; private String final_lumin_max="";
+    /*private String final_lumin_min=""; private String final_lumin_max="";*/
     //step 4 data
     private List<ItemDiaRiego> itemDiaRiegos= new ArrayList<>();
     //step 5 data
@@ -94,12 +119,12 @@ public class NewClimateActivity extends AppCompatActivity {
     private ConstraintLayout confirm_step3_bottom_sheet;
     private ConstraintLayout max_temp_layout;
     private ConstraintLayout min_temp_layout;
-    private ConstraintLayout max_lumin_layout;
-    private ConstraintLayout min_lumin_layout;
+    /*private ConstraintLayout max_lumin_layout;
+    private ConstraintLayout min_lumin_layout;*/
     private TextInputEditText editext_min_temp;
     private TextInputEditText editext_max_temp;
-    private TextInputEditText editext_min_lumin;
-    private TextInputEditText editext_max_lumin;
+    /*private TextInputEditText editext_min_lumin;
+    private TextInputEditText editext_max_lumin;*/
 
     //dimensiones dispositivo actual
     private int height;
@@ -130,6 +155,13 @@ public class NewClimateActivity extends AppCompatActivity {
         step3_state=findViewById(R.id.step3_state);
         step4_state=findViewById(R.id.step4_state);
         step5_state=findViewById(R.id.step5_state);
+
+        // user
+        user = new User();
+        //firestore
+        firestore = new Firestore();
+        // storage
+        storageProfilePicsRef = FirebaseStorage.getInstance().getReference();
 
         //call methods
         ClearAllState(); //all to default
@@ -166,7 +198,7 @@ public class NewClimateActivity extends AppCompatActivity {
             }
         });
         //step4card onclick ->
-        step4_card.setOnClickListener(new View.OnClickListener() {
+        /*step4_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 initSteo4BottomSheet();
@@ -178,13 +210,15 @@ public class NewClimateActivity extends AppCompatActivity {
             public void onClick(View view) {
 
             }
-        });
+        });*/
 
         //check new climate -> confirm if all the bools are true
         btn_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isStep1Done && isStep2Done && isStep3Done && isStep4Done && isStep5Done) { //si todos los pasos estas terminados
+                if(isStep1Done && isStep2Done && isStep3Done /*&& isStep4Done && isStep5Done*/ ) { //si todos los pasos estas terminados
+
+                    addNewClimate();
 
                 }else{ //faltan pasos por hacer
                     setSnackbar(findViewById(R.id.general_layout_activity_new_climate), getString(R.string.snack_steps_remain));
@@ -282,11 +316,11 @@ public class NewClimateActivity extends AppCompatActivity {
         description ="";
         //data step 3
         temp_min=0; temp_max=40;
-        lumin_min=0; lumin_max=100;
+        //lumin_min=0; lumin_max=100;
         value=0;
 
         final_temp_min=""; final_temp_max="";
-        final_lumin_min=""; final_lumin_max="";
+        //final_lumin_min=""; final_lumin_max="";
         //data step 4
         //data step 5
         //clear todos los iconos a incompleto
@@ -355,6 +389,8 @@ public class NewClimateActivity extends AppCompatActivity {
                         name=textInput;
                         if(!descInput.isEmpty()){ //si desc no esta vacio
                             description=descInput;
+                        }else{
+                            description = "";
                         }
                         isFavorite= checkbox_step2_bottom_sheet.isChecked();
 
@@ -377,21 +413,21 @@ public class NewClimateActivity extends AppCompatActivity {
         confirm_step3_bottom_sheet= step3BottomSheet.findViewById(R.id.confirm_step3_bottom_sheet_new_climate);
         min_temp_layout = step3BottomSheet.findViewById(R.id.btn_min_temp_new_climate);
         max_temp_layout = step3BottomSheet.findViewById(R.id.btn_max_temp_new_climate);
-        max_lumin_layout = step3BottomSheet.findViewById(R.id.btn_max_lumin_new_climate);
-        min_lumin_layout = step3BottomSheet.findViewById(R.id.btn_min_lumin_new_climate);
+        /*max_lumin_layout = step3BottomSheet.findViewById(R.id.btn_max_lumin_new_climate);
+        min_lumin_layout = step3BottomSheet.findViewById(R.id.btn_min_lumin_new_climate);*/
         editext_min_temp= step3BottomSheet.findViewById(R.id.editext_min_temp_new_climate);
         editext_max_temp= step3BottomSheet.findViewById(R.id.editext_max_temp_new_climate);
-        editext_min_lumin= step3BottomSheet.findViewById(R.id.editext_min_lumin_new_climate);
-        editext_max_lumin= step3BottomSheet.findViewById(R.id.editext_max_lumin_new_climate);
+        /*editext_min_lumin= step3BottomSheet.findViewById(R.id.editext_min_lumin_new_climate);
+        editext_max_lumin= step3BottomSheet.findViewById(R.id.editext_max_lumin_new_climate);*/
 
         //insertar datos si existen
         //lumin
-        if(!final_lumin_max.equals("")){
+        /*if(!final_lumin_max.equals("")){
             editext_max_lumin.setText(final_lumin_max);
         }
         if(!final_lumin_min.equals("")){
             editext_min_lumin.setText(final_lumin_min);
-        }
+        }*/
         //temp
         if(!final_temp_max.equals("")){
             editext_max_temp.setText(final_temp_max);
@@ -413,12 +449,12 @@ public class NewClimateActivity extends AppCompatActivity {
         confirm_step3_bottom_sheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final_lumin_min=editext_min_lumin.getText().toString();
-                final_lumin_max=editext_max_lumin.getText().toString();
+                /*final_lumin_min=editext_min_lumin.getText().toString();
+                final_lumin_max=editext_max_lumin.getText().toString();*/
                 final_temp_min=editext_min_temp.getText().toString();
                 final_temp_max=editext_max_temp.getText().toString();
-                if(!final_lumin_max.equals("") && !final_lumin_min.equals("")
-                 && !final_temp_min.equals("") && !final_temp_max.equals("")){
+                if(/*!final_lumin_max.equals("") && !final_lumin_min.equals("")
+                 &&*/ !final_temp_min.equals("") && !final_temp_max.equals("")){
                     step3StateActive();
                 }else{
                     step3StateInactive();
@@ -474,7 +510,7 @@ public class NewClimateActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-        max_lumin_layout.setOnClickListener(new View.OnClickListener() {
+        /*max_lumin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //set el titulo del dialog
@@ -487,8 +523,8 @@ public class NewClimateActivity extends AppCompatActivity {
                 numberPicker.setMaxValue(100);
                 dialog.show();
             }
-        });
-        min_lumin_layout.setOnClickListener(new View.OnClickListener() {
+        });*/
+        /*min_lumin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //set el titulo del dialog
@@ -501,7 +537,7 @@ public class NewClimateActivity extends AppCompatActivity {
                 numberPicker.setMaxValue(lumin_max);
                 dialog.show();
             }
-        });
+        });*/
 
         //btn check DIALOG
         // se comprueba en cada dialog del number picker, que umbral es y se configura los max y min de los valores recogidos
@@ -511,7 +547,7 @@ public class NewClimateActivity extends AppCompatActivity {
                 step3BottomSheet.show();
                 value = numberPicker.getValue();
 
-                if(title_dialog.getText().equals(getText(R.string.step4_tittle_new_climate_2_lumin_min))){
+                /*if(title_dialog.getText().equals(getText(R.string.step4_tittle_new_climate_2_lumin_min))){
                     lumin_min=value;
                     String res= String.valueOf(lumin_min);
                     editext_min_lumin.setText(res);
@@ -520,7 +556,7 @@ public class NewClimateActivity extends AppCompatActivity {
                     lumin_max=value;
                     String res= String.valueOf(lumin_max);
                     editext_max_lumin.setText(res);
-                }else if(title_dialog.getText().equals(getText(R.string.step4_tittle_new_climate_4_temp_min))){
+                }else */if(title_dialog.getText().equals(getText(R.string.step4_tittle_new_climate_4_temp_min))){
                     temp_min=value;
                     String res= String.valueOf(temp_min);
                     editext_min_temp.setText(res);
@@ -624,6 +660,9 @@ public class NewClimateActivity extends AppCompatActivity {
     }
     // FIN -> steps bottom sheets
 
+    //step 5
+
+
     //set snackbar method
     public void setSnackbar(View actualActivity, String snackBarText){
         Snackbar snackBar = Snackbar.make(actualActivity, snackBarText,Snackbar.LENGTH_LONG);
@@ -635,5 +674,42 @@ public class NewClimateActivity extends AppCompatActivity {
             }
         });
         snackBar.show();
+    }
+
+    // add new climate function
+    private void addNewClimate(){
+        if(photo != null){ //si el user ha seleccionado una foto propia
+            //storage Climate -> random uuid (nombre archivo)
+            final StorageReference fileRef = storageProfilePicsRef
+                    .child("Climate")
+                    .child(UUID.randomUUID().toString()+ ".jpg"); //nombre random
+            //set image in storage
+            uploadTask = fileRef.putFile(photo);
+            uploadTask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+                    if(!task.isSuccessful()){
+                        throw  task.getException();
+                    }
+                    return fileRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() { //cuando saca el link
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if(task.isSuccessful()){ //si all gucci
+                        Uri downloadUrl = task.getResult(); //el link es un Uri
+                        photoUrl = downloadUrl.toString(); //Uri en string
+
+                        //pojo
+                        ItemClimate itemClimate = new ItemClimate(name , photoUrl , description , final_temp_max , final_temp_min , false , 0, new Timestamp(new Date()));
+                        //call back end method
+                        firestore.AddClimate("Climate" , itemClimate , true , isFavorite);
+
+                        //change activity
+                        finish();
+                    }
+                }
+            });
+        }
     }
 }

@@ -1,17 +1,15 @@
 package com.example.infinitycropapp.ui.pojos;
 
+import com.google.firebase.Timestamp;
+
 public class ItemClimate {
-    private String id; //id of the document
     private String creatorId; //id of creator
     //info climate
     private String name;
     private String image;
     private String description;
+    private Timestamp date;
     // data climate
-    private String maxHumidity;
-    private String minHumidity;
-    private String maxLuminosity;
-    private String minLuminosity;
     private String maxtemperature;
     private String minTemperature;
     //is our o no
@@ -27,30 +25,19 @@ public class ItemClimate {
         this.name = name;
     }
 
-    public ItemClimate(String id, String creatorId, String name, String image, String description, String maxHumidity, String minHumidity, String maxLuminosity, String minLuminosity, String maxtemperature, String minTemperature, boolean infinityCropClimate, int numberShared) {
-        this.id = id;
-        this.creatorId = creatorId;
+    //create climate constructor
+    public ItemClimate(String name, String image, String description,String maxtemperature, String minTemperature, boolean infinityCropClimate, int numberShared, Timestamp date) {
         this.name = name;
         this.image = image;
         this.description = description;
-        this.maxHumidity = maxHumidity;
-        this.minHumidity = minHumidity;
-        this.maxLuminosity = maxLuminosity;
-        this.minLuminosity = minLuminosity;
         this.maxtemperature = maxtemperature;
         this.minTemperature = minTemperature;
         this.infinityCropClimate = infinityCropClimate;
         this.numberShared = numberShared;
+        this.date = date;
     }
 
     //getters & setters
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getCreatorId() {
         return creatorId;
@@ -58,22 +45,6 @@ public class ItemClimate {
 
     public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
-    }
-
-    public String getMaxHumidity() {
-        return maxHumidity;
-    }
-
-    public void setMaxHumidity(String maxHumidity) {
-        this.maxHumidity = maxHumidity;
-    }
-
-    public String getMinHumidity() {
-        return minHumidity;
-    }
-
-    public void setMinHumidity(String minHumidity) {
-        this.minHumidity = minHumidity;
     }
 
     public String getImage() {
@@ -90,22 +61,6 @@ public class ItemClimate {
 
     public void setInfinityCropClimate(boolean infinityCropClimate) {
         this.infinityCropClimate = infinityCropClimate;
-    }
-
-    public String getMaxLuminosity() {
-        return maxLuminosity;
-    }
-
-    public void setMaxLuminosity(String maxLuminosity) {
-        this.maxLuminosity = maxLuminosity;
-    }
-
-    public String getMinLuminosity() {
-        return minLuminosity;
-    }
-
-    public void setMinLuminosity(String minLuminosity) {
-        this.minLuminosity = minLuminosity;
     }
 
     public String getName() {
@@ -146,5 +101,13 @@ public class ItemClimate {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 }
