@@ -42,8 +42,9 @@
                         android:id="@+id/ProfileImage"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="28dp"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.525"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/icon_infinity_black" />

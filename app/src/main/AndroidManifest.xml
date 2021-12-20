@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.infinitycropapp">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -17,7 +18,10 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.InfinityCrop">
-        <activity android:name=".ui.main.climas.newClimate.NewClimateActivity"></activity>
+        <activity
+            android:name=".ui.main.home.models.ListDevicesActivity"
+            android:exported="true" />
+        <activity android:name=".ui.main.climas.newClimate.NewClimateActivity" />
         <activity android:name=".ui.main.log.UsernameGoogleActivity" />
         <activity android:name=".ui.main.home.models.IC6Activity" />
         <activity android:name=".ui.main.home.newMachine.NewMachineActivity" />
@@ -54,11 +58,9 @@
         <activity
             android:name=".ui.main.climas.ActivityMisClimas"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.main.climas.ActivityClimasGuardados"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.main.climas.ActivityClimasInfinityCrop"
             android:screenOrientation="portrait" />

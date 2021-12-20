@@ -3,14 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_ic6.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/drawable/background_app.xml" value="0.2351851851851852" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.2351851851851852" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/drawable/button_primary.xml" value="0.2351851851851852" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/drawable/button_secondary.xml" value="0.2351851851851852" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/drawable/ic_send_white_24dp.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_ic6.xml" value="0.4" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_list_devices.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_list_main.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_log_start.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_machine_climate_bottom_sheet.xml" value="0.264" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step2_bottom_sheet.xml" value="0.14492753623188406" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step3_bottom_sheet.xml" value="0.14492753623188406" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_new_machine.xml" value="0.4" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_new_machine_step2_bottom_sheet.xml" value="0.14492753623188406" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_new_machine_step3_bottom_sheet.xml" value="0.14492753623188406" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/device_list_header.xml" value="0.2" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/device_list_item.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/dialog_mail_verification.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/dialog_riego_dia_list.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/dialog_vincular_bluetooth.xml" value="0.264" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/edit_machine_dialog.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
-        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_climas_guardados.xml" value="0.13046448087431695" />
-        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_climas_infinitycrop.xml" value="0.12363387978142076" />
-        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_climate.xml" value="0.2" />
-        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_ic6.xml" value="0.264" />
-        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_list_main.xml" value="0.1" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/fragment_terminal.xml" value="0.2028985507246377" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/menu/list_main_nav_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/menu/menu_devices.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_machine_climate_bottom_sheet.xml" value="0.4" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate.xml" value="0.2" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step2_bottom_sheet.xml" value="0.14617486338797814" />
@@ -30,11 +47,14 @@
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/machine_action_bottom_sheet.xml" value="0.14344262295081966" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/playlist_item.xml" value="0.14617486338797814" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/profile_photo_item.xml" value="0.14617486338797814" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step3_bottom_sheet.xml" value="0.14617486338797814" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step4_bottom_sheet.xml" value="0.14617486338797814" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/add_list_dialog.xml" value="0.14617486338797814" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/umbral_climate_dialog.xml" value="0.14617486338797814" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

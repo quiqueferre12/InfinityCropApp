@@ -31,6 +31,7 @@ import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -147,6 +148,9 @@ public class IC6Activity extends AppCompatActivity {
 
         //get the id of the machine
         machineId= getIntent().getExtras().getString("machineId");
+
+        initAlertDialog();
+
 
         //onclick methods
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -725,5 +729,33 @@ public class IC6Activity extends AppCompatActivity {
     /***************************************
      * Snackbar method
      */
+
+
+    /**
+     * La descripción de initAlertDialog. Funcion que inicializa una alerta para decirle al usario
+     * si quiere hacer una accion o no
+     *
+     */
+    private void initAlertDialog(){
+        MaterialAlertDialogBuilder alertDialogBuilder= new MaterialAlertDialogBuilder(this);
+        alertDialogBuilder.setMessage(R.string.deleteText_dialog);
+        //alertDialogBuilder.setMessage("");
+        alertDialogBuilder.setNegativeButton(R.string.cancelButton_dialog, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialogBuilder.setPositiveButton(R.string.deleteConfirmButton_dialog, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getApplicationContext(), ListDevicesActivity.class);
+                //AQUI IRA EL ID DEL CLIMA
+                intent.putExtra("id", "Rnw2WvyzpSsT6GO35eX1");
+                startActivity(intent);
+            }
+        });
+        alertDialogBuilder.show();
+    }
 
 }
