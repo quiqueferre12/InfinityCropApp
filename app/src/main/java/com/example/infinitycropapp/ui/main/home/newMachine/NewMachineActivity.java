@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.infinitycropapp.Firebase.Database.Database;
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.MainListActivity;
@@ -34,6 +35,8 @@ public class NewMachineActivity extends AppCompatActivity {
     //-----poner aca attributes etc... -----//
     //firestore
     private Firestore db;
+    //database
+    private Database database;
     //cards
     private MaterialCardView step1Card;
     private MaterialCardView step2Card;
@@ -81,6 +84,8 @@ public class NewMachineActivity extends AppCompatActivity {
         //firestore
         //llamamos al back end service
         db=new Firestore();
+        //datbase
+        database = new Database();
 
         //findById elements
         step1Card=findViewById(R.id.step1_card);
@@ -126,10 +131,13 @@ public class NewMachineActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isStep1Done && isStep2Done && isStep3Done){ //si todos los pasos estas terminados
                     //guardamos los datos en el objeto machine
-                    ItemMachine newMachine= new ItemMachine(nameMachine, machineModel, isFavorite);
+                    ItemMachine newMachine= new ItemMachine(nameMachine, machineModel, isFavorite , false);
                     //llamamos al metodo corresponiente
                     db.AddMachine("Machine",newMachine,machineCode, true);
-
+                    //crear fields en el databse
+                    if(newMachine.getModel().equals("IC6")){
+                        database.AddFieldsNewMachine("IC6 DUAL" , machineCode);
+                    }
                     //cambio de actividad
                     Intent intent = new Intent(getApplicationContext(), MainListActivity.class);
                     startActivity(intent);

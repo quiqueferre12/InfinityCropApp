@@ -6,13 +6,15 @@ public class ItemMachine {
     private String model;
     private String creatorID;
     private boolean favorite;
+    private boolean isConnected;
 
     public ItemMachine() { }
 
-    public ItemMachine(String name, String model, boolean favorite) {
+    public ItemMachine(String name, String model, boolean favorite , boolean isConnected) {
         this.name = name;
         this.model = model;
         this.favorite = favorite;
+        this.isConnected = isConnected;
     }
 
     public ItemMachine(String name, String model, String creatorID) {
@@ -51,5 +53,13 @@ public class ItemMachine {
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(boolean connected) {
+        isConnected = connected;
     }
 }
