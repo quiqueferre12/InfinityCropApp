@@ -171,4 +171,28 @@ public class Firestore {
 
         }
     }
+
+    public void ActionClimate(String idClimate , boolean save ){
+        if(idClimate != null){
+            Log.d("pepe", " ActionClimate() : " + save);
+            String id = GetIdUser();
+
+            if(save){ //guardar clima en la coleccion del user
+                Map<String, Object> saved = new HashMap<>();
+                saved.put("Climate", idClimate);
+
+                db.collection("User").document(id)
+                        .collection("Saved Climas")
+                        .document(idClimate).set(saved);
+            }else{ // si lo quiere eliminar
+
+                db.collection("User").document(id)
+                        .collection("Saved Climas")
+                        .document(idClimate).delete();
+
+            }
+        }
+    }
+
+
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashSet;
 
@@ -43,6 +45,7 @@ public class ActivityClima extends AppCompatActivity {
     private TextView textViewNumberTimes;
     private TextView textViewNumberDays;
     private TextView textViewCreator;
+    private ImageView image_climate;
     //Firebase
     private FirebaseFirestore db;
 
@@ -65,6 +68,7 @@ public class ActivityClima extends AppCompatActivity {
         textViewLikes=findViewById(R.id.textViewLikes);
         textViewNumberDays=findViewById(R.id.textViewNumberDays);
         textViewCreator=findViewById(R.id.textViewCreator);
+        image_climate = findViewById(R.id.image_climate);
         //findById elements
         btn_back=findViewById(R.id.climate_btn_back);
 
@@ -101,21 +105,22 @@ public class ActivityClima extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         //get data del clima
-                        textViewClimateName.setText((String) document.get("Nombre"));
-                        textViewDesc.setText(document.get("Descripcion").toString());
-                        LuzMax[0] = (String) document.get("LuminosityMax").toString();
+                        Picasso.get().load(document.get("image").toString()).into(image_climate);
+                        textViewClimateName.setText((String) document.get("name"));
+                        textViewDesc.setText(document.get("description").toString());
+                        /*LuzMax[0] = (String) document.get("LuminosityMax").toString();
                         LuzMin[0] = (String) document.get("Luminosity").toString();
                         HumMax[0] = (String) document.get("HumidityMax").toString();
-                        HumMin[0] = (String) document.get("Humidity").toString();
-                        TempMax[0] = (String) document.get("TemperatureMax").toString();
-                        TempMin[0] = (String) document.get("Temperature").toString();
-                        textViewNumberHum.setText(HumMin[0] + " - " + HumMax[0]);
-                        textViewNumberLight.setText(LuzMin[0] + " - " + LuzMax[0]);
+                        HumMin[0] = (String) document.get("Humidity").toString();*/
+                        TempMax[0] = (String) document.get("maxtemperature").toString();
+                        TempMin[0] = (String) document.get("minTemperature").toString();
+                        /*textViewNumberHum.setText(HumMin[0] + " - " + HumMax[0]);
+                        textViewNumberLight.setText(LuzMin[0] + " - " + LuzMax[0]);*/
                         textViewNumberTemp.setText(TempMin[0] + " - " + TempMax[0]);
-                        NumGuardados[0] = (int) Integer.parseInt(document.get("Guardados").toString()) ;
-                        String formattedNumGuardados = String.format("%04d", NumGuardados[0]);//Formato a 4 cifras
-                        textViewLikes.setText(formattedNumGuardados);
-                        idCreator[0] = (String) document.get("Creator Id").toString();
+                        /*NumGuardados[0] = (int) Integer.parseInt(document.get("Guardados").toString()) ;*/
+                        /*String formattedNumGuardados = String.format("%04d", NumGuardados[0]);//Formato a 4 cifras*/
+                        /*textViewLikes.setText(formattedNumGuardados);*/
+                        idCreator[0] = (String) document.get("creatorId").toString();
                         DocumentReference docRef2 = db.collection("User").document(idCreator[0]);
 
                         //Get data del creador
@@ -142,7 +147,7 @@ public class ActivityClima extends AppCompatActivity {
         });
 
         //get data del riego
-        CollectionReference docRefRiego = db.collection("Climate").document(id).collection("Riego");
+        /*CollectionReference docRefRiego = db.collection("Climate").document(id).collection("Riego");
         docRefRiego.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -163,7 +168,7 @@ public class ActivityClima extends AppCompatActivity {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
-                });
+                });*/
         textViewClimateName.setText(id);
     }
 }

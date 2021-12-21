@@ -56,13 +56,13 @@ public class ActivityClimasGuardados extends AppCompatActivity {
         search_input= findViewById(R.id.editTextTextPersonName2);
 
         //config rv
-        initRvInf();
+        /*initRvInf();
         getItemInf();
         setRvInfDatos();
         //config swipe to refresh
         swipeToRefresh();
         //search logic
-        searchMethod();
+        searchMethod();*/
 
         //onclicks
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -83,9 +83,9 @@ public class ActivityClimasGuardados extends AppCompatActivity {
         itemClimatesInfinity.clear(); //clear la list para que no se duplique
         itemClimatesInfinitySaved.clear(); //clear la list
         //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesGuardados =new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesInfinitySaved ,this, findViewById(R.id.general_layout_climas_guardados), false);
+        /*adapterItemClimatesGuardados =new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesInfinitySaved ,this, findViewById(R.id.general_layout_climas_guardados), false);
         //declaro que cual es el adaptador el rv
-        rv_climates.setAdapter(adapterItemClimatesGuardados);
+        rv_climates.setAdapter(adapterItemClimatesGuardados);*/
     }
     private void setRvInfDatos(){
         adapterItemClimatesGuardados.showShimmer=true;

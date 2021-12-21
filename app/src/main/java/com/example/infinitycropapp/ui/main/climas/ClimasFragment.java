@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.infinitycropapp.Firebase.Auth.User;
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesUser;
@@ -95,6 +96,8 @@ public class ClimasFragment extends Fragment {
     //lists
     private List<ItemClimate> itemClimatesInfinity=new ArrayList<>(); //infinity
     private List<Boolean> itemClimatesInfinitySaved=new ArrayList<>(); //infinity
+    private List<String> itemClimatesUIDInfinitySaved=new ArrayList<>(); //infinity
+    private List<String> uidClimates = new ArrayList<>(); //infinity
     //adapters
     private AdapterItemClimatesUser adapterItemClimatesInfinity;
     //firebase
@@ -103,6 +106,11 @@ public class ClimasFragment extends Fragment {
     private ConstraintLayout btn_my_climates;
     private ConstraintLayout btn_climates_Ic;
     private ConstraintLayout btn_climas_guardados;
+
+    //auth
+    User user;
+    //getId
+    private String idUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -172,48 +180,49 @@ public class ClimasFragment extends Fragment {
     private void getItemInf(){
         itemClimatesInfinity.clear(); //clear la list para que no se duplique
         itemClimatesInfinitySaved.clear(); //clear la list
+        itemClimatesUIDInfinitySaved.clear();
+        uidClimates.clear();
         //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesInfinitySaved ,getContext(), this, this.getView());
+        adapterItemClimatesInfinity=new AdapterItemClimatesUser(itemClimatesInfinity , itemClimatesUIDInfinitySaved , uidClimates ,getContext(), this, this.getView());
         //declaro que cual es el adaptador el rv
         rv_climasInfinity.setAdapter(adapterItemClimatesInfinity);
     }
     private void setRvInfDatos(){
         adapterItemClimatesInfinity.showShimmer=true;
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        itemClimatesInfinity.add(new ItemClimate("Tomates"));
-        //saved list
-        itemClimatesInfinitySaved.add(true);
-        itemClimatesInfinitySaved.add(false);
-        itemClimatesInfinitySaved.add(false);
-        itemClimatesInfinitySaved.add(true);
-        itemClimatesInfinitySaved.add(true);
-        itemClimatesInfinitySaved.add(false);
-        itemClimatesInfinitySaved.add(true);
-        itemClimatesInfinitySaved.add(false);
-        itemClimatesInfinitySaved.add(true);
-        itemClimatesInfinitySaved.add(false);
-        //dismiss loader
-        adapterItemClimatesInfinity.showShimmer= false;
-        adapterItemClimatesInfinity.notifyDataSetChanged();
-        //quitar la animacion de recarga
-        refreshLayout.setRefreshing(false);
-        //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
-        //si el recyclerView esta vacio
-        if(adapterItemClimatesInfinity.getItemCount() == 0 ){
-            rv_climasInfinity.setVisibility(View.GONE); //ocultar rv
-            empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
-        }else{ //sino
-            rv_climasInfinity.setVisibility(View.VISIBLE); //mostras rv con sus items
-            empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
-        }
+
+
+        db.collection("Climate")
+                .whereEqualTo("infinityCropClimate", true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ItemClimate itemClimate = document.toObject(ItemClimate.class);
+
+                                itemClimatesInfinity.add(itemClimate);
+                                uidClimates.add(document.getId());
+
+                            }
+
+                            //dismiss loader
+                            adapterItemClimatesInfinity.showShimmer= false;
+                            adapterItemClimatesInfinity.notifyDataSetChanged();
+                            //quitar la animacion de recarga
+                            refreshLayout.setRefreshing(false);
+                            //lo ponemos despues del bool porque siempre que esta true devuelve 6 elemntos
+                            //si el recyclerView esta vacio
+                            if(adapterItemClimatesInfinity.getItemCount() == 0 ){
+                                rv_climasInfinity.setVisibility(View.GONE); //ocultar rv
+                                empty_recyclerView.setVisibility(View.VISIBLE); //mostrar elementos
+                            }else{ //sino
+                                rv_climasInfinity.setVisibility(View.VISIBLE); //mostras rv con sus items
+                                empty_recyclerView.setVisibility(View.GONE); //ocultar container con info
+                            }
+                        }
+                    }
+                });
         /*db.collection("Climate")
                 .whereEqualTo("InfinityCropClimate", true)
                 .limit(5)
