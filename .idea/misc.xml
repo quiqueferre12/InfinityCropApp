@@ -18,7 +18,7 @@
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_new_machine.xml" value="0.4" />
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_new_machine_step2_bottom_sheet.xml" value="0.14492753623188406" />
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/activity_new_machine_step3_bottom_sheet.xml" value="0.14492753623188406" />
-        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/device_list_header.xml" value="0.264" />
+        <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/device_list_header.xml" value="0.2" />
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/device_list_item.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/dialog_mail_verification.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/layout/dialog_riego_dia_list.xml" value="0.2028985507246377" />
@@ -29,10 +29,12 @@
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/menu/list_main_nav_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/menu/menu_devices.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Jose/Documents/InfinityCrop/App/InfinityCropApp/app/src/main/res/menu/menu_terminal.xml" value="0.13229166666666667" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/drawable/button_primary.xml" value="0.202734375" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/drawable/button_secondary.xml" value="0.202734375" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_climas_infinitycrop.xml" value="0.16734972677595628" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_climate.xml" value="0.264" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_ic6.xml" value="0.16734972677595628" />
-        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_machine_climate_bottom_sheet.xml" value="0.4" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_machine_climate_bottom_sheet.xml" value="0.264" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_mis_climas.xml" value="0.16734972677595628" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate.xml" value="0.2" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step2_bottom_sheet.xml" value="0.14617486338797814" />
@@ -40,7 +42,9 @@
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate_step4_bottom_sheet.xml" value="0.14617486338797814" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/add_list_dialog.xml" value="0.14617486338797814" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/climate_item.xml" value="0.16700819672131148" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/climate_machine_item.xml" value="0.4" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/fragment_climas.xml" value="0.2" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/machine_action_bottom_sheet.xml" value="0.16734972677595628" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/umbral_climate_dialog.xml" value="0.14617486338797814" />
       </map>
     </option>

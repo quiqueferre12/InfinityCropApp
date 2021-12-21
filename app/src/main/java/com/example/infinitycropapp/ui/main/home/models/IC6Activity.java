@@ -23,11 +23,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.infinitycropapp.Firebase.Auth.User;
 import com.example.infinitycropapp.Firebase.Database.Database;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.ActivityClima;
+import com.example.infinitycropapp.ui.main.climas.ActivityClimasInfinityCrop;
 import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesMachine;
+import com.example.infinitycropapp.ui.main.climas.newClimate.NewClimateActivity;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
@@ -39,6 +44,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,12 +111,17 @@ public class IC6Activity extends AppCompatActivity {
     private ConstraintLayout constraintLayout_ocultar_climas_guardados;
     //lists
     private List<ItemClimate> itemClimatesCreados =new ArrayList<>();
+    private List<String> uidClimates = new ArrayList<>(); //infinity
     private List<ItemClimate> itemClimatesGuardados =new ArrayList<>();
     //adapters
     private AdapterItemClimatesMachine adapterItemClimatesCreadosMachine;
     private AdapterItemClimatesMachine adapterItemClimatesGuardadosMachine;
     //firebase
     private FirebaseFirestore db;
+    //auth
+    User user;
+    //getId
+    private String idUser;
 
 
     @Override
@@ -120,6 +132,10 @@ public class IC6Activity extends AppCompatActivity {
         //firebase
         databaseReference= FirebaseDatabase.getInstance().getReference();
         database = new Database();
+
+        user = new User();
+        //getId
+        idUser = user.getId();
 
         //findById
         btn_back=findViewById(R.id.btn_back_ic6_model);
@@ -494,6 +510,11 @@ public class IC6Activity extends AppCompatActivity {
         empty_rv_mis_climas=optionsBottomSheet.findViewById(R.id.empty_rv_mis_climas);//Layout vacío rv
         empty_rv_climas_guardados=optionsBottomSheet.findViewById(R.id.empty_rv_climas_guardados);//Layout vacío rv
 
+        //btn explorar climas
+        Button btn_explorar_climas = optionsBottomSheet.findViewById(R.id.button2);
+        //btn crear climas
+        Button btn_crear_climas = optionsBottomSheet.findViewById(R.id.button);
+
         ConstraintLayout constraintLayout17 = optionsBottomSheet.findViewById(R.id.constraintLayout17);
 
         //actions
@@ -510,6 +531,23 @@ public class IC6Activity extends AppCompatActivity {
                 FrameLayout bottomSheet = (FrameLayout) d.findViewById(R.id.design_bottom_sheet);
                 BottomSheetBehavior.from(bottomSheet)
                         .setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
+
+        //intent to infinnity crop climas
+        btn_explorar_climas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ActivityClimasInfinityCrop.class);
+                startActivity(intent);
+            }
+        });
+        //intent to create clima
+        btn_crear_climas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), NewClimateActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -581,10 +619,6 @@ public class IC6Activity extends AppCompatActivity {
         getItemClimasGuardados();
 
 
-        //num climas
-        numClimasGuardados.setText(getNumClimasGuardados());
-        numClimasCreados.setText(getNumClimasCreados());
-
         searchMethod();
 
 
@@ -602,6 +636,50 @@ public class IC6Activity extends AppCompatActivity {
 
     private void getItemClimasCreados(){
         itemClimatesCreados.clear(); //clear la list para que no se duplique
+
+        db.collection("Climate")
+                .whereEqualTo("creatorId", idUser)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ItemClimate itemClimate = document.toObject(ItemClimate.class);
+
+                                itemClimatesCreados.add(itemClimate);
+                                uidClimates.add(document.getId());
+
+                            }
+
+                            //creo un adaptador pasandole los elementos al contructor
+                            adapterItemClimatesCreadosMachine =new AdapterItemClimatesMachine(machineId , itemClimatesCreados, uidClimates , IC6Activity.this);
+                            adapterItemClimatesCreadosMachine.notifyDataSetChanged();
+                            //declaro que cual es el adaptador el rv
+                            recyclerViewClimasCreados.setAdapter(adapterItemClimatesCreadosMachine);
+                            //si el recyclerView esta vacio
+                            if(adapterItemClimatesCreadosMachine.getItemCount() == 0 ){
+                                ConstraintSet constraintSet = new ConstraintSet();
+                                constraintSet.clone(constraintLayout2);
+                                constraintSet.connect(R.id.constraintLayout17,ConstraintSet.TOP,R.id.empty_rv_mis_climas,ConstraintSet.BOTTOM,0);
+                                constraintSet.applyTo(constraintLayout2);
+                                recyclerViewClimasCreados.setVisibility(View.GONE); //ocultar rv
+                                empty_rv_mis_climas.setVisibility(View.VISIBLE); //mostrar elementos
+                            }else{ //sino
+                                ConstraintSet constraintSet = new ConstraintSet();
+                                constraintSet.clone(constraintLayout2);
+                                constraintSet.connect(R.id.constraintLayout17,ConstraintSet.TOP,R.id.rv_climas_machine,ConstraintSet.BOTTOM,0);
+                                constraintSet.applyTo(constraintLayout2);
+                                recyclerViewClimasCreados.setVisibility(View.VISIBLE); //mostras rv con sus items
+                                empty_rv_mis_climas.setVisibility(View.GONE); //ocultar container con info
+                            }
+
+                            //num climas
+                            numClimasGuardados.setText(getNumClimasGuardados());
+                            numClimasCreados.setText(getNumClimasCreados());
+                        }
+                    }
+                });
 /*
         itemClimatesCreados.add(new ItemClimate("Tomates"));
         itemClimatesCreados.add(new ItemClimate("Tomates"));
@@ -609,27 +687,6 @@ public class IC6Activity extends AppCompatActivity {
         itemClimatesCreados.add(new ItemClimate("Marihuana"));
         itemClimatesCreados.add(new ItemClimate("Marihuana"));
         itemClimatesCreados.add(new ItemClimate("Marihuana"));*/
-        //creo un adaptador pasandole los elementos al contructor
-        adapterItemClimatesCreadosMachine =new AdapterItemClimatesMachine(itemClimatesCreados,this);
-        adapterItemClimatesCreadosMachine.notifyDataSetChanged();
-        //declaro que cual es el adaptador el rv
-        recyclerViewClimasCreados.setAdapter(adapterItemClimatesCreadosMachine);
-        //si el recyclerView esta vacio
-        if(adapterItemClimatesCreadosMachine.getItemCount() == 0 ){
-            ConstraintSet constraintSet = new ConstraintSet();
-            constraintSet.clone(constraintLayout2);
-            constraintSet.connect(R.id.constraintLayout17,ConstraintSet.TOP,R.id.empty_rv_mis_climas,ConstraintSet.BOTTOM,0);
-            constraintSet.applyTo(constraintLayout2);
-            recyclerViewClimasCreados.setVisibility(View.GONE); //ocultar rv
-            empty_rv_mis_climas.setVisibility(View.VISIBLE); //mostrar elementos
-        }else{ //sino
-            ConstraintSet constraintSet = new ConstraintSet();
-            constraintSet.clone(constraintLayout2);
-            constraintSet.connect(R.id.constraintLayout17,ConstraintSet.TOP,R.id.rv_climas_machine,ConstraintSet.BOTTOM,0);
-            constraintSet.applyTo(constraintLayout2);
-            recyclerViewClimasCreados.setVisibility(View.VISIBLE); //mostras rv con sus items
-            empty_rv_mis_climas.setVisibility(View.GONE); //ocultar container con info
-        }
     }
 
     private String getNumClimasCreados(){
