@@ -16,6 +16,7 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,6 +58,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         setHasOptionsMenu(true);
         setRetainInstance(true);
         deviceAddress = getArguments().getString("device");
+        Log.d("device", deviceAddress);
     }
 
     @Override
@@ -127,7 +129,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_terminal, container, false);
         receiveText = view.findViewById(R.id.receive_text);                          // TextView performance decreases with number of spans
-        receiveText.setTextColor(getResources().getColor(R.color.color_primary)); // set as default color to reduce number of spans
+        receiveText.setTextColor(getResources().getColor(R.color.black)); // set as default color to reduce number of spans
         receiveText.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         sendText = view.findViewById(R.id.send_text);
@@ -141,13 +143,51 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_terminal, menu);
+        menu.findItem(R.id.hex).setChecked(hexEnabled);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.clear) {
+            receiveText.setText("");
+            return true;
+        } else if (id == R.id.newline) {
+            String[] newlineNames = getResources().getStringArray(R.array.newline_names);
+            String[] newlineValues = getResources().getStringArray(R.array.newline_values);
+            int pos = java.util.Arrays.asList(newlineValues).indexOf(newline);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Newline");
+            builder.setSingleChoiceItems(newlineNames, pos, (dialog, item1) -> {
+                newline = newlineValues[item1];
+                dialog.dismiss();
+            });
+            builder.create().show();
+            return true;
+        } else if (id == R.id.hex) {
+            hexEnabled = !hexEnabled;
+            sendText.setText("");
+            hexWatcher.enable(hexEnabled);
+            sendText.setHint(hexEnabled ? "HEX mode" : "");
+            item.setChecked(hexEnabled);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
     /*
      * Serial + UI
      */
     private void connect() {
         try {
+
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
+            Log.d("ayay", "serive");
             status("connecting...");
             connected = Connected.Pending;
             SerialSocket socket = new SerialSocket(getActivity().getApplicationContext(), device);
@@ -181,7 +221,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 data = (str + newline).getBytes();
             }
             SpannableStringBuilder spn = new SpannableStringBuilder(msg + '\n');
-            spn.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.color_primary)), 0, spn.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spn.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.black)), 0, spn.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             receiveText.append(spn);
             service.write(data);
         } catch (Exception e) {
@@ -211,7 +251,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
 
     private void status(String str) {
         SpannableStringBuilder spn = new SpannableStringBuilder(str + '\n');
-        spn.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.color_primary)), 0, spn.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spn.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.black)), 0, spn.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         receiveText.append(spn);
     }
 
@@ -240,6 +280,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         status("connection lost: " + e.getMessage());
         disconnect();
     }
+
 
 }
 

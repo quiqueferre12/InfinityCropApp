@@ -1,6 +1,5 @@
 package com.example.infinitycropapp.ui.main.home.models;
 
-
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,6 +12,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -23,6 +23,10 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * create notification and queue serial data while activity is not in the foreground
+ * use listener chain: SerialSocket -> SerialService -> UI fragment
+ */
 public class SerialService extends Service implements SerialListener {
 
     class SerialBinder extends Binder {
@@ -74,12 +78,14 @@ public class SerialService extends Service implements SerialListener {
      * Api
      */
     public void connect(SerialSocket socket) throws IOException {
+
         socket.connect(this);
         this.socket = socket;
         connected = true;
     }
 
     public void disconnect() {
+
         connected = false; // ignore data,errors while disconnecting
         cancelNotification();
         if(socket != null) {
@@ -125,7 +131,7 @@ public class SerialService extends Service implements SerialListener {
 
     public void detach() {
         if(connected)
-            createNotification();
+        // createNotification();
         // items already in event queue (posted before detach() to mainLooper) will end up in queue1
         // items occurring later, will be moved directly to queue2
         // detach() and mainLooper.post run in the main thread, so all items are caught
@@ -148,13 +154,13 @@ public class SerialService extends Service implements SerialListener {
         PendingIntent disconnectPendingIntent = PendingIntent.getBroadcast(this, 1, disconnectIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent restartPendingIntent = PendingIntent.getActivity(this, 1, restartIntent,  PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, ConstantsBL.NOTIFICATION_CHANNEL)
-                .setSmallIcon(R.drawable.icons_notification)
-                .setColor(getResources().getColor(R.color.color_primary))
+                .setSmallIcon(R.drawable.ic_mail_icon)
+                .setColor(getResources().getColor(R.color.black))
                 .setContentTitle(getResources().getString(R.string.app_name))
                 .setContentText(socket != null ? "Connected to "+socket.getName() : "Background Service")
                 .setContentIntent(restartPendingIntent)
                 .setOngoing(true)
-                .addAction(new NotificationCompat.Action(R.drawable.icons_notification, "Disconnect", disconnectPendingIntent));
+                .addAction(new NotificationCompat.Action(R.drawable.ic_mail_icon, "Disconnect", disconnectPendingIntent));
         // @drawable/ic_notification created with Android Studio -> New -> Image Asset using @color/colorPrimaryDark as background color
         // Android < API 21 does not support vectorDrawables in notifications, so both drawables used here, are created as .png instead of .xml
         Notification notification = builder.build();
@@ -227,6 +233,8 @@ public class SerialService extends Service implements SerialListener {
     }
 
     public void onSerialIoError(Exception e) {
+        Log.d("device", "deviceAddress");
+
         if(connected) {
             synchronized (this) {
                 if (listener != null) {

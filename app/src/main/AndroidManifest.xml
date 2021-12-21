@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
 
     <application
         android:allowBackup="true"
@@ -19,8 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InfinityCrop">
         <activity
-            android:name=".ui.main.home.models.ListDevicesActivity"
-            android:exported="true" />
+            android:name=".ui.main.home.models.ListDevicesActivity" />
         <activity android:name=".ui.main.climas.newClimate.NewClimateActivity" />
         <activity android:name=".ui.main.log.UsernameGoogleActivity" />
         <activity android:name=".ui.main.home.models.IC6Activity" />
@@ -68,6 +69,8 @@
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
+
+        <service android:name=".ui.main.home.models.SerialService" />
     </application>
 
 </manifest>

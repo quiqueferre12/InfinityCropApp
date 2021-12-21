@@ -7,7 +7,7 @@
     tools:context=".ui.main.home.models.ListDevicesActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/back_newMachine"
+        android:id="@+id/back_nis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -37,10 +37,10 @@
         android:text="Vincular IC6"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/back_newMachine"
+        app:layout_constraintBottom_toBottomOf="@+id/back_nis"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/back_newMachine"
-        app:layout_constraintTop_toTopOf="@+id/back_newMachine"
+        app:layout_constraintStart_toEndOf="@+id/back_nis"
+        app:layout_constraintTop_toTopOf="@+id/back_nis"
         app:layout_constraintVertical_bias="0.609" />
 
     <RelativeLayout

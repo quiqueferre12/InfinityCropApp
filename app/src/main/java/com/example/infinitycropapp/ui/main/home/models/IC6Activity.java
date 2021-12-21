@@ -149,7 +149,7 @@ public class IC6Activity extends AppCompatActivity {
         //get the id of the machine
         machineId= getIntent().getExtras().getString("machineId");
 
-        initAlertDialog();
+
 
 
         //onclick methods
@@ -731,31 +731,5 @@ public class IC6Activity extends AppCompatActivity {
      */
 
 
-    /**
-     * La descripción de initAlertDialog. Funcion que inicializa una alerta para decirle al usario
-     * si quiere hacer una accion o no
-     *
-     */
-    private void initAlertDialog(){
-        MaterialAlertDialogBuilder alertDialogBuilder= new MaterialAlertDialogBuilder(this);
-        alertDialogBuilder.setMessage(R.string.deleteText_dialog);
-        //alertDialogBuilder.setMessage("");
-        alertDialogBuilder.setNegativeButton(R.string.cancelButton_dialog, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        alertDialogBuilder.setPositiveButton(R.string.deleteConfirmButton_dialog, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(getApplicationContext(), ListDevicesActivity.class);
-                //AQUI IRA EL ID DEL CLIMA
-                intent.putExtra("id", "Rnw2WvyzpSsT6GO35eX1");
-                startActivity(intent);
-            }
-        });
-        alertDialogBuilder.show();
-    }
 
 }

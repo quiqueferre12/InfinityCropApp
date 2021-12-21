@@ -24,6 +24,7 @@ import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
 import com.example.infinitycropapp.ui.main.home.models.IC6Activity;
+import com.example.infinitycropapp.ui.main.home.models.ListDevicesActivity;
 import com.example.infinitycropapp.ui.pojos.ItemMachine;
 import com.example.infinitycropapp.ui.pojos.ItemPlaylist;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -107,10 +108,14 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
             holder.item_machine.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //comprobar que modelo es y entrar en el activity adecuado
-                    Intent intent = new Intent(context, IC6Activity.class);
-                    intent.putExtra("machineId", idDocument);
-                    context.startActivity(intent);
+                    if(pojoItem.isConnected()){
+                        //comprobar que modelo es y entrar en el activity adecuado
+                        Intent intent = new Intent(context, IC6Activity.class);
+                        intent.putExtra("machineId", idDocument);
+                        context.startActivity(intent);
+                    }else{
+                        initAlertDialog();
+                    }
                 }
             });
             //options of machine
@@ -487,6 +492,34 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
             return itemMachines.size();
         }
     }
+
+    /**
+     * La descripción de initAlertDialog. Funcion que inicializa una alerta para decirle al usario
+     * si quiere hacer una accion o no
+     *
+     */
+    private void initAlertDialog(){
+        MaterialAlertDialogBuilder alertDialogBuilder= new MaterialAlertDialogBuilder(context);
+        alertDialogBuilder.setMessage("Vincule la IC6 para la configuración WiFi");
+        //alertDialogBuilder.setMessage("");
+        alertDialogBuilder.setNegativeButton(R.string.cancelButton_dialog, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialogBuilder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(context, ListDevicesActivity.class);
+                //AQUI IRA EL ID DEL CLIMA
+                intent.putExtra("id", "Rnw2WvyzpSsT6GO35eX1");
+                context.startActivity(intent);
+            }
+        });
+        alertDialogBuilder.show();
+    }
+
 
     public static class ItemMachineHolder extends RecyclerView.ViewHolder{
 
