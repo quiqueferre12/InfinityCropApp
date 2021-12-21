@@ -9,8 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Seleccione la IC6 para conectarse vía Bluetooth"
+        android:text='Seleccione un dispositivo "InfinityCrop"'
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView60"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Debe conectarse vía Bluetooth desde ajustes para que aparezca"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
 </LinearLayout>

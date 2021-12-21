@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,7 +48,7 @@ public class DevicesFragment extends ListFragment {
                 TextView text2 = view.findViewById(R.id.text2);
                 text1.setText(device.getName());
                 text2.setText(device.getAddress());
-                return view;
+                    return view;
             }
         };
     }
@@ -76,7 +77,7 @@ public class DevicesFragment extends ListFragment {
         else if(!bluetoothAdapter.isEnabled())
             setEmptyText("<bluetooth is disabled>");
         else
-            setEmptyText("<no bluetooth devices found>");
+            setEmptyText("IC6 no encontrada, conéctese desde ajustes > Bluetooth");
         refresh();
     }
 
@@ -90,7 +91,7 @@ public class DevicesFragment extends ListFragment {
         listItems.clear();
         if(bluetoothAdapter != null) {
             for (BluetoothDevice device : bluetoothAdapter.getBondedDevices())
-                if (device.getType() != BluetoothDevice.DEVICE_TYPE_LE)
+                if (device.getType() != BluetoothDevice.DEVICE_TYPE_LE && device.getName().equals("InfinityCrop"))
                     listItems.add(device);
         }
         Collections.sort(listItems, DevicesFragment::compareTo);
