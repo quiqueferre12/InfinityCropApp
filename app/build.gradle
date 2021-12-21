@@ -83,4 +83,11 @@ dependencies {
 
     //QR scan library
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'//añadimos esta libreria para qr
+
+
+    //import del mqtt
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'//añadimos esta libreria para qr
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 }

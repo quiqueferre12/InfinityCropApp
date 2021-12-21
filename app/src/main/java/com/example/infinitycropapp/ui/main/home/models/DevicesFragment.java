@@ -91,7 +91,7 @@ public class DevicesFragment extends ListFragment {
         listItems.clear();
         if(bluetoothAdapter != null) {
             for (BluetoothDevice device : bluetoothAdapter.getBondedDevices())
-                if (device.getType() != BluetoothDevice.DEVICE_TYPE_LE && device.getName().equals("InfinityCrop"))
+                if (device.getType() != BluetoothDevice.DEVICE_TYPE_LE && device.getName().equals("Infinitycrop"))
                     listItems.add(device);
         }
         Collections.sort(listItems, DevicesFragment::compareTo);

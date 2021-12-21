@@ -217,7 +217,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 data = TextUtil.fromHexString(msg);
             } else {
                 msg = str;
-                data = (str + newline).getBytes();
+                data = (str).getBytes();
             }
             SpannableStringBuilder spn = new SpannableStringBuilder(msg + '\n');
             spn.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.black)), 0, spn.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
