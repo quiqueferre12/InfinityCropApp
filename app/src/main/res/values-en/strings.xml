@@ -248,7 +248,7 @@
     <string name="snackbar_coming_soon">Feature coming soon…</string>
 
 
-    <string name="machine_control_txt_clima_on">Climate on</string>
+    <string name="machine_control_txt_clima_on">Climates</string>
     <string name="machine_control_txt_clima_of">Climate off</string>
     <string name="machine_control_subtittle_on_machine">Switched on</string>
     <string name="machine_control_subtittle_off_machine">Switched off</string>

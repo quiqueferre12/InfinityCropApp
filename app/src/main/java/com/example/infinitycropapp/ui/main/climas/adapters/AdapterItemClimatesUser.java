@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
 import com.example.infinitycropapp.ui.main.climas.ActivityClima;
@@ -131,7 +132,9 @@ public class AdapterItemClimatesUser extends RecyclerView.Adapter<AdapterItemCli
             holder.name_climate.setText(pojoItem.getName());
 
             //img
-            Picasso.get().load(pojoItem.getImage()).into(holder.img_climate);
+            Glide.with(context)
+                    .load(pojoItem.getImage())
+                    .into(holder.img_climate);
 
             Log.d("pepe", " LIKE O NO: " + save);
 

@@ -33,7 +33,7 @@
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/drawable/button_secondary.xml" value="0.202734375" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_climas_infinitycrop.xml" value="0.16734972677595628" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_climate.xml" value="0.264" />
-        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_ic6.xml" value="0.16734972677595628" />
+        <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_ic6.xml" value="0.264" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_machine_climate_bottom_sheet.xml" value="0.264" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_mis_climas.xml" value="0.16734972677595628" />
         <entry key="..\:/Users/javi-/StudioProjects/InfinityCropApp/app/src/main/res/layout/activity_new_climate.xml" value="0.2" />
@@ -49,7 +49,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
