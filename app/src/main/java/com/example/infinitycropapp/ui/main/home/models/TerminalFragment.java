@@ -187,8 +187,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
 
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
-            Log.d("ayay", "serive");
-            status("Conectándose Vía Bluetooth...");
+            status(getString(R.string.connectingBL));
             connected = Connected.Pending;
             SerialSocket socket = new SerialSocket(getActivity().getApplicationContext(), device);
             service.connect(socket);
@@ -260,7 +259,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
      */
     @Override
     public void onSerialConnect() {
-        status("Conectado, introduzca los datos");
+        status(getString(R.string.connectedBL));
         connected = Connected.True;
     }
 

@@ -294,4 +294,10 @@
     <string name="step4_tittle_new_climate_4_temp_min">Temperatura mínima</string>
 
 
+    <!--    Bluetooth-->
+    <string name="ic6_not_found">IC6 no encontrada, conéctese desde ajustes > Bluetooth</string>
+    <string name="connectingBL">Conectándose vía Bluetooth...</string>
+    <string name="connectedBL">Conectado, ingrese los datos</string>
+
+
 </resources>

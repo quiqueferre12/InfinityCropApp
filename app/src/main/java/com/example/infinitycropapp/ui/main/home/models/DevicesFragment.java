@@ -77,7 +77,7 @@ public class DevicesFragment extends ListFragment {
         else if(!bluetoothAdapter.isEnabled())
             setEmptyText("<bluetooth is disabled>");
         else
-            setEmptyText("IC6 no encontrada, conéctese desde ajustes > Bluetooth");
+            setEmptyText(getString(R.string.ic6_not_found));
         refresh();
     }
 

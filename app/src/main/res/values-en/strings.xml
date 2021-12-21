@@ -295,4 +295,13 @@
     <string name="step4_tittle_new_climate_3_temp_max">Maximum temperature</string>
     <string name="step4_tittle_new_climate_4_temp_min">Minimum temperature</string>
 
+
+
+    <!--    Bluetooth-->
+    <string name="ic6_not_found">IC6 not found, connect from settings> Bluetooth</string>
+    <string name="connectingBL">Connecting by Bluetooth ...</string>
+    <string name="connectedBL">Connected, please introduce data</string>
+
+
+
 </resources>
