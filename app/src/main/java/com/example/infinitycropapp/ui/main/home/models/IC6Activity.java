@@ -1,5 +1,7 @@
 package com.example.infinitycropapp.ui.main.home.models;
 
+import static com.example.infinitycropapp.mqtt.Mqtt.topicRoot;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +28,7 @@ import android.widget.TextView;
 
 import com.example.infinitycropapp.Firebase.Database.Database;
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.mqtt.Mqtt;
 import com.example.infinitycropapp.ui.main.climas.ActivityClima;
 import com.example.infinitycropapp.ui.main.climas.adapters.AdapterItemClimatesMachine;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
@@ -40,12 +44,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
+
+
 //clase principal del modelo IC6 donde estara lo principal del control de esta.
-public class IC6Activity extends AppCompatActivity {
+public class IC6Activity extends AppCompatActivity implements MqttCallback {
 
     //palette
     ConstraintLayout btn_back;
@@ -110,6 +124,8 @@ public class IC6Activity extends AppCompatActivity {
     private AdapterItemClimatesMachine adapterItemClimatesGuardadosMachine;
     //firebase
     private FirebaseFirestore db;
+    //Acceso a la maquina
+    public static MqttClient client = null;
 
 
     @Override
@@ -209,11 +225,13 @@ public class IC6Activity extends AppCompatActivity {
                         int stateMachine;
                         if(isMachineOn){
                             stateMachine= 1;
+                            enviarRiegoOn();
                         }else{
                             stateMachine= 0;
+                            enviarRiegoOff();
                         }
                         //update field in database
-                        database.UpdateStateMachine("IC6 DUAL", machineId , "state machine", stateMachine , machineId);
+                        //database.UpdateStateMachine("IC6 DUAL", machineId , "state machine", stateMachine , machineId);
                         //call to method
                         setButtonMode();
                     }
@@ -726,9 +744,96 @@ public class IC6Activity extends AppCompatActivity {
         snackBar.show();
     }
 
-    /***************************************
-     * Snackbar method
-     */
+    @Override
+    public void connectionLost(Throwable cause) {
+        Log.d("MQTT", "CONEXION PERDIDA");
+    }
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+        Log.d("MQTT", "ENTREGA COMPLETA");
+    }
+
+    public void enviarRiegoOff(){
+        try {
+            client = new MqttClient(Mqtt.broker, Mqtt.clientId, new
+                    MemoryPersistence());
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        MqttConnectOptions connOpts = new MqttConnectOptions();
+        connOpts.setCleanSession(true);
+        connOpts.setKeepAliveInterval(60);
+        connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),Mqtt.qos, false);
+
+        try {
+            client.connect(connOpts);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+
+        //conexión con el broker Root1 = Lector de datos
+        //nos subscribimos a topic lectura
+        try {
+            Log.i(Mqtt.TAG, "Subscrito a " + topicRoot + "riego");//aqui está el root al que nos subscribimos si se quiere modificar se tiene que modificar este
+            client.subscribe(topicRoot + "riego", Mqtt.qos);
+            client.setCallback((MqttCallback) this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+        try {
+            Log.i(Mqtt.TAG, "Publicando mensaje: " + "mensaje");
+            MqttMessage message = new MqttMessage("riego OFF".getBytes());
+            message.setQos(Mqtt.qos);
+            message.setRetained(false);
+            client.publish(topicRoot+"riego", message);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al publicar.", e);
+        }
+    }
+    public void enviarRiegoOn(){
+        try {
+            client = new MqttClient(Mqtt.broker, Mqtt.clientId, new
+                    MemoryPersistence());
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        MqttConnectOptions connOpts = new MqttConnectOptions();
+        connOpts.setCleanSession(true);
+        connOpts.setKeepAliveInterval(60);
+        connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),Mqtt.qos, false);
+
+        try {
+            client.connect(connOpts);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+
+        //conexión con el broker Root1 = Lector de datos
+        //nos subscribimos a topic lectura
+        try {
+            Log.i(Mqtt.TAG, "Subscrito a " + topicRoot + "riego");//aqui está el root al que nos subscribimos si se quiere modificar se tiene que modificar este
+            client.subscribe(topicRoot + "riego", Mqtt.qos);
+            client.setCallback((MqttCallback) this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+        try {
+            Log.i(Mqtt.TAG, "Publicando mensaje: " + "mensaje");
+            MqttMessage message = new MqttMessage("riego ON".getBytes());
+            message.setQos(Mqtt.qos);
+            message.setRetained(false);
+            client.publish(topicRoot+"riego", message);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al publicar.", e);
+        }
+    }
+
 
 
 
