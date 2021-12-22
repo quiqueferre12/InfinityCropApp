@@ -60,6 +60,19 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user!=null){
+                    Intent dashboardActivity = new Intent(activity_log_start.this, MainListActivity.class);
+                    startActivity(dashboardActivity);
+                    activity_log_start.this.finish();
+                }
+            }
+        };
+
         setContentView(R.layout.activity_log_start);
         btnregist= (Button) findViewById(R.id.btngoregist);
         btnregist.setOnClickListener(new View.OnClickListener() {
@@ -90,18 +103,6 @@ public class activity_log_start extends AppCompatActivity implements GoogleApiCl
         });
 
         createRequest();
-
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user!=null){
-                    Intent dashboardActivity = new Intent(activity_log_start.this, MainListActivity.class);
-                    startActivity(dashboardActivity);
-                    activity_log_start.this.finish();
-                }
-            }
-        };
 
     }
 
