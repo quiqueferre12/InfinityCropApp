@@ -114,7 +114,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
                         intent.putExtra("machineId", idDocument);
                         context.startActivity(intent);
                     }else{
-                        initAlertDialog();
+                        initAlertDialog(idDocument);
                     }
                 }
             });
@@ -498,7 +498,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
      * si quiere hacer una accion o no
      *
      */
-    private void initAlertDialog(){
+    private void initAlertDialog(String idDocument){
         MaterialAlertDialogBuilder alertDialogBuilder= new MaterialAlertDialogBuilder(context);
         alertDialogBuilder.setMessage("Vincule la IC6 para la configuración WiFi");
         //alertDialogBuilder.setMessage("");
@@ -513,7 +513,7 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(context, ListDevicesActivity.class);
                 //AQUI IRA EL ID DEL CLIMA
-                intent.putExtra("id", "Rnw2WvyzpSsT6GO35eX1");
+                intent.putExtra("id", idDocument);
                 context.startActivity(intent);
             }
         });

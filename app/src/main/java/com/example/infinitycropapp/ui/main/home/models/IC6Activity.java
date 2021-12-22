@@ -241,10 +241,10 @@ public class IC6Activity extends AppCompatActivity implements MqttCallback {
                         int stateMachine;
                         if(isMachineOn){
                             stateMachine= 1;
-                            enviarRiegoOn();
+                            enviarRiegoOn(machineId);
                         }else{
                             stateMachine= 0;
-                            enviarRiegoOff();
+                            enviarRiegoOff(machineId);
                         }
                         //update field in database
                         //database.UpdateStateMachine("IC6 DUAL", machineId , "state machine", stateMachine , machineId);
@@ -816,7 +816,8 @@ public class IC6Activity extends AppCompatActivity implements MqttCallback {
         Log.d("MQTT", "ENTREGA COMPLETA");
     }
 
-    public void enviarRiegoOff(){
+    public void enviarRiegoOff(String machine){
+        String mensaje="4-OFF";
         try {
             client = new MqttClient(Mqtt.broker, Mqtt.clientId, new
                     MemoryPersistence());
@@ -834,26 +835,28 @@ public class IC6Activity extends AppCompatActivity implements MqttCallback {
             e.printStackTrace();
         }
 
+
         //conexión con el broker Root1 = Lector de datos
-        //nos subscribimos a topic lectura
+        //nos subscribimos a topic
         try {
-            Log.i(Mqtt.TAG, "Subscrito a " + topicRoot + "riego");//aqui está el root al que nos subscribimos si se quiere modificar se tiene que modificar este
-            client.subscribe(topicRoot + "riego", Mqtt.qos);
+            Log.i(Mqtt.TAG, "Subscrito a " + topicRoot + "operaciones-"+machine);//aqui está el root al que nos subscribimos si se quiere modificar se tiene que modificar este
+            client.subscribe(topicRoot + "operaciones-"+machine, Mqtt.qos);
             client.setCallback((MqttCallback) this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
         try {
             Log.i(Mqtt.TAG, "Publicando mensaje: " + "mensaje");
-            MqttMessage message = new MqttMessage("riego OFF".getBytes());
+            MqttMessage message = new MqttMessage(mensaje.getBytes());
             message.setQos(Mqtt.qos);
             message.setRetained(false);
-            client.publish(topicRoot+"riego", message);
+            client.publish(topicRoot+"operaciones-"+machine, message);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al publicar.", e);
         }
     }
-    public void enviarRiegoOn(){
+    public void enviarRiegoOn(String machine){
+        String mensaje="4-OFF";
         try {
             client = new MqttClient(Mqtt.broker, Mqtt.clientId, new
                     MemoryPersistence());
@@ -871,21 +874,22 @@ public class IC6Activity extends AppCompatActivity implements MqttCallback {
             e.printStackTrace();
         }
 
+
         //conexión con el broker Root1 = Lector de datos
-        //nos subscribimos a topic lectura
+        //nos subscribimos a topic
         try {
-            Log.i(Mqtt.TAG, "Subscrito a " + topicRoot + "riego");//aqui está el root al que nos subscribimos si se quiere modificar se tiene que modificar este
-            client.subscribe(topicRoot + "riego", Mqtt.qos);
+            Log.i(Mqtt.TAG, "Subscrito a " + topicRoot + "operaciones-"+machine);//aqui está el root al que nos subscribimos si se quiere modificar se tiene que modificar este
+            client.subscribe(topicRoot + "operaciones-"+machine, Mqtt.qos);
             client.setCallback((MqttCallback) this);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al suscribir.", e);
         }
         try {
             Log.i(Mqtt.TAG, "Publicando mensaje: " + "mensaje");
-            MqttMessage message = new MqttMessage("riego ON".getBytes());
+            MqttMessage message = new MqttMessage(mensaje.getBytes());
             message.setQos(Mqtt.qos);
             message.setRetained(false);
-            client.publish(topicRoot+"riego", message);
+            client.publish(topicRoot+"operaciones-"+machine, message);
         } catch (MqttException e) {
             Log.e(Mqtt.TAG, "Error al publicar.", e);
         }

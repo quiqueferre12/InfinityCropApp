@@ -1,6 +1,8 @@
 package com.example.infinitycropapp.ui.main.home.models;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -25,12 +27,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.text.Normalizer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.ui.main.home.HomeListMachineFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class TerminalFragment extends Fragment implements ServiceConnection, SerialListener {
 
@@ -48,6 +56,10 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
     private boolean hexEnabled = false;
     private boolean pendingNewline = false;
     private String newline = TextUtil.newline_crlf;
+
+    private FirebaseFirestore db;
+    String mensaje = "";
+
 
     /*
      * Lifecycle
@@ -140,6 +152,11 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
 
         View sendBtn = view.findViewById(R.id.send_btn);
         sendBtn.setOnClickListener(v -> send(sendText.getText().toString()));
+
+
+        //firestore
+        db= FirebaseFirestore.getInstance();
+
         return view;
     }
 
@@ -236,14 +253,54 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
             if(newline.equals(TextUtil.newline_crlf) && msg.length() > 0) {
                 // don't show CR as ^M if directly before LF
                 msg = msg.replace(TextUtil.newline_crlf, TextUtil.newline_lf);
+                Log.d("MESSAGE-BL", msg);
+
                 // special handling if CR and LF come in separate fragments
                 if (pendingNewline && msg.charAt(0) == '\n') {
                     Editable edt = receiveText.getEditableText();
-                    if (edt != null && edt.length() > 1)
+                    if (edt != null && edt.length() > 1){
                         edt.replace(edt.length() - 2, edt.length(), "");
+                    }
+
+                }
+                mensaje+=msg;
+                if(mensaje.length()>12){
+                    String cuttedMsg = Normalizer.normalize(mensaje, Normalizer.Form.NFD).replaceAll("[^a-zA-Z]", "");
+                    Log.d("MESSAGE-BLC", cuttedMsg);
+                    if (cuttedMsg.equals("CONNECTEDOK")){
+                        DocumentReference IC6 = db.collection("Machine").document(getActivity().getIntent().getStringExtra("id"));
+                        IC6.update("connected", true)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        getActivity().finish();
+                                        Log.d("MESSAGE-BL-DB", "DocumentSnapshot successfully updated!");
+                                        Toast.makeText(getContext(), "WiFi connectado correctamente", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getContext(), IC6Activity.class);
+                                        intent.putExtra("machineId", getActivity().getIntent().getStringExtra("id"));
+                                        //refrescar los rv del fragment
+                                        getContext().startActivity(intent);
+
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("MESSAGE-BL-DB", "Error updating document", e);
+                                    }
+                                });
+
+                    }
+                    mensaje="";
                 }
                 pendingNewline = msg.charAt(msg.length() - 1) == '\r';
+
+
+
             }
+
+
+
             receiveText.append(TextUtil.toCaretString(msg, newline.length() != 0));
         }
     }

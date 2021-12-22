@@ -298,7 +298,7 @@
 
 
     <!--    Bluetooth-->
-    <string name="ic6_not_found">IC6 not found, connect from settings> Bluetooth</string>
+    <string name="ic6_not_found">IC6 not found, connect from settings > Bluetooth to "Infinitycrop"</string>
     <string name="connectingBL">Connecting by Bluetooth ...</string>
     <string name="connectedBL">Connected, please introduce data</string>
 
