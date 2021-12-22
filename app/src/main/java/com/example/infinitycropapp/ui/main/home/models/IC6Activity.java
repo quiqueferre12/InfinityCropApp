@@ -856,7 +856,7 @@ public class IC6Activity extends AppCompatActivity implements MqttCallback {
         }
     }
     public void enviarRiegoOn(String machine){
-        String mensaje="4-OFF";
+        String mensaje="4-ON";
         try {
             client = new MqttClient(Mqtt.broker, Mqtt.clientId, new
                     MemoryPersistence());
