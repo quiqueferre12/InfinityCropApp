@@ -1,5 +1,7 @@
 package com.example.infinitycropapp.ui.main.climas.adapters;
 
+import static com.example.infinitycropapp.mqtt.Mqtt.topicRoot;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.infinitycropapp.Firebase.Firestore.Firestore;
 import com.example.infinitycropapp.R;
+import com.example.infinitycropapp.mqtt.Mqtt;
 import com.example.infinitycropapp.ui.main.climas.ActivityClima;
 import com.example.infinitycropapp.ui.pojos.ItemClimate;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,12 +30,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItemClimatesMachine.ItemClimateMachineHolder> {
+public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItemClimatesMachine.ItemClimateMachineHolder> implements MqttCallback {
     private Context context; //contexto
     public boolean showShimmer=true; //mostrar o no loader
     private Fragment fragment;
@@ -146,6 +157,9 @@ public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItem
                     saved.put("Climate", idClimate);
                     db.collection("Machine").document(idMachine).collection("Clima")
                             .document("active").set(saved);
+
+                    setClimaTemperaturaMax(idMachine , pojoItem.getMaxtemperature() , pojoItem.getMinTemperature());
+
                     notifyDataSetChanged();
 
                 }
@@ -217,4 +231,108 @@ public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItem
         };
 
     }
+
+    // -------------------------------------------------------------
+    // MQTT
+    // -------------------------------------------------------------
+    public static MqttClient client = null;
+
+    public void setClimaTemperaturaMax(String machine,String temperaturaMax , String temperaturaMin){
+        String mensaje="5-"+temperaturaMax;
+        try {
+            client = new MqttClient(Mqtt.broker, Mqtt.clientId, new
+                    MemoryPersistence());
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        MqttConnectOptions connOpts = new MqttConnectOptions();
+        connOpts.setCleanSession(true);
+        connOpts.setKeepAliveInterval(60);
+        connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),Mqtt.qos, false);
+
+        try {
+            client.connect(connOpts);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+
+        //conexión con el broker Root1 = Lector de datos
+        //nos subscribimos a topic
+        try {
+            Log.i(Mqtt.TAG, "Subscrito a " + topicRoot + "operaciones-"+machine);//aqui está el root al que nos subscribimos si se quiere modificar se tiene que modificar este
+            client.subscribe(topicRoot + "operaciones-"+machine, Mqtt.qos);
+            client.setCallback((MqttCallback) this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+        try {
+            Log.i(Mqtt.TAG, "Publicando mensaje: " + "mensaje");
+            MqttMessage message = new MqttMessage(mensaje.getBytes());
+            message.setQos(Mqtt.qos);
+            message.setRetained(false);
+            client.publish(topicRoot+"operaciones-"+machine, message);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al publicar.", e);
+        }
+
+        setClimaTemperaturaMin(machine, temperaturaMin);
+    }
+
+    public void setClimaTemperaturaMin(String machine, String temperaturaMin){
+        String mensaje="5-"+temperaturaMin;
+        try {
+            client = new MqttClient(Mqtt.broker, Mqtt.clientId, new
+                    MemoryPersistence());
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        MqttConnectOptions connOpts = new MqttConnectOptions();
+        connOpts.setCleanSession(true);
+        connOpts.setKeepAliveInterval(60);
+        connOpts.setWill(topicRoot+"WillTopic", "App desconectada".getBytes(),Mqtt.qos, false);
+
+        try {
+            client.connect(connOpts);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+
+        //conexión con el broker Root1 = Lector de datos
+        //nos subscribimos a topic
+        try {
+            Log.i(Mqtt.TAG, "Subscrito a " + topicRoot + "operaciones-"+machine);//aqui está el root al que nos subscribimos si se quiere modificar se tiene que modificar este
+            client.subscribe(topicRoot + "operaciones-"+machine, Mqtt.qos);
+            client.setCallback((MqttCallback) this);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al suscribir.", e);
+        }
+        try {
+            Log.i(Mqtt.TAG, "Publicando mensaje: " + "mensaje");
+            MqttMessage message = new MqttMessage(mensaje.getBytes());
+            message.setQos(Mqtt.qos);
+            message.setRetained(false);
+            client.publish(topicRoot+"operaciones-"+machine, message);
+        } catch (MqttException e) {
+            Log.e(Mqtt.TAG, "Error al publicar.", e);
+        }
+    }
+
+
+    @Override
+    public void connectionLost(Throwable cause) {
+
+    }
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+
+    }
+    // -------------------------------------------------------------
+    // MQTT
+    // -------------------------------------------------------------
 }
