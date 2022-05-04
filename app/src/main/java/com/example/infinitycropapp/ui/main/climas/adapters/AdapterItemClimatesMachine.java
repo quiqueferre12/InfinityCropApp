@@ -275,7 +275,7 @@ public class AdapterItemClimatesMachine extends RecyclerView.Adapter<AdapterItem
             Log.e(Mqtt.TAG, "Error al publicar.", e);
         }
 
-        setClimaTemperaturaMin(machine, temperaturaMin);
+        /*setClimaTemperaturaMin(machine, temperaturaMin);*/
     }
 
     public void setClimaTemperaturaMin(String machine, String temperaturaMin){

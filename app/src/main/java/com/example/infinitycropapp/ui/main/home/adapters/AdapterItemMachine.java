@@ -108,14 +108,18 @@ public class AdapterItemMachine extends RecyclerView.Adapter<AdapterItemMachine.
             holder.item_machine.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(pojoItem.isConnected()){
+                    /*if(pojoItem.isConnected()){
                         //comprobar que modelo es y entrar en el activity adecuado
                         Intent intent = new Intent(context, IC6Activity.class);
                         intent.putExtra("machineId", idDocument);
                         context.startActivity(intent);
                     }else{
                         initAlertDialog(idDocument);
-                    }
+                    }*/
+                    //comprobar que modelo es y entrar en el activity adecuado
+                    Intent intent = new Intent(context, IC6Activity.class);
+                    intent.putExtra("machineId", idDocument);
+                    context.startActivity(intent);
                 }
             });
             //options of machine
